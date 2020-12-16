@@ -1,16 +1,20 @@
-## add bits needed for GitHub CLI
-apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
-apt-add-repository https://cli.github.com/packages
-
-## update and install some things we should probably have
+# Add compulsory utils first
 apt-get update
 apt-get install -y \
     curl \
-    gh \
     git \
     gnupg2 \
     jq \
-    sudo \
+    sudo
+
+## Add bits needed for GitHub CLI
+apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+apt-add-repository https://cli.github.com/packages
+
+## Install the rest
+apt-get update
+apt-get install -y \
+    gh \
     zsh
 
 ## Instsall nvm
