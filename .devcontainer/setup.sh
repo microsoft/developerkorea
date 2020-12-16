@@ -5,7 +5,8 @@ apt-get install -y \
     git \
     gnupg2 \
     jq \
-    sudo
+    sudo \
+    software-properties-common
 
 ## Add bits needed for GitHub CLI
 apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
