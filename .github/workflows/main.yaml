@@ -73,7 +73,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add ./docs/\* --force
-        git commit -m "${{ github.event.head_commit.message }}"
+        git commit -m "Publish: ${{ github.event.head_commit.message }}"
 
     - name: Push artifacts
       uses: ad-m/github-push-action@master
