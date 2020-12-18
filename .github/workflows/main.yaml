@@ -63,9 +63,9 @@ jobs:
       run: |
         ls -alR ./published
 
-    # - name: Publish artifacts
-    #   shell: bash
-    #   run: |
-    #     git add ./published/\* --force
-    #     git commit -m "${{ github.event.head_commit.message }}"
-    #     git push -u origin blog-setup
+    - name: Publish artifacts
+      shell: bash
+      run: |
+        git add ./published/\* --force
+        git commit -m "${{ github.event.head_commit.message }}"
+        git push -u origin blog-setup
