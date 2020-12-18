@@ -60,6 +60,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/blog
         cp -R ./dist/. ../docs
+        rm ../docs/README.md
 
     - name: Check artifacts
       shell: bash
