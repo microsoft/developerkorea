@@ -4,6 +4,7 @@ on:
   push:
     branches:
     - main
+    - blog/*
 
 jobs:
   build_and_publish:
@@ -12,6 +13,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Check GitHub object
+      shell: bash
+      run: |
+        echo '${{ toJSON(github) }}'
+
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
@@ -32,6 +38,11 @@ jobs:
       shell: bash
       run: |
         cp -R ./content/. ./blog/content
+
+    - name: Clear artifacts
+      shell: bash
+      run: |
+        rm -rf ./docs
 
     - name: Install npm packages
       shell: bash
