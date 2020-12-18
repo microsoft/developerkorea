@@ -1,0 +1,67 @@
+name: Build and Publish Static Website to GH Pages
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build_and_publish:
+    name: Build and publish
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
+
+    - name: Clone theme
+      shell: bash
+      run: |
+        git clone https://github.com/devrel-kr/gridsome-starter-liebling.git blog
+
+    - name: Copy configs
+      shell: bash
+      run: |
+        cp -R ./configs/. ./blog
+
+    - name: Copy contents
+      shell: bash
+      run: |
+        cp -R ./content/. ./blog/content
+
+    - name: Install npm packages
+      shell: bash
+      run: |
+        cd $GITHUB_WORKSPACE/blog
+        npm install
+
+    - name: Build app
+      shell: bash
+      run: |
+        cd $GITHUB_WORKSPACE/blog
+        npm run build
+
+    - name: Copy artifacts
+      shell: bash
+      run: |
+        cd $GITHUB_WORKSPACE/blog
+        cp -R ./dist/. ../docs
+        rm ../docs/README.md
+
+    - name: Publish artifacts
+      shell: bash
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add ./docs/\* --force
+        git commit -m "Publish: ${{ github.event.head_commit.message }}"
+
+    - name: Push artifacts
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
