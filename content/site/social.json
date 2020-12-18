@@ -1,0 +1,19 @@
+{
+    "social" : [
+        {
+            "name": "Facebook",
+            "link": "#",
+            "icon": "facebook-square"
+        },
+        {
+            "name": "Instagram",
+            "link": "#",
+            "icon": "instagram"
+        },
+        {
+            "name": "Github",
+            "link": "#",
+            "icon": "github"
+        }
+    ]
+}
