@@ -7,7 +7,7 @@
 module.exports = {
   siteName: 'Gridsome',
   siteDescription: "An open-source framework to generate awesome pages",
-  pathPrefix: '/DeveloperKorea',
+  pathPrefix: '/developerkorea',
   plugins: [
     {
       use: 'gridsome-plugin-tailwindcss',
