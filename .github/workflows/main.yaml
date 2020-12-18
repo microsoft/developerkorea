@@ -44,12 +44,19 @@ jobs:
     - name: Build app
       shell: bash
       run: |
+        cd $GITHUB_WORKSPACE/blog
         npm run build
 
     - name: Copy artifacts
       shell: bash
       run: |
+        cd $GITHUB_WORKSPACE/blog
         cp -R ./dist/ ../published
+
+    - name: Check artifacts
+      shell: bash
+      run: |
+        ls -alR ./published
 
     # - name: Publish artifacts
     #   shell: bash
