@@ -2,17 +2,17 @@
   "headerNavigation": [
     {
       "name": "Home",
-      "link": "/",
+      "link": "/DeveloperKorea",
       "external": false
     },
     {
       "name": "About",
-      "link": "/about-us",
+      "link": "/DeveloperKorea/about-us",
       "external": false
     },
     {
       "name": "Getting started",
-      "link": "/category/getting-started",
+      "link": "/DeveloperKorea/category/getting-started",
       "external": false
     },
     {
@@ -31,7 +31,7 @@
         },
          {
            "name": "Internal Page ( About )",
-           "link": "/about-us",
+           "link": "/DeveloperKorea/about-us",
            "external": false
          }
       ]
@@ -40,7 +40,7 @@
   "footerNavigation": [
     {
       "name": "Latest Posts",
-      "link": "/",
+      "link": "/DeveloperKorea",
       "external" : false
     },
     {
@@ -55,7 +55,7 @@
     },
     {
       "name": "RSS",
-      "link": "/rss.xml",
+      "link": "/DeveloperKorea/rss.xml",
       "external": false
     }
   ]
