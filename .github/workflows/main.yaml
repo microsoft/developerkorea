@@ -1,0 +1,60 @@
+name: Build and Publish Static Website to GH Pages
+
+on:
+  push:
+    branches:
+    - blog-setup
+
+jobs:
+  build_and_publish:
+    name: Build and publish
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check the event
+      shell: bash
+      run: |
+        echo '${{ toJSON(github.event) }}'
+
+    - name: Checkout the repo
+      uses: actions/checkout@v1
+
+    - name: Clone the theme
+      shell: bash
+      run: |
+        git clone https://github.com/devrel-kr/gridsome-starter-liebling.git blog
+
+    # - name: Copy configs
+    #   shell: bash
+    #   run: |
+    #     cp -R ./content/ ./blog/content
+
+    - name: Copy contents
+      shell: bash
+      run: |
+        cp -R ./content/ ./blog/content
+
+    - name: Install npm packages
+      shell: bash
+      run: |
+        cd $GITHUB_WORKSPACE/blog
+        npm install
+
+    - name: Build app
+      shell: bash
+      run: |
+        npm run build
+
+    - name: Copy artifacts
+      shell: bash
+      run: |
+        cp -R ./dist/ ../published
+
+    # - name: Publish artifacts
+    #   shell: bash
+    #   run: |
+    #     cd $GITHUB_WORKSPACE
+    #     git add $GITHUB_WORKSPACE/published/\* --force
+    #     git commit -m "Add new post"
+    #     git push -u origin blog-setup
