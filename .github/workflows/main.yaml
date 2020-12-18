@@ -12,16 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check GitHub object
-      shell: bash
-      run: |
-        echo '${{ toJSON(github) }}'
-
-    - name: Check event object
-      shell: bash
-      run: |
-        echo '${{ toJSON(github.event) }}'
-
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
@@ -61,11 +51,6 @@ jobs:
         cd $GITHUB_WORKSPACE/blog
         cp -R ./dist/. ../docs
         rm ../docs/README.md
-
-    - name: Check artifacts
-      shell: bash
-      run: |
-        ls -alR ./docs
 
     - name: Publish artifacts
       shell: bash
