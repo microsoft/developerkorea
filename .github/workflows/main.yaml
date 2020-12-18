@@ -8,22 +8,17 @@ on:
     - feature/*
 
 env:
-  ORG_NAME: ''
+  ORG_NAME: 'microsoft'
+  BRANCH_NAME: 'refs/heads/main'
 
 jobs:
   build_and_publish:
+    if: ${{ env.ORG_NAME == github.repository_owner && env.BRANCH_NAME == github.ref }}
     name: Build and publish
 
     runs-on: ubuntu-latest
 
     steps:
-    - name: Get org name
-      shell: bash
-      run: |
-        orgname=$(echo ${{ github.repository }} | cut -d'/' -f 1)
-
-        echo "ORG_NAME=$orgname" >> $GITHUB_ENV
-
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
@@ -70,6 +65,7 @@ jobs:
         rm ../docs/README.md
 
     - name: Publish artifacts
+      # if: ${{ env.ORG_NAME == github.repository_owner && env.BRANCH_NAME == github.ref }}
       shell: bash
       run: |
         git config --local user.email "action@github.com"
@@ -78,7 +74,7 @@ jobs:
         git commit -m "Publish: ${{ github.event.head_commit.message }}"
 
     - name: Push artifacts
-      # if: ${{ env.ORG_NAME == 'microsoft' }}
+      # if: ${{ env.ORG_NAME == github.repository_owner && env.BRANCH_NAME == github.ref }}
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
