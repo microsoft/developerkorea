@@ -3,7 +3,7 @@ name: Build and Publish Static Website to GH Pages
 on:
   push:
     branches:
-    - blog-setup
+    - main
 
 jobs:
   build_and_publish:
