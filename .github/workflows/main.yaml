@@ -59,19 +59,19 @@ jobs:
       shell: bash
       run: |
         cd $GITHUB_WORKSPACE/blog
-        cp -R ./dist/ ../published
+        cp -R ./dist/ ../docs
 
     - name: Check artifacts
       shell: bash
       run: |
-        ls -alR ./published
+        ls -alR ./docs
 
     - name: Publish artifacts
       shell: bash
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add ./published/\* --force
+        git add ./docs/\* --force
         git commit -m "${{ github.event.head_commit.message }}"
 
     - name: Push artifacts
