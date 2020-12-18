@@ -23,14 +23,17 @@ jobs:
         echo '${{ toJSON(github.event) }}'
 
     - name: Checkout the repo
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
+      with:
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
 
     - name: Clone the theme
       shell: bash
       run: |
         git clone https://github.com/devrel-kr/gridsome-starter-liebling.git blog
 
-    # - name: Copy configs
+    # - name: Copy the configs
     #   shell: bash
     #   run: |
     #     cp -R ./content/ ./blog/content
@@ -66,6 +69,13 @@ jobs:
     - name: Publish artifacts
       shell: bash
       run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
         git add ./published/\* --force
         git commit -m "${{ github.event.head_commit.message }}"
-        git push -u origin blog-setup
+
+    - name: Push artifacts
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
