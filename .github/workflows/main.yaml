@@ -9,8 +9,8 @@ on:
 
 jobs:
   build_and_publish:
-    if: github.repository_owner == 'microsoft' && github.ref == 'refs/heads/main'
     name: Build and publish
+    if: github.repository_owner == 'microsoft' && github.ref == 'refs/heads/main'
 
     runs-on: ubuntu-latest
 
