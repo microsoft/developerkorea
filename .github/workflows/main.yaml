@@ -13,7 +13,7 @@ env:
 
 jobs:
   build_and_publish:
-    if: ${{ env.ORG_NAME == github.repository_owner && env.BRANCH_NAME == github.ref }}
+    if: ORG_NAME == github.repository_owner && BRANCH_NAME == github.ref
     name: Build and publish
 
     runs-on: ubuntu-latest
