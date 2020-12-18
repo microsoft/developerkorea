@@ -4,7 +4,11 @@ on:
   push:
     branches:
     - main
-    - blog/*
+    - dev
+    - feature/*
+
+env:
+  ORG_NAME: ''
 
 jobs:
   build_and_publish:
@@ -13,10 +17,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check GitHub object
+    - name: Get org name
       shell: bash
       run: |
-        echo '${{ toJSON(github) }}'
+        orgname=$(echo ${{ github.repository }} | cut -d'/' -f 1)
+
+        echo "ORG_NAME=$orgname" >> $GITHUB_ENV
 
     - name: Checkout repository
       uses: actions/checkout@v2
@@ -72,6 +78,7 @@ jobs:
         git commit -m "Publish: ${{ github.event.head_commit.message }}"
 
     - name: Push artifacts
+      # if: ${{ env.ORG_NAME == 'microsoft' }}
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
