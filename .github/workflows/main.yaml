@@ -61,7 +61,6 @@ jobs:
         rm ../docs/README.md
 
     - name: Publish artifacts
-      # if: ${{ env.ORG_NAME == github.repository_owner && env.BRANCH_NAME == github.ref }}
       shell: bash
       run: |
         git config --local user.email "action@github.com"
@@ -70,7 +69,6 @@ jobs:
         git commit -m "Publish: ${{ github.event.head_commit.message }}"
 
     - name: Push artifacts
-      # if: ${{ env.ORG_NAME == github.repository_owner && env.BRANCH_NAME == github.ref }}
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
