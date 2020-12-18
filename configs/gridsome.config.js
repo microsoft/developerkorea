@@ -7,6 +7,7 @@
 module.exports = {
   siteName: 'Gridsome',
   siteDescription: "An open-source framework to generate awesome pages",
+  pathPrefix: '/DeveloperKorea',
   plugins: [
     {
       use: 'gridsome-plugin-tailwindcss',
@@ -91,22 +92,22 @@ module.exports = {
   },
   templates: {
     Blog: [{
-      path: '/DeveloperKorea/posts/:title'
+      path: '/posts/:title'
     }],
     CustomPage: [{
-      path: '/DeveloperKorea/:title',
+      path: '/:title',
       component: '~/templates/CustomPage.vue'
     }],
     Category: [{
-      path: '/DeveloperKorea/category/:title',
+      path: '/category/:title',
       component: '~/templates/Category.vue'
     }],
     Author: [{
-      path: '/DeveloperKorea/author/:name',
+      path: '/author/:name',
       component: '~/templates/Author.vue'
     }],
     Tag: [{
-      path: '/DeveloperKorea/tags/:title',
+      path: '/tags/:title',
       component: '~/templates/Tag.vue'
     }]
   },
