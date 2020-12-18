@@ -12,7 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check the event
+    - name: Check the GitHub object
+      shell: bash
+      run: |
+        echo '${{ toJSON(github) }}'
+
+    - name: Check the event object
       shell: bash
       run: |
         echo '${{ toJSON(github.event) }}'
@@ -61,7 +66,6 @@ jobs:
     # - name: Publish artifacts
     #   shell: bash
     #   run: |
-    #     cd $GITHUB_WORKSPACE
-    #     git add $GITHUB_WORKSPACE/published/\* --force
-    #     git commit -m "Add new post"
+    #     git add ./published/\* --force
+    #     git commit -m "${{ github.event.head_commit.message }}"
     #     git push -u origin blog-setup
