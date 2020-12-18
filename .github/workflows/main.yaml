@@ -4,6 +4,11 @@ on:
   push:
     branches:
     - main
+    - dev
+    - feature/*
+
+env:
+  ORG_NAME: ''
 
 jobs:
   build_and_publish:
@@ -12,6 +17,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Get org name
+      shell: bash
+      run: |
+        orgname=$(echo ${{ github.repository }} | cut -d'/' -f 1)
+
+        echo "ORG_NAME=$orgname" >> $GITHUB_ENV
+
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
@@ -32,6 +44,11 @@ jobs:
       shell: bash
       run: |
         cp -R ./content/. ./blog/content
+
+    - name: Clear artifacts
+      shell: bash
+      run: |
+        rm -rf ./docs
 
     - name: Install npm packages
       shell: bash
@@ -61,6 +78,7 @@ jobs:
         git commit -m "Publish: ${{ github.event.head_commit.message }}"
 
     - name: Push artifacts
+      # if: ${{ env.ORG_NAME == 'microsoft' }}
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
