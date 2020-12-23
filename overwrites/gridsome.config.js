@@ -139,7 +139,7 @@ module.exports = {
   ],
   templates: {
     Author: [{
-      path: '/author/:slug',
+      path: '/authors/:slug',
       component: '~/templates/Author.vue'
     }],
     Blog: [{
@@ -150,7 +150,7 @@ module.exports = {
       component: '~/templates/CustomPage.vue'
     }],
     Category: [{
-      path: '/category/:title',
+      path: '/categories/:title',
       component: '~/templates/Category.vue'
     }],
     Tag: [{
