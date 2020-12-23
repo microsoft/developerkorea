@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html data-html-server-rendered="true" lang="en" data-vue-tag="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D%7D">
+  <head>
+    <title>시작하기 | 마이크로소프트 기술 블로그</title><meta name="gridsome:hash" content="7f921349487554889fbe35a0021e566b0f95615b"><meta data-vue-tag="ssr" charset="utf-8"><meta data-vue-tag="ssr" name="generator" content="Gridsome v0.7.23"><meta data-vue-tag="ssr" data-key="viewport" name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta data-vue-tag="ssr" data-key="format-detection" name="format-detection" content="telephone=no"><meta data-vue-tag="ssr" data-key="description" name="description" content="Microsoft Azure, Microsoft 365, Microsoft Power Platform 개발의 모든 것을 다룹니다"><link data-vue-tag="ssr" rel="icon" href="data:,"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="16x16" href="/developerkorea/assets/static/favicon.ce0531f.956d6987e7d3d645bed3e641d6455e72.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="32x32" href="/developerkorea/assets/static/favicon.ac8d93a.956d6987e7d3d645bed3e641d6455e72.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="96x96" href="/developerkorea/assets/static/favicon.b9532cc.956d6987e7d3d645bed3e641d6455e72.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="76x76" href="/developerkorea/assets/static/favicon.f22e9f3.956d6987e7d3d645bed3e641d6455e72.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="152x152" href="/developerkorea/assets/static/favicon.62d22cb.956d6987e7d3d645bed3e641d6455e72.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="120x120" href="/developerkorea/assets/static/favicon.1539b60.956d6987e7d3d645bed3e641d6455e72.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="167x167" href="/developerkorea/assets/static/favicon.dc0cdc5.956d6987e7d3d645bed3e641d6455e72.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="180x180" href="/developerkorea/assets/static/favicon.7b22250.956d6987e7d3d645bed3e641d6455e72.png"><link data-vue-tag="ssr" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&amp;display=swap"><link data-vue-tag="ssr" rel="stylesheet" href="https://github.githubassets.com/assets/gist-embed-d89dc96f3ab6372bb73ee45cafdd0711.css"><link rel="preload" href="/developerkorea/assets/css/1.styles.f864d94c.css" as="style"><link rel="preload" href="/developerkorea/assets/js/app.d5e031a4.js" as="script"><link rel="preload" href="/developerkorea/assets/js/page--src--templates--custom-page-vue.a7b579d1.js" as="script"><link rel="prefetch" href="/developerkorea/assets/js/page--node-modules--gridsome--app--pages--404-vue.ef0f12da.js"><link rel="prefetch" href="/developerkorea/assets/js/page--src--pages--index-vue.de2fa195.js"><link rel="prefetch" href="/developerkorea/assets/js/page--src--pages--infinity-vue.41736cf0.js"><link rel="prefetch" href="/developerkorea/assets/js/page--src--templates--author-vue.6aad95b7.js"><link rel="prefetch" href="/developerkorea/assets/js/page--src--templates--author-vue~page--src--templates--category-vue~page--src--templates--tag-vue.8a35f89b.js"><link rel="prefetch" href="/developerkorea/assets/js/page--src--templates--blog-post-vue.c7805083.js"><link rel="prefetch" href="/developerkorea/assets/js/page--src--templates--category-vue.aec175fd.js"><link rel="prefetch" href="/developerkorea/assets/js/page--src--templates--tag-vue.91ca211b.js"><link rel="prefetch" href="/developerkorea/assets/js/vendors~page--src--templates--blog-post-vue.b652ec4a.js"><link rel="stylesheet" href="/developerkorea/assets/css/1.styles.f864d94c.css"><script data-vue-tag="ssr" src="https://platform.twitter.com/widgets.js"></script><noscript data-vue-tag="ssr"><style>.g-image--loading{display:none;}</style></noscript>
+  </head>
+  <body >
+    
+    <script>
+      // Add dark / light detection that runs before Vue.js load. Borrowed from overreacted.io
+      // for this starter, i used the code from gridsome.org
+      (function() {
+        window.__onThemeChange = function() {};
+        function setTheme(newTheme) {
+
+          window.__theme = newTheme;
+          preferredTheme = newTheme;
+          document.body.setAttribute('data-theme', newTheme);
+          document.documentElement.classList.remove('light')
+          document.documentElement.classList.remove('dark')
+          document.documentElement.classList.add(newTheme)
+
+
+          window.__onThemeChange(newTheme);
+        }
+
+        var preferredTheme;
+        try {
+          preferredTheme = localStorage.getItem('theme');
+        } catch (err) { }
+
+        window.__setPreferredTheme = function(newTheme) {
+          setTheme(newTheme);
+          try {
+            localStorage.setItem('theme', newTheme);
+          } catch (err) {}
+        }
+
+        var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+        darkQuery.addListener(function(e) {
+          window.__setPreferredTheme(e.matches ? 'dark' : 'light');
+        });
+
+        setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
+      })();
+    </script>
+
+    <div id="app" data-server-rendered="true" class="dark:bg-black"><div class="h-16 dark:bg-black bg-white"><div style="height:px;"><div class="headroom bg-white dark:bg-black border-b dark:border-gray-900" style="position:relative;top:0;left:0;right:0;z-index:9999;"><nav class="hidden md:block lg:block xl:block items-center justify-between flex-wrap container mx-auto py-3 z-20 dark:text-gray-400"><div class="flex-grow flex items-center w-auto mx-4"><div class="flex items-center flex-shrink-0 mr-6"><span class="font-semibold text-xl tracking-tight">마이크로소프트 기술 블로그</span></div><div class="flex-grow"><ul class="list-none flex justify-left"><li class="px-4 py-1"><a href="/developerkorea/developerkorea" title="🏠 홈" class="block py-1">🏠 홈</a><!----><!----></li><li class="px-4 py-1"><a href="/developerkorea/developerkorea/getting-started" title="🚀 시작하기" class="block py-1">🚀 시작하기</a><!----><!----></li><li class="px-4 py-1"><!----><a href="https://docs.microsoft.com/ko-kr/" target="_blank" title="📝 Docs" class="block py-1">📝 Docs</a><!----></li><li class="px-4 py-1"><!----><a href="https://docs.microsoft.com/ko-kr/learn/" target="_blank" title="📘 Learn" class="block py-1">📘 Learn</a><!----></li><li class="px-4 py-1"><!----><!----><!----></li><li class="px-4 py-1"><a role="button" aria-label="Open Subnavigation" title="Open Subnavigation" class="block px-4 py-1"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-ellipsis-h fa-w-16 fa-lg"><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg></a><div class="py-4 mega-menu mb-16 border-t border-gray-200 shadow-xl bg-white dark:bg-black dark:border-gray-900 hidden"><div><div class="container mx-auto"><div class="flex flex-wrap md:my-4 md:mx-4"><div class="w-full mb-2"><h2 class="text-xl mt-0 mb-2">Recent articles</h2><div class="w-full"><div class="-mx-4 slick-slider slick-initialized" data-v-3d1a4f76><div class="slick-list" data-v-3d1a4f76><div class="slick-track" style="width:25%;left:0%;" data-v-e4caeaf8 data-v-3d1a4f76><div tabIndex="-1" data-index="0" aria-hidden="false" class="slick-slide slick-active slick-current" style="outline:none;width:100%;" data-v-e4caeaf8><div data-v-e4caeaf8><div tabIndex="-1" class="px-4" style="width:100%;display:inline-block;" data-v-e4caeaf8><a href="/developerkorea/posts/2021/01/01/tech-blog-opening/"><div id="7f9d809fa5331852161a35f42ebee1a0"><img alt="Microsoft Korea 기술 블로그를 시작합니다" src="https://sa0blogs.blob.core.windows.net/msdevkr/2021/01/2021-01-01-tech-blog-opening-00.png" class="rounded-lg h-32 object-cover w-full g-image"><div class="post-card-content"><h3 class="tracking-wider mt-3 mb-3 text-lg font-light max-w-xl">Microsoft Korea 기술 블로그를 시작합니다</h3></div><div class="post-card-footer"><p class="text-xs"><time datetime="2021-01-01T00:00:00.000Z">01 Jan 2021</time>
+                     • 
+                    1 min read
+                  </p></div></div></a></div></div></div></div></div></div></div></div><div class="w-full mb-8"><h2 class="text-xl mt-2 mb-2">Tags</h2><ul class="flex flex-wrap"><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/power-platform/">power-platform</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/microsoft365/">microsoft365</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/azure/">azure</a></li></ul></div></div></div></div></div></li></ul></div><div class="inline-block"><ul class="list-none flex justify-center md:justify-end"><li class="mr-6"><a role="button" aria-label="Open Search" title="Open Search"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-search fa-w-16"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg></a></li><li><a role="button" aria-label="Toggle dark" title="Toggle dark" class="toggle-theme"><!----><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="moon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-moon fa-w-16"><path fill="currentColor" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"></path></svg></a></li></ul></div></div></nav><nav class="block md:hidden flex items-center justify-between flex-wrap container mx-auto py-4 dark:text-gray-400"><div class="block flex-grow flex items-center w-auto mx-4"><div class="flex items-center flex-shrink-0 mr-6"><a role="button" aria-label="Open Navigation" title="Open Navigation"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-bars fa-w-14"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a></div><div class="flex-grow text-center font-bold text-lg"><span class="font-semibold text-xl tracking-tight">마이크로소프트 기술 블로그</span></div><div class="inline-block"><ul class="list-none flex justify-center md:justify-end"><li class="mr-6"><a role="button" aria-label="Open Search" title="Open Search"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-search fa-w-16"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg></a></li><li><a role="button" aria-label="Toggle dark" title="Toggle dark" class="toggle-theme"><!----><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="moon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-moon fa-w-16"><path fill="currentColor" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"></path></svg></a></li></ul></div></div></nav></div></div><!----><!----></div><div><div class="z-100 text-center bg-gray-200 dark:bg-gray-900 py-10 md:py-20"><h1 class="h1 font-extrabold dark:text-gray-400">시작하기</h1><p class="text-gray-600 text-light font-sans"></p></div><!----></div><div class="container sm:pxi-0 mx-auto overflow-x-hidden text-gray-800 dark:text-gray-400"><div class="lg:mx-32 md:mx-16 px-4 mb-8"><section class="post-content container mx-auto relative dark:text-gray-400"><div><p>이 페이지는 블로그를 마크다운 형식으로 작성할 때 필요한 메타데이터 삽입 요령과, 마크다운 문법, 그리고 유튜브 비디오 혹은 gist 코드 블록과 같은 외부 미디어 삽입 방법에 대해 알려줍니다.</p>
+<h2 id="목차"><a href="#%EB%AA%A9%EC%B0%A8" aria-hidden="true"><span class="icon icon-link"></span></a>목차</h2>
+<blockquote>
+<ul>
+<li><a href="#%EB%AA%A9%EC%B0%A8">목차</a></li>
+<li>
+<p><a href="#%EA%B8%80%EC%93%B4%EC%9D%B4-%EC%83%9D%EC%84%B1">글쓴이 생성</a></p>
+<ul>
+<li><a href="#%EA%B8%80%EC%93%B4%EC%9D%B4%EC%9A%A9-%ED%94%84%EB%A1%A0%ED%8A%B8%EB%A7%A4%ED%84%B0">글쓴이용 프론트매터</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%ED%8F%AC%EC%8A%A4%ED%8A%B8-%EC%83%9D%EC%84%B1">포스트 생성</a></p>
+<ul>
+<li><a href="#%ED%8F%AC%EC%8A%A4%ED%8A%B8-%ED%94%84%EB%A1%A0%ED%8A%B8%EB%A7%A4%ED%84%B0">포스트 프론트매터</a></li>
+</ul>
+</li>
+<li><a href="#%ED%97%A4%EB%94%A9-headings">헤딩 Headings</a></li>
+<li>
+<p><a href="#%EC%9D%BC%EB%B0%98-%ED%85%8D%EC%8A%A4%ED%8A%B8-normal-text">일반 텍스트 Normal Text</a></p>
+<ul>
+<li><a href="#%ED%95%9C%EA%B8%80-korean">한글 Korean</a></li>
+<li><a href="#%EC%98%81%EB%AC%B8-english">영문 English</a></li>
+</ul>
+</li>
+<li><a href="#%EC%9D%B8%EC%9A%A9%EB%AC%B8-blockquotes">인용문 Blockquotes</a></li>
+<li>
+<p><a href="#%EB%A6%AC%EC%8A%A4%ED%8A%B8-lists">리스트 Lists</a></p>
+<ul>
+<li><a href="#ordered-list">Ordered List</a></li>
+<li><a href="#unordered-list">Unordered List</a></li>
+</ul>
+</li>
+<li><a href="#%ED%85%8C%EC%9D%B4%EB%B8%94-tables">테이블 Tables</a></li>
+<li>
+<p><a href="#%EC%BD%94%EB%93%9C-%EB%B8%94%EB%A1%9D-codeblocks">코드 블록 Codeblocks</a></p>
+<ul>
+<li><a href="#%EC%9D%B8%EB%9D%BC%EC%9D%B8-%EC%BD%94%EB%93%9C-inline-code">인라인 코드 Inline Code</a></li>
+<li><a href="#%EC%BD%94%EB%93%9C-%EB%B8%94%EB%A1%9D-codeblock">코드 블록 Codeblock</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%EC%9D%B4%EB%AF%B8%EC%A7%80-images">이미지 Images</a></p>
+<ul>
+<li><a href="#%EC%99%B8%EB%B6%80-%EC%9D%B4%EB%AF%B8%EC%A7%80">외부 이미지</a></li>
+<li><a href="#%EB%82%B4%EB%B6%80-%EC%9D%B4%EB%AF%B8%EC%A7%80">내부 이미지</a></li>
+</ul>
+</li>
+<li>
+<p><a href="#%EB%8B%A8%EC%B6%95-%EC%BD%94%EB%93%9C">단축 코드</a></p>
+<ul>
+<li><a href="#%EA%B9%83%ED%97%99-gist">깃헙 Gist</a></li>
+<li><a href="#gist-%EC%A0%84%EC%B2%B4-%EA%B3%B5%EC%9C%A0">Gist 전체 공유</a></li>
+<li><a href="#gist-%EB%82%B4-%ED%8A%B9%EC%A0%95-%ED%8C%8C%EC%9D%BC-%EA%B3%B5%EC%9C%A0">Gist 내 특정 파일 공유</a></li>
+<li><a href="#gist-%EB%82%B4-%ED%8A%B9%EC%A0%95-%ED%8C%8C%EC%9D%BC%EC%9D%98-%ED%8A%B9%EC%A0%95-%EB%9D%BC%EC%9D%B8-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8">Gist 내 특정 파일의 특정 라인 하이라이트</a></li>
+<li><a href="#%EC%9C%A0%ED%8A%9C%EB%B8%8C-youtube">유튜브 YouTube</a></li>
+<li><a href="#%ED%8A%B8%EC%9C%84%ED%84%B0-twitter">트위터 Twitter</a></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="글쓴이-생성"><a href="#%EA%B8%80%EC%93%B4%EC%9D%B4-%EC%83%9D%EC%84%B1" aria-hidden="true"><span class="icon icon-link"></span></a>글쓴이 생성</h2>
+<p>모든 포스트는 기본적으로 글 작성자를 포함해야 합니다.</p>
+<ul>
+<li>파일 이름: <code class="language-text">&lt;first-name&gt;-&lt;last-name&gt;.md</code></li>
+<li>파일 위치: <code class="language-text">content/authors</code></li>
+<li>커퍼 파일 이름: <code class="language-text">&lt;first-name&gt;-&lt;last-name&gt;.(jpg|png)</code> 최소 <code class="language-text">2000x1000</code>px 사이즈 이상</li>
+<li>커버 파일 위치: <code class="language-text">content/authors/covers</code></li>
+<li>프사 파일 이름: <code class="language-text">&lt;first-name&gt;-&lt;last-name&gt;.(jpg|png)</code> 최소 <code class="language-text">500x500</code>px 사이즈 이상</li>
+<li>프사 파일 위치: <code class="language-text">content/authors/images</code></li>
+</ul>
+<h3 id="글쓴이용-프론트매터"><a href="#%EA%B8%80%EC%93%B4%EC%9D%B4%EC%9A%A9-%ED%94%84%EB%A1%A0%ED%8A%B8%EB%A7%A4%ED%84%B0" aria-hidden="true"><span class="icon icon-link"></span></a>글쓴이용 프론트매터</h3>
+<p>글쓴이 정보를 아래와 같이 프론트매터 형식으로 작성합니다.</p>
+<div class="gridsome-highlight" data-language="yaml"><pre class="language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token key atrule">id</span><span class="token punctuation">:</span> (필수) gildong<span class="token punctuation">-</span>hong
+<span class="token key atrule">slug</span><span class="token punctuation">:</span> (필수) gildong<span class="token punctuation">-</span>hong
+<span class="token key atrule">name</span><span class="token punctuation">:</span> (필수) 홍길동
+<span class="token key atrule">bio</span><span class="token punctuation">:</span> (필수) 글쓴이에 대한 간략한 소개
+<span class="token key atrule">cover</span><span class="token punctuation">:</span> (필수) ./covers/gildong<span class="token punctuation">-</span>hong.png (외부 URL<span class="token punctuation">,</span> 내부 URL 모두 허용)
+<span class="token key atrule">image</span><span class="token punctuation">:</span> (필수) ./images/gildong<span class="token punctuation">-</span>hong.png (외부 URL<span class="token punctuation">,</span> 내부 URL 모두 허용)
+<span class="token key atrule">github</span><span class="token punctuation">:</span> (선택) https<span class="token punctuation">:</span>//github.com
+<span class="token key atrule">linkedin</span><span class="token punctuation">:</span> (선택) https<span class="token punctuation">:</span>//www.linkedin.com
+<span class="token key atrule">twitter</span><span class="token punctuation">:</span> (선택) https<span class="token punctuation">:</span>//www.twitter.com
+<span class="token key atrule">facebook</span><span class="token punctuation">:</span> (선택) https<span class="token punctuation">:</span>//www.facebook.com
+<span class="token key atrule">instagram</span><span class="token punctuation">:</span> (선택) https<span class="token punctuation">:</span>//instagram.com
+<span class="token punctuation">---</span></code></pre></div>
+<h2 id="포스트-생성"><a href="#%ED%8F%AC%EC%8A%A4%ED%8A%B8-%EC%83%9D%EC%84%B1" aria-hidden="true"><span class="icon icon-link"></span></a>포스트 생성</h2>
+<ul>
+<li>파일 이름: <code class="language-text">&lt;yyyy&gt;-&lt;MM&gt;-&lt;dd&gt;-&lt;slug&gt;.md</code></li>
+<li>파일 위치: <code class="language-text">content/posts/&lt;year&gt;-&lt;MM&gt;</code></li>
+</ul>
+<h3 id="포스트-프론트매터"><a href="#%ED%8F%AC%EC%8A%A4%ED%8A%B8-%ED%94%84%EB%A1%A0%ED%8A%B8%EB%A7%A4%ED%84%B0" aria-hidden="true"><span class="icon icon-link"></span></a>포스트 프론트매터</h3>
+<p>프론트매터는 모든 포스트의 맨 첫머리에 포스트의 기본적인 메타데이터를 정의하는 부분입니다. 아래와 같은 형식으로 작성합니다.</p>
+<div class="gridsome-highlight" data-language="yaml"><pre class="language-yaml"><code class="language-yaml"><span class="token punctuation">---</span>
+<span class="token key atrule">title</span><span class="token punctuation">:</span> (필수) 블로그 포스트 제목
+<span class="token key atrule">slug</span><span class="token punctuation">:</span> (필수) post<span class="token punctuation">-</span>url
+<span class="token key atrule">description</span><span class="token punctuation">:</span> (필수) 포스트 간략 설명
+<span class="token key atrule">date</span><span class="token punctuation">:</span> (필수) 2021<span class="token punctuation">-</span>01<span class="token punctuation">-</span><span class="token number">01</span>
+<span class="token key atrule">image</span><span class="token punctuation">:</span> (선택) 히어로 이미지 URL (외부 URL만 허용)
+<span class="token key atrule">image_caption</span><span class="token punctuation">:</span> (선택) 히어로 이미지 캡션
+<span class="token key atrule">author</span><span class="token punctuation">:</span> (필수) author<span class="token punctuation">-</span>id
+<span class="token key atrule">category</span><span class="token punctuation">:</span> (필수) Microsoft Azure<span class="token punctuation">,</span> Microsoft 365<span class="token punctuation">,</span> Power Platform 셋 중 하나 선택
+<span class="token key atrule">tags</span><span class="token punctuation">:</span> (필수) tag1<span class="token punctuation">,</span> tag2
+<span class="token key atrule">canonical_url</span><span class="token punctuation">:</span> (선택) 원본 포스트가 있을 경우 원본 포스트 URL
+<span class="token key atrule">featured</span><span class="token punctuation">:</span> true (관리자가 지정)
+<span class="token punctuation">---</span></code></pre></div>
+<h2 id="헤딩-headings"><a href="#%ED%97%A4%EB%94%A9-headings" aria-hidden="true"><span class="icon icon-link"></span></a>헤딩 Headings</h2>
+<div class="gridsome-highlight" data-language="html"><pre class="language-html"><code class="language-html"># Heading 1 #
+
+## Heading 2 ##
+
+### Heading 3 ###
+
+#### Heading 4 ####
+
+##### Heading 5 #####
+
+###### Heading 6 ######</code></pre></div>
+<h2 id="일반-텍스트-normal-text"><a href="#%EC%9D%BC%EB%B0%98-%ED%85%8D%EC%8A%A4%ED%8A%B8-normal-text" aria-hidden="true"><span class="icon icon-link"></span></a>일반 텍스트 Normal Text</h2>
+<h3 id="한글-korean"><a href="#%ED%95%9C%EA%B8%80-korean" aria-hidden="true"><span class="icon icon-link"></span></a>한글 Korean</h3>
+<p>하나 새워 없이 이웃 별 있습니다. 나는 비둘기, 파란 패, 있습니다. 시인의 시와 파란 불러 봅니다. 시와 했던 무덤 아무 어머님, 패, 별 내 묻힌 계십니다. 이런 이름자 가슴속에 하나의 하나에 이름과, 어머니, 있습니다. 책상을 오면 하나 내 그러나 거외다. 멀리 헤일 가을 까닭이요, 이름과, 했던 별 무덤 그리워 거외다. 아스라히 가난한 이름을 있습니다. 쓸쓸함과 한 때 마리아 다 언덕 겨울이 버리었습니다. 아무 별 헤는 소녀들의 나의 위에도 노루, 못 듯합니다. 하늘에는 아직 별빛이 있습니다.</p>
+<p>아름다운 부끄러운 애기 가난한 별 소학교 멀듯이, 있습니다. 까닭이요, 별 이름자를 둘 이름과, 무엇인지 하늘에는 봄이 쓸쓸함과 있습니다. 없이 벌써 우는 나의 못 불러 가을로 옥 거외다. 멀리 했던 묻힌 지나고 하나 이네들은 쉬이 하나에 계절이 듯합니다. 아침이 잠, 릴케 슬퍼하는 있습니다. 내일 같이 많은 별 아스라히 옥 거외다. 가을 책상을 별 딴은 슬퍼하는 남은 때 하나에 봅니다. 동경과 별 강아지, 가난한 이름과, 내일 어머니 겨울이 슬퍼하는 있습니다. 써 가을로 자랑처럼 마디씩 이름과, 같이 딴은 봅니다. 추억과 보고, 이름과, 된 버리었습니다. 동경과 언덕 멀리 써 딴은 가득 있습니다.</p>
+<p>사랑과 속의 어머니, 내 계집애들의 듯합니다. 프랑시스 하나에 오면 버리었습니다. 써 보고, 별을 청춘이 내 헤일 다 있습니다. 애기 내 이름과, 버리었습니다. 아름다운 청춘이 슬퍼하는 나의 소학교 않은 책상을 아스라히 내 봅니다. 한 마디씩 새겨지는 남은 자랑처럼 벌써 릴케 라이너 까닭입니다. 많은 사랑과 옥 마리아 이름과, 하나에 라이너 쓸쓸함과 버리었습니다. 쓸쓸함과 시와 프랑시스 버리었습니다. 하나에 계집애들의 사랑과 때 언덕 거외다. 강아지, 별 불러 내린 나는 별 거외다.</p>
+<h3 id="영문-english"><a href="#%EC%98%81%EB%AC%B8-english" aria-hidden="true"><span class="icon icon-link"></span></a>영문 English</h3>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam a placerat quam. Etiam sagittis et ex et rhoncus. Aenean ut elit et libero tincidunt aliquet. Proin semper sed sem sed pellentesque. Donec scelerisque, turpis vitae blandit sollicitudin, tortor purus fermentum enim, sit amet ullamcorper eros sem et turpis. Vivamus et interdum mi, quis placerat ante. Mauris semper id diam pellentesque lacinia.</p>
+<p>Integer accumsan dui leo. In ac molestie sem. Maecenas vel maximus sapien, rhoncus pretium sapien. Nunc ut maximus augue, eu ultricies lectus. Quisque aliquet luctus consequat. Praesent et placerat diam. Ut sit amet dictum augue, eu ullamcorper ex. Nullam venenatis luctus orci quis suscipit. Etiam et nisi est. Quisque non dolor sodales mi pretium porta. Praesent interdum hendrerit arcu nec efficitur.</p>
+<p>Vestibulum non sapien massa. In risus mauris, auctor at eros ut, semper sodales ante. Phasellus nec nibh ac enim faucibus mollis. Suspendisse viverra faucibus arcu nec tristique. Phasellus volutpat dolor at quam cursus, nec suscipit ante hendrerit. Suspendisse potenti. Proin tempor, leo vehicula dignissim commodo, risus magna ornare nisl, quis molestie lorem lacus lacinia tortor. In eget dictum enim. Phasellus tempor fermentum est, quis feugiat tellus gravida sed. Sed eget condimentum ipsum, id fermentum dui. Nunc ornare mauris ex, eu suscipit ipsum sodales eu. Morbi blandit nisl velit, eu ullamcorper lacus gravida eget. Ut erat velit, mollis eget laoreet in, malesuada id odio.</p>
+<h2 id="인용문-blockquotes"><a href="#%EC%9D%B8%EC%9A%A9%EB%AC%B8-blockquotes" aria-hidden="true"><span class="icon icon-link"></span></a>인용문 Blockquotes</h2>
+<div class="gridsome-highlight" data-language="html"><pre class="language-html"><code class="language-html">> 위에 하나에 피어나듯이 별 지나고 별 책상을 것은 있습니다. 남은 이국 별 어머님, 사랑과 있습니다.
+> 별 차 가난한 별 나의 릴케 내일 헤일 있습니다. 청춘이 것은 묻힌 이름을 하나에 별빛이 이제 봅니다.
+> 별이 이런 차 위에 그러나 경, 무덤 시인의 계십니다. 말 하나에 내린 새겨지는 겨울이 슬퍼하는 이네들은
+> 된 했던 까닭입니다. 까닭이요, 다 무덤 나는 남은 둘 그리워 멀리 오면 까닭입니다. 나의 이름과
+> 소녀들의 거외다. 속의 무성할 북간도에 나의 걱정도 부끄러운 쓸쓸함과 사람들의 멀리 있습니다.
+> 딴은 별 별이 까닭이요, 이런 다하지 가을 버리었습니다.</code></pre></div>
+<blockquote>
+<p>위에 하나에 피어나듯이 별 지나고 별 책상을 것은 있습니다. 남은 이국 별 어머님, 사랑과 있습니다.
+별 차 가난한 별 나의 릴케 내일 헤일 있습니다. 청춘이 것은 묻힌 이름을 하나에 별빛이 이제 봅니다.
+별이 이런 차 위에 그러나 경, 무덤 시인의 계십니다. 말 하나에 내린 새겨지는 겨울이 슬퍼하는 이네들은
+된 했던 까닭입니다. 까닭이요, 다 무덤 나는 남은 둘 그리워 멀리 오면 까닭입니다. 나의 이름과
+소녀들의 거외다. 속의 무성할 북간도에 나의 걱정도 부끄러운 쓸쓸함과 사람들의 멀리 있습니다.
+딴은 별 별이 까닭이요, 이런 다하지 가을 버리었습니다.</p>
+</blockquote>
+<h2 id="리스트-lists"><a href="#%EB%A6%AC%EC%8A%A4%ED%8A%B8-lists" aria-hidden="true"><span class="icon icon-link"></span></a>리스트 Lists</h2>
+<h3 id="ordered-list"><a href="#ordered-list" aria-hidden="true"><span class="icon icon-link"></span></a>Ordered List</h3>
+<div class="gridsome-highlight" data-language="html"><pre class="language-html"><code class="language-html">1. 하나에 밤이 어머님, 까닭이요,
+1. 소녀들의 이웃 시인의 있습니다.
+1. 다하지 밤이 이런 거외다.
+1. 하늘에는 내 나의 밤을 부끄러운 불러 시인의 봅니다.</code></pre></div>
+<ol>
+<li>하나에 밤이 어머님, 까닭이요,</li>
+<li>소녀들의 이웃 시인의 있습니다.</li>
+<li>다하지 밤이 이런 거외다.</li>
+<li>하늘에는 내 나의 밤을 부끄러운 불러 시인의 봅니다.</li>
+</ol>
+<h3 id="unordered-list"><a href="#unordered-list" aria-hidden="true"><span class="icon icon-link"></span></a>Unordered List</h3>
+<div class="gridsome-highlight" data-language="html"><pre class="language-html"><code class="language-html">* 그러나 벌써 가난한 까닭이요,
+  * 다 하나에 하나에 듯합니다.
+  * 오면 내 하나에 이네들은 거외다.
+    * 마리아 시와 덮어 계절이 어머니, 있습니다.
+* 위에 이름을 언덕 별 거외다.
+  * 소학교 다 나는 동경과 시와 하나에 위에도 내 비둘기, 계십니다.
+  * 벌써 가난한 하나 릴케 내 덮어 계십니다.
+* 나는 이름을 말 이름과 있습니다.</code></pre></div>
+<ul>
+<li>
+<p>그러나 벌써 가난한 까닭이요,</p>
+<ul>
+<li>다 하나에 하나에 듯합니다.</li>
+<li>
+<p>오면 내 하나에 이네들은 거외다.</p>
+<ul>
+<li>마리아 시와 덮어 계절이 어머니, 있습니다.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>위에 이름을 언덕 별 거외다.</p>
+<ul>
+<li>소학교 다 나는 동경과 시와 하나에 위에도 내 비둘기, 계십니다.</li>
+<li>벌써 가난한 하나 릴케 내 덮어 계십니다.</li>
+</ul>
+</li>
+<li>나는 이름을 말 이름과 있습니다.</li>
+</ul>
+<h2 id="테이블-tables"><a href="#%ED%85%8C%EC%9D%B4%EB%B8%94-tables" aria-hidden="true"><span class="icon icon-link"></span></a>테이블 Tables</h2>
+<div class="gridsome-highlight" data-language="html"><pre class="language-html"><code class="language-html">| Tables   |      Are      |  Cool |
+|----------|:-------------:|------:|
+| col 1 is |  left-aligned | $1600 |
+| col 2 is |    centered   |   $12 |
+| col 3 is | right-aligned |    $1 |</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Tables</th>
+<th align="center">Are</th>
+<th align="right">Cool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>col 1 is</td>
+<td align="center">left-aligned</td>
+<td align="right">$1600</td>
+</tr>
+<tr>
+<td>col 2 is</td>
+<td align="center">centered</td>
+<td align="right">$12</td>
+</tr>
+<tr>
+<td>col 3 is</td>
+<td align="center">right-aligned</td>
+<td align="right">$1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="코드-블록-codeblocks"><a href="#%EC%BD%94%EB%93%9C-%EB%B8%94%EB%A1%9D-codeblocks" aria-hidden="true"><span class="icon icon-link"></span></a>코드 블록 Codeblocks</h2>
+<h3 id="인라인-코드-inline-code"><a href="#%EC%9D%B8%EB%9D%BC%EC%9D%B8-%EC%BD%94%EB%93%9C-inline-code" aria-hidden="true"><span class="icon icon-link"></span></a>인라인 코드 Inline Code</h3>
+<div class="gridsome-highlight" data-language="html"><pre class="language-html"><code class="language-html">PHP 코드를 인라인으로 보여준다면 `<span class="token prolog">&lt;?php echo 'inline code'; ?></span>` 코드 부분을 백틱(`` ` ``)으로 감싸줍니다.</code></pre></div>
+<p>PHP 코드를 인라인으로 보여준다면 <code class="language-text">&lt;?php echo &#39;inline code&#39;; ?&gt;</code> 코드 부분을 백틱(<code class="language-text">`</code>)으로 감싸줍니다.</p>
+<h3 id="코드-블록-codeblock"><a href="#%EC%BD%94%EB%93%9C-%EB%B8%94%EB%A1%9D-codeblock" aria-hidden="true"><span class="icon icon-link"></span></a>코드 블록 Codeblock</h3>
+<div class="gridsome-highlight" data-language="html"><pre class="language-html"><code class="language-html">```js
+function visitor(node) {
+  try {
+    const alignment = node.align;
+
+    visit(node, 'tableRow', (rowNode) => {
+      rowNode.children.forEach(function (cellNode, index) {
+        cellNode.align = alignment[index]
+      });
+    });
+
+    node.align = node.align.map(function(value) {
+      return null;
+    });
+    
+  } catch (e) {
+  }
+}</code></pre></div>
+<p>코드 블록 위 아래로 백틱 세 개(<code class="language-text">```</code>)를 이용해 감싸줍니다.</p>
+<div class="gridsome-highlight" data-language="js"><pre class="language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">visitor</span><span class="token punctuation">(</span><span class="token parameter">node</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> alignment <span class="token operator">=</span> node<span class="token punctuation">.</span>align<span class="token punctuation">;</span>
+
+    <span class="token function">visit</span><span class="token punctuation">(</span>node<span class="token punctuation">,</span> <span class="token string">'tableRow'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">rowNode</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+      rowNode<span class="token punctuation">.</span>children<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">cellNode<span class="token punctuation">,</span> index</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        cellNode<span class="token punctuation">.</span>align <span class="token operator">=</span> alignment<span class="token punctuation">[</span>index<span class="token punctuation">]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    node<span class="token punctuation">.</span>align <span class="token operator">=</span> node<span class="token punctuation">.</span>align<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre></div>
+<h2 id="이미지-images"><a href="#%EC%9D%B4%EB%AF%B8%EC%A7%80-images" aria-hidden="true"><span class="icon icon-link"></span></a>이미지 Images</h2>
+<h3 id="외부-이미지"><a href="#%EC%99%B8%EB%B6%80-%EC%9D%B4%EB%AF%B8%EC%A7%80" aria-hidden="true"><span class="icon icon-link"></span></a>외부 이미지</h3>
+<div class="gridsome-highlight" data-language="html"><pre class="language-html"><code class="language-html">![Photo by Ingmar Hoogerhoud on Unsplash](https://github.com/devrel-kr/gridsome-starter-liebling/blob/main/content/blog/images/ingmar-hoogerhoud-lm91dJNPRS4-unsplash.jpg?raw=true)</code></pre></div>
+<p><img src="https://github.com/devrel-kr/gridsome-starter-liebling/blob/main/content/blog/images/ingmar-hoogerhoud-lm91dJNPRS4-unsplash.jpg?raw=true" alt="Photo by Ingmar Hoogerhoud on Unsplash"></p>
+<h3 id="내부-이미지"><a href="#%EB%82%B4%EB%B6%80-%EC%9D%B4%EB%AF%B8%EC%A7%80" aria-hidden="true"><span class="icon icon-link"></span></a>내부 이미지</h3>
+<div class="gridsome-highlight" data-language="html"><pre class="language-html"><code class="language-html">![Designed by Ashley Willis](./images/bit-apex.png)</code></pre></div>
+<p><figure><img class="g-image g-image--lazy g-image--loading" src="data:image/svg+xml,%3csvg fill='none' viewBox='0 0 2000 1074' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cfilter id='__svg-blur-358d4092e4eebb6d73eefccc85d6b940'%3e%3cfeGaussianBlur in='SourceGraphic' stdDeviation='40'/%3e%3c/filter%3e%3c/defs%3e%3cimage x='0' y='0' filter='url(%23__svg-blur-358d4092e4eebb6d73eefccc85d6b940)' width='2000' height='1074' xlink:href='data:image/png%3bbase64%2ciVBORw0KGgoAAAANSUhEUgAAAEAAAAAiCAYAAADvVd%2bPAAAACXBIWXMAAAsSAAALEgHS3X78AAAbTUlEQVRo3l15B3hU1db2kN4pIRBC6OnTe58kk957QnpCSCUhDUgABQIoRYo0EQRUEERB5IoC0pugFFFAQUVQiRXL9ap4/S53vf86B/Tz%2b%2bd51nP27LNnz1nvXnu979pHMtQlBAljs6k2uRlyHyO0g%2b1Q%2blmQHJYB/RAHVP42mIYlQOZtRLS3jk2LSE81NENs0AfGQTPQDt3gWGgG2WEc5oRpuFMcq/Qzi31pMQWwhabwOBtUAVaYgxOh4HtqbtuiC6GILIZyQh5UPIfUU4/48RlwjE4Vf68LjBXHCf8jmNCXpy2DNSRJ/C8935d5m2Ac6kRSWCZswVYkjolFQogNSSFxSAhMRLx/GqrkkxHvmw6rexIKwyqxae7zyBtVjgmu0ZAMlAylXF0pdmx8maS%2bOtINs1OMr55ml3WRdqiZxrhFUeRgBWlCTWSNdJI9OpGM4x2Uqs%2bkZF0ajXSZQJF%2bSlIMMpE20E5SPz3pg2NJHmCkSC81xYeni23FQKM4v9CW%2bmgpekQCxdgaKTJpKkU5WylGWkw6/p0u6MEcMn8DRXlrSBtkE38ntGP4uqBzMaUr88nAY6O99ST311JSjJlKYk2UZ4yiqhQZVSRF08S4aP4eTUVWKy1p6aDcmGIy%2byRQfmQpvbJxL6WF5NNYl3CSDHMfKa66agiveky2uLKRHmqM95Yi05KHgrhSlMRWocxZi3JnHcrj61Bir0ZzfgdW9a3F1IrpSNZkImqIErbwBMRwlAhzOCMyeFUtCHNVYFbDPDjGpXDkaCDz1UM6yAK1pR7myvnIWf8G4meshymnF5qoPETzGKmfAVIepx5ihUxo%2b%2bhhComHIsCEKGEO7ov01EIaGI14aTgmpavQXBCN1vIQzGoZh57mEeioDUZD/ljUZ8UgzxiBNKUehmE2GAc7EReUhljfNEzwiIJkyIBgJIVnoza9CVJvfriBOqhHmZBlLEBVUj1ai7pRGleL0vhaBqIaBZZyFForUOyoRlflTAZhPZ5fvQNLelciRZON6EAVon21Dx7e3wD9MAfWL9qEVFkewt1VkPvpETM%2bG/qsGTBMX4fgPXehefkmTBVzYM/ohiIoFobhDtFJYQ6OGBEMwXlhC5pH8jYLSYBysBKJqvGoTg9DY%2bkwPD7fHSuny2hD2RTatUqKO99KcORNN8yfGYCW4gmocEYhVa6BbWyCOJ8zOAPj3SIFAIYj2l0HXZADET5KGCbYMDGuGhMdNaKjBeZyFNkqRcs3l4lOVyTW8b1y5BpKka4sQE1KIxZ2LcWs%2bnko5mhRjzIi3EMhRoLwwOMHyBHjoxNXP4b7pPpJiMjrxdCVJ%2bDXvRXDN3%2bIyL5XEO3gRQjL4YXg1fU1cA6wQTnQJD6wEAXCVeZn5G2koxSZAhVpY9E1eTi2v%2bCCW3ck9OpTMThUuQWHp/XS3e8lACT47XcJtjzjjikTxzIIMbCNUYgRpvA3YZTnBEhiRimREpmHMZJo8cGF1S62VYkmrHaOoRjVyQ0oT6gTQSmyVopboMReg3z7RNRV8r28Wl7hXNTntGJKYTfyLWWQB2sR5aX539VjAKJ4aynC2cG4Fgzr2ASflacRld6O0J4dGL7rG4zP7oHCWAvjmCSMlUgxr3YG8jT5GOciB%2bcmaAKtFO2lh220hp2RUXNJKDZskODzzyX0yacSvLEjhPaVPU2nK3djX0893emXgOgBEE%2bt8kRDLkdCgp7n0vF2cGKE5xhI9NFmZMqLEROkRmN%2bGwptQnhXik5UFlWju3cWO9iAIlMlChPKUJw7kdKNuZRlKUBZKUdERxs6ZvagMKkahWaOGI6MMs4V%2bY5ShPvLedUNGMfOCKDVZbdiQlguIjOnwX/RQQye/zqUSS0Y17gGgXt/woiWDaS2t5B5fB60nlZYBiVA78dM5G2Gys9CyoFmSAO0lKrlRJc%2bGosWutPRYxK6dElCN25I8M03fL0YSG/2VeFI8R46scUKwgMAvv5GgmmNQbyto3kbKKAbEofwITGQBHIOGO8qQ6I6HfXZbci1lKDYxBGQXI7p3R14Yn4f2mbPQl1xA82cMRMLH19AM3tnUm9vLzq6OtDT2IQFyxajuqID1YZ6VNs5Iix1qEueAv0YG9RDLbCMSmSqioN9VDr0hsmQVy2CNwMQOOdVjGhajaDenQh4oZ9GzN4DY0IXNCE5pPe2QcfOmwc6ERuYgpSROWT0ZOobrKcMwwRqnTgOy2ePoXcvDcChQxJcvy6he/cGiM7evuVCe8tX4%2bxTefiSHT%2b9L0Ts37jGB40ZUhRrrMiMKsS4gAhIRriPZgYwoTKuDqXmGlRZ6zElsQtVBZMwbeoULJ49G1NaW9E6tRX1DQ2oqKhCdU0NJtfXo6OjE73TZ2D28iWoaOpCjWoSGmOnoj1jOuptrchVFcMw2AH78BREe2h4G%2bhh5OwvK1sI31k7ELDpBnx3fAX/HV%2bT78YbGNm7g2x5PRQ9MpHZRAM5738D8zlTINTMKMZAJ2VGpGOiWcpZfigtrsjAy0tMdO6ChM6dfeD8b7%2b40j/vSbCvtQdntyTi539LsH1SF766ORgHD0gwtUSJAoOKtYgOw91GQxLqOg7O0DQ0J7WjxtaAOlsL6uNaUV5UgfZOXtXaScgvKERGRjaysnORnZNHmVm5yMnNh83OoiMhCcUTSzFtxVI09/Sh0liHlvgOTLK2oMJUB60/02tQDiw%2bCbAHJkHJwicquR1Dpj8H79UXMLp0LobM2k3ez3%2bOiMnLSB8/haRDWeD46EUmEGhPSMTmkfEi9RlDdFTmUFBn3XDastkFy%2btS6MWNQXTw8IMtAIhA0KmnMrC/azr%2bYFAOLSrC9UNqnDorQVnqKDg1oVAHGRDiMY4B8BiLtHBOYLGtmGRvEh%2b81FaNttY2FJdMhM3mQEZ6FoNQhNy8AtGEdlp6JubN68MHH36InXtfxUTOB33rV6Nl7kLWC5PRmtiJUkONCEBcQBqsvolIGpLBKq4AOnM7pHUrKGbJKxTjbEVMx0YonzpBkYltiJYWCVmaRNZgGg13U2LH0y8zn7cyGDpOgFYUWmLQWjoGh3j/H3wxFKtLa2j/PnecOi2hK%2b9L6MuvJDh/1oPWTy7Ghx%2b44OjOMGzvycZTa1yRk%2bYFdYw/0qJzMdo7DJLhA0JFAJpT2tGS0YESfTUaappQVVONpORUtHOYN3d2IisnT1x1AQAhEkrLynD37l0InzXr1qGqvY0a6ybT2k0bMPvZDVQ7dTolR6fB4OOAzScJZi8nHAEpsPklwaZsgD7lEdLXzidZ5lwYah6HsawPamsbqXi7aFn%2bpsnzxQQqCCvD8FgWVWYGhKV6kAmZGinqc8Owfq0HPr4tobUNWTi1K1Jc%2bfffk9AP3w/AH38wEF9LcPefEpzYqsHekvWYVTcB9RkTkDReBedAFm9%2bckiGDRjJNJiNckcdUw6rvuQKTJvejYTEZKxcuVJ08Pt7v6F32VLeBlkoKCxGZmY2qqurce/ePfH%2blStX6Knt25BfWIR1y1fS0l3bUTdnPqxMXVafRLL7JiNpaCbs/smweiXAFpgJg7oJ6uTZMGfNgybtUegc0%2bEIr4TRNRbOwAzED0mDyccJgxfXAV4O6BlIe1AydD6xSA8zoSVVg5kNITj7jgRnjvhj%2b8ZA3GfKO/%2b2Ky4xCL//W8j%2bLmJeuPP%2baKypz8asmglocjC4IU7YvFMfKMHBLsNgGhuLhpw2tLOsra9twCxOfIlJyXj77XOig7t3voQqprvKyfVIYmCy8guQV1yMTZs24eeff6bvvvsWzVNaqaaqhtY9uwnda1aTLcZJY1zDScV0pvW204bupSiJKYXejdnAJxHWwZmwRFaTk6MhXtXIe7sQSUHZKIgoE69C1CTylnms9JEHW8gzEWXyWr6Xg/hBcajQGtCdrxSV3ntXJbj2gQT/uc9s8L4Pts5MBrMD3eLouP9fCW58zBTYNAhT0uUolnFx5xWLgvAKRPrKIAlyC4FymBFN%2bVPxeN9i9M7sxWOPPcYRkIidO1/En589J44hNTMLjy1YgPk9PVjx7GakpnNGLi2l9PQM5BUU0urVq2gOR40m0k5OQwJt2LiBzGF2cR9rh7Ks5aSm9DVB6WOGNSgBmZGcD3xYn/tzNelhQWxwKtIjCmBi6jMGxIkaIIETtNbPDrWPhbeGUHmyTPYxsfCysbaIxpSiMDw6LQD79knwxZ0HnH98WTGOr03DJ59LsGO7G2Y2DUdrpowjPAapwUmIHZiOOL80hHlyNTjMPVTU/zZFHMoryjmxzcOqJ1ehprYW6RkZWL16NbZu24ayyioUFRVjWlcX5nZ3Yf7SJVj2xBOYOWs25s7ro7UrnkB7WztixikpLT4NNz66IQL37JFDGO0WDS1LYOOIOFERCiW1cFUMMoMrPE56ejHhCcoxwkP1QP8LNQPfi%2bQ%2b4SoLMPD%2btyFHXyLqCksos8pYJYMg4%2biNRFvlSMztCcDmDe7YvNEdcxuj6dHugVSTGYya5AjK0UUzwCY4BqUicQSXzgHJGOsp6ACP0WT2TUBcRBJVZFdRd3c3Fi1ZhBUrVqCluQUZmZnIzMpGJydCoW9eXx9msNPzFyzEqrXrsGn9WqxZvABJU3opUqmj2soKvLrvNdH5%2b2xLDx/kokMKFVeAGtb2EVwQ2cckixbmohBlcgxTntCfx7WFCJKXVqRAIQkKVzmDI9yfXvuICICgCyLFqpGrxJFqZKjlXKXKUJcejbqMKBGQybljqK1QRx8cWYa61EROoiquSZTQ8/yCrLaPTsEID5bCY9zDYHNPgWNICpm4csthiTu5sp7zwEysXLUSa1av4my7Bhs3PI3169Ziw7o1eGzObKxYOBfL5z%2bK2q7ZGNKzG64zX8YwezYemduHnc9twRe3P8Whb76AdLwdMi/O5PzHiVFZYlGUFJWNNEU%2bDMFxIs%2bbRsQLOh8ZXFjpguxihAhOCr%2bxj03mGkIDc7CTqSsfcaM4OQ6OF5Oi0TcOBu942AbGI3kkP3s4U2SMCSUKC3IjzCiSOrFl%2bgLkhuUjSmLAlORGPFLRzcWWAaqBFgS7i0JoPCplNZxYUpE2sgBmTjAWVl%2bxUYlwqGKRXVgGpjQ0tXejfiorxKkzkNncC0PbEvi1boGkdz9kSw%2bjYs5KRKWVY7yzAI0LVyGyczE0EXaEcR3gYCfkfkxhgQ5R0cl45ZSDTIgNS4N5VAKyDRNhHZdMUT56Ug7ipDnQAYNvLEzsoM0vAQYPXjU3LpM5gQrJMdY/VbzafR%2bY0LZ4JaGMlWh6aB4c/olIHJoh9ln9UmH2TIBGYseCktl4dvpKca7UsXkY6clCKEQyFsurFiIvrBDO8WmoyahDTlweYrUJKGJnhkeYIImvg2tuL4aUzUVw0yponngTg2qWUNXKnfTp7c8wafZiSKq2YVLPfGRVN8NPnYlxI7KZwmwwjM5AzLB4yELNMCsSERHMRY6sEAmGCmQn1KMocyoqC2dQqqMRCZYGWBRVpIsognpsJvQjs5AWxcVZNBddCVPYsRQ4Bce8mUrZcavAJiywbA8tdmAq0ycnuEFpSB9VgFjWHSnB2WK/QMFaFy6sJFb%2bnoLs0SUYL9DgGI8wWN1SuMiwYf2GdTj/7jvomTUDXawFrr5/ATkNnRiVOBGHjx3Dhme34snVa%2bjCmRPY/fwzdGjvLhIZ4uBRanliE7j2xApOoGPdlUjmh3ZoubRVViIjtYxzRh/WPrUakyY1Iym%2bHFZedae1CSlxrZTmnAqdvJishhKyGArQ1jaDFi9ZhqamNu7PRYaDhVlyG%2bJDcpHIGsHCRZEAwF8g%2bCSKbQtrjFQeIwouITrYaROPnajgCB%2bcxpGSKN4zecbD5Op8wAKj3MYhc0QxbKy1d%2b15GeffeRvTOqaio60VF8%2bdgWNiA1R5k4A/fhOT4Gbm/jNnz9FPP/8LVz8QMz39SZUbd70Bd0cJ5OpcxNoaYY1vgTG5FjNXLsVz21/AG/94Da/9Yy8uXDiHN/btg1Wfi5R4lsvSLHp8wTI6//ZZOnHiOE6eOoFjDPj2fa8gv6YFWnUVDAykVVUJS3gRbBwFgqCyegsRkCRGgWgPHfz/gTEzCH9vpzBIgg4YMyCcpbBHKPOyRTwHzLTnYt6jcxCS3Qx9dTcO7N0FaWIeeuYv%2bruff37olV1b6cThJ3Dg5EnEdj8JSbAe3es3I7OmHUoOWXvJI3BO6kTfC1uw%2bY3XsPf4UVy4/iF%2b/PEn/Pw/f%2bDI1cv49scfcOHGh/Qt/Q8%2b/%2bVnnPvsFvacfxs7T5/As6cOI615GoxZnXBkd8IW1wSbcRKsmirYwnnROG/ZvBL%2bioY/HRdywl99f28L9xm0%2bMHpSA3Ke3AkFugSjNSYfJEaJgyQc1jIER4aj1GBOgzRpiO9upFXbg%2buXXmPg%2bAX/PLzT/iBV//YmQtY/GgUirpUSO80Q2Ktxc6XduE3RmbKhvXIm9oDQ9MsGOewuHr%2bGWw9cQQvnjuNY5/cwM3ff8V3gsRm42qChOut%2b3/gFv5Dx/s/wzYe99zhA%2bjctBHG9vlwND8OW/ksWAunwyoAEdvE0VMrRoRtZA47lfAwH/wtGh6aRbQEmH2dnFTjRebQetvYHBgtHIkJp8K6IQ7x6EqgKGNwPOwsMkwDDRiV0oCAhAoMkprhw/Q4uGA6XAtmQxJbyw7XoapuNOb2DcXSDSX49ObnYlgcu/UJLn96He2vnoBvTjUmdE2BafezaNy/G0U7NuOxU4fw%2bqc3sOa9d7Dy/Gk6%2bvUXWPnuOSo98g9adPksWt86RCnXTiPl8nFIt6yDdOFjUM%2bcD0PPIgajD7qKLmiLODdkNkFjKYdaVwx1RKb4zkDJClF456BgtanwNULOJmqJhyaKK/ZREFZyf9ODI7FhHiPFFyFq5mHhFFYQHLHh6Ygd6cSwcU745rWjraMD0xevxOT5q7H8laN4Zs9BvHroJE4cP4wXn5uOi5cvic7/m23rmZP45ftvYWtfhs7n92P7pTMI27cDymsnSfnBKSgvHoL26CuQvXsYiivHoXvnAJQ3zpD67jVS3z4Pw79uwoJvYP7vl7D%2bfhuGLy5Ctn8HolcshrxnAXQzl0E75VGoJ7ZBXdACZXwFFIZCyGVZrGhNkPro/jpWFxz%2bP/bnUTsLK0ELiEJIqAWECMjWFosHm2Mlwjl6GYuSQkT5qDBQmwFtSTv2vPwqLr51Avfv/fJ/EsH9/wA3rl3Df36/h9nrl%2bOJ5Yuxbf3T6K6vxa%2bffYHN%2b57DqE2NZPr0XeivHoPy8EvQf3YBjv/cQSw76sAPiMOPsPbz/YsHYbrzLow3L0L3/hnor78jfo/l%2b4avLiPyUBWinmyDqncB9L2LoKnshKa4FaqUWigNRVAocyBjnSGA8JeSfKgmZQ9BMXElKABgHpGAUO/xDyPA3/JAk/MA4eBR7m8U1ZhcOIcPS0Z%2bWQRXe3YsXvwknmR1%2bPKuXTh%2b%2brRobxw9ioYZvbA9Oguh6x%2bHbtdz0K5cgtiZnWhethLSNbkUebkEymMvk/76eTJ8dJod%2bgH233iFf7wBB30F273b0H/8FrQcFdr3zkBxfBukRxZCdmQV1OePQHflApRXeW4ww/TXIPKZZZDNngP9Iyy2Js%2bAWgAhve4BCKpcBsH8vyA8dFwIfcEv4Whe8M0amvQnAKHiO0ElFybCDaHIiJuQJibEVFkO9KHpON3ph0%2b3heCZ51/A7t27sf/1fdh3YB%2bSKksxKDkLofNmIOzAGqjeWg/pWysgPbsVQrjLPnwLspMbSXatCNEnJ5H63V1k%2bectGL48C%2b3Hu2H69ipHwPew/fs27Pe/h/b9E4h%2bsxfS9wohvZaNmPey%2bHd1iDndAg2VQPVrDjTXtyIe/%2bWxbyHmkcehn7MC2qaZIgjqjMnidlAoOBK4oJI/dF6oQwSfxrAqVQ%2b1iy9roj11D7bAMLeRD15oBjAyPloxEgQgBEDiJ6QigiPisago/Lc%2bDM9MycfBw8ew6fltcO3ahbLZy9C6YTHGvFbE%2b7gc0g%2bzIbueg5jzuZAfXg/TrYvQXDiCqMOTSfktO/AT79cvGqH8oQzq%2b5lQfD4Z%2bpunYb57G9pP9kL5VTMU33G9cKoZ8pMb2Nax81MRc6EUijuToLn1DKw/fwf97SPQfPEUot%2bZQhFzG%2bnvIGjESGAQYjLFMlwomsTcxvVEfdIkrJjah3CmfKW/GSGeY0UhRIlB2WQIiCXDoFhS%2bZpJN9hOES4q0gbaSD3QQuFDtbTfrKGbZi05Y500saiQMhY8T2/f/Jp%2bZBqzvlpL4RfySHq0m6LfmEcxl4op5shc0n9wifQfnSPZIY6Cj4pJfa%2bQ1H/kkvKHclLenEPKu5Wk/LGQwZlMqnu5pPo9m1QfLSfVqWOkPLGHVGf2k%2br0cVKe3E/K4wfI8OklUn2ylJT/zCPlr%2bmk/G4iSc8%2bQdGPzCfD3KUkr51GXUvXUkJBC4VJM6gwrZESwtIp3F1FuuA4astuomWtcymMvyv8TcQsQJJxnuFI8MsSBUPGSNbogzIx2dqKekcbzB5OOFh1qfV1qIyJxSw154qCNmS0TcMbe3fg9x/u4uSVq1Cv64X83EswfPwudFcvQPpOE2TvT4L8xCZoLh%2bC8c4VmO5yNNzeDM3nm8W24/6/YPzqPNTf9EHzy1Sov%2buF/s7rMPZfhOrLLsg%2bKoH0chmkF3iuCzMgu9QB6ZVSqP8o5LHTeew%2bmH%2b4wQn0V%2bgFppgzH0Yuwmwtj8JQ1gmZpRQ5Be1c5vM28uCIDjAjwk2DcRKl%2bFpM5Wd9WAy5jSajTywpPYyUNDaTLEPiKWF0OuXIiyguOJm049JJrygghamEohKrydQ8l8KbptLwxniyNFWQoq%2bXwv%2bxlZRH9pD84A6SH3iJwp7ppvB9qRT2WiqN21hCsgM7yHCbo%2bFjtk8uk/bdo6Q4uI1Ux/eQ5vwpUr11kDQXT5Lm0mmKPFxK0ddSKOLNAgrbWU0TtpfR%2bK0ZNH5bNoXvqqXo15eQ%2bu0jHFkXSXf9DGmvHCP9rfMU8fQykjd0kbqhl1Tpk0kTV0nSiAySB8WR2stIKm8TaXzMpPW1iG2tt5VGuY8jyQDJgKuuEtev2folkgH9LhIXvkpEE9ouru79Li5u/W7unv3ubC4eHv0u7m79Eg%2bvfom/b/%2bAwMH9bn6%2b/S7efM/Hu9/F14fb3O/p9qWLv8ddF1%2bXL8V%2bP%2b73Fa5sXjyHF4/39Oh3DfDpdxs8sN91kH//AC/3r1wCXL4c4OHO/89jPAfy/wVw25PNi%2bfl/xocxGMDeC4vcT5Xf79%2bV/5/1wB/fi73fjdPr35Xd57XzaPfzVUw937BN1eJ28Prn8bPJ3H54v8BN7wRO01IbfAAAAAASUVORK5CYII=' /%3e%3c/svg%3e" width="2000" alt="Designed by Ashley Willis" data-srcset="/developerkorea/assets/static/bit-apex.82a2fbd.319948d2516e25311d71f734c7ff7150.png 480w, /developerkorea/assets/static/bit-apex.cbab2cf.319948d2516e25311d71f734c7ff7150.png 1024w, /developerkorea/assets/static/bit-apex.4e9973b.319948d2516e25311d71f734c7ff7150.png 2000w" data-sizes="(max-width: 2000px) 100vw, 2000px" data-src="/developerkorea/assets/static/bit-apex.4e9973b.319948d2516e25311d71f734c7ff7150.png">  <noscript><img class="g-image g-image--lazy g-image--loaded" src="/developerkorea/assets/static/bit-apex.4e9973b.319948d2516e25311d71f734c7ff7150.png" width="2000" alt="Designed by Ashley Willis"></noscript> <figcaption>Designed by Ashley Willis</figcaption></figure></p>
+<h2 id="단축-코드"><a href="#%EB%8B%A8%EC%B6%95-%EC%BD%94%EB%93%9C" aria-hidden="true"><span class="icon icon-link"></span></a>단축 코드</h2>
+<p>자주 쓰는 외부 미디어들 링크를 위한 단축 코드를 나타냅니다.</p>
+<h3 id="깃헙-gist"><a href="#%EA%B9%83%ED%97%99-gist" aria-hidden="true"><span class="icon icon-link"></span></a>깃헙 Gist</h3>
+<h3 id="gist-전체-공유"><a href="#gist-%EC%A0%84%EC%B2%B4-%EA%B3%B5%EC%9C%A0" aria-hidden="true"><span class="icon icon-link"></span></a>Gist 전체 공유</h3>
+<div class="gridsome-highlight" data-language="text"><pre class="language-text"><code class="language-text">https://gist.github.com/&lt;username_or_orgname&gt;/&lt;gist_id&gt;</code></pre></div>
+<div class="gist-embed">
+    <div id="gist100880003" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-ignite-the-tour-seoul-materials-md" class="file my-2">
+    
+  <div id="file-ignite-the-tour-seoul-materials-md-readme" class="Box-body readme blob js-code-block-container p-5 p-xl-6 ">
+    <article class="markdown-body entry-content container-lg" itemprop="text"><h1><a id="user-content-ignite-the-tour---seoul-자료-모음" class="anchor" aria-hidden="true" href="#ignite-the-tour---seoul-자료-모음"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>Ignite the Tour - Seoul: 자료 모음</h1>
+<ul>
+<li>일자: 2020년 1월 21일 (화) - 22일 (수)</li>
+<li>행사 메인 홈페이지: <a href="https://www.microsoft.com/ko-kr/ignite-the-tour/seoul" rel="nofollow">https://www.microsoft.com/ko-kr/ignite-the-tour/seoul</a></li>
+<li>발표자 목록: <a href="https://seoul.myignitetour.techcommunity.microsoft.com/speakers" rel="nofollow">https://seoul.myignitetour.techcommunity.microsoft.com/speakers</a></li>
+<li>세션 목록 (행사 등록자는 로그인 후 장소 &amp; 시간 확인 가능): <a href="https://seoul.myignitetour.techcommunity.microsoft.com/sessions" rel="nofollow">https://seoul.myignitetour.techcommunity.microsoft.com/sessions</a></li>
+<li>GitHub 저장소가 링크된 경우, <code>presentations.md</code> 파일을 참고하시면 됩니다.</li>
+<li>자료 모음에 도움을 주신 contributor: <a href="https://github.com/ianychoi">@ianychoi</a>, <a href="https://github.com/justinyoo">@justinyoo</a></li>
+</ul>
+<h2><a id="user-content-공유된-커뮤니티-발표-자료-한글" class="anchor" aria-hidden="true" href="#공유된-커뮤니티-발표-자료-한글"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>공유된 커뮤니티 발표 자료 (한글)</h2>
+<ul>
+<li><a href="https://www.facebook.com/groups/krazure/permalink/3470124826362995/" rel="nofollow">BRK30136 - Windows 기반 백엔드 개발자를 위한 컨테이너 입문</a></li>
+<li><a href="https://www.facebook.com/groups/krazure/permalink/3488873337821477/" rel="nofollow">BRK30137 - 윈도우 헬로우와 FIDO인증이적용된 Kubernetes시스템구현하기</a></li>
+<li><a href="https://www.facebook.com/groups/krazure/permalink/3470134239695387/" rel="nofollow">BRK40017 - 기존 IIS/ASP.NET 쇼핑몰 애플리케이션을 Kubernetes로 옮기기</a></li>
+<li><a href="https://www.facebook.com/groups/azurouslife/permalink/582024622345868/" rel="nofollow">BRK40019 - 하이브리드 클라우드를 위한 Azure Networks 이해</a></li>
+<li><a href="https://www.facebook.com/groups/krazure/permalink/3470118716363606/" rel="nofollow">THR20007 - WSL v2와 Rancher K3S로 빠르게 로컬 쿠버네티스 클러스터 만들기</a></li>
+<li><a href="https://www.slideshare.net/ssuserc17528/microsoft-ignite-the-toue-seoul-thr30034-webapp" rel="nofollow">THR30034 - 배포 슬롯을 사용하여 위험 없이 배포 및 A/B 테스트</a></li>
+</ul>
+<h2><a id="user-content-학습-경로-발표-자료-영문-링크-일부-한글-자료-포함" class="anchor" aria-hidden="true" href="#학습-경로-발표-자료-영문-링크-일부-한글-자료-포함"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>학습 경로 발표 자료 (영문 링크, 일부 한글 자료 포함)</h2>
+<ul>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/onboarding-and-setup-getting-the-most-out-of-microsoft-365/m-p/907367" rel="nofollow">ADM10 - Microsoft 365를 최대한 활용하는 온보딩 및 설정</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/addressing-top-management-issues-with-users-and-groups/td-p/907366" rel="nofollow">ADM20 - 사용자와 그룹에 대한 주요 관리 문제 해결하기</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/role-based-access-control-in-microsoft-365-improve-your/td-p/907340" rel="nofollow">ADM31 - Microsoft 365에서 제공하는 역할 기반의 사용 권한 제어를 통한 기업 운영과 보안 강화</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/what-s-new-and-what-s-next-embrace-office-365-group/td-p/907332" rel="nofollow">ADM51 - Office 365 그룹에 포함된 새로운 기능과 향후 기능</a></li>
+<li><a href="https://aka.ms/AFUN10Repo" rel="nofollow">AFUN10 - Microsoft Azure 알아보기</a></li>
+<li><a href="https://aka.ms/AFUN20Repo" rel="nofollow">AFUN20 - Azure 네트워킹 기본</a></li>
+<li><a href="https://aka.ms/AFUN30Repo" rel="nofollow">AFUN30 - Azure 도구 및 유틸리티 알아보기</a> (<a href="https://github.com/microsoft/ignite-learning-paths-training-afun/pull/59/files">한글 자료</a>)</li>
+<li><a href="https://aka.ms/AFUN40Repo" rel="nofollow">AFUN40 - Azure 보안 기본 사항</a> (<a href="https://www.slideshare.net/ssuserc17528/microsoft-ignite-the-tour-seoul-afun40-security" rel="nofollow">한글 자료</a>)</li>
+<li><a href="https://aka.ms/AFUN50Repo" rel="nofollow">AFUN50 - Azure 상 데이터 저장</a></li>
+<li><a href="https://aka.ms/AFUN60Repo" rel="nofollow">AFUN60 - Azure에서 사용할 수 있는 컨테이너 및 오케스트레이션 기술 살펴보기</a> (<a href="https://github.com/microsoft/ignite-learning-paths-training-afun/pull/61/files">한글 자료</a>)</li>
+<li><a href="https://aka.ms/AFUN70Repo" rel="nofollow">AFUN70 - Azure에서 비용 절감</a>, (<a href="https://github.com/microsoft/ignite-learning-paths-training-afun/pull/60/files">한글 자료</a>)</li>
+<li><a href="https://aka.ms/AFUN80Repo" rel="nofollow">AFUN80 - Azure에서의 거버넌스에 대해 알아야 할 내용</a></li>
+<li><a href="https://aka.ms/AFUN90Repo" rel="nofollow">AFUN90 - Azure ID 기본 사항</a></li>
+<li><a href="https://aka.ms/AFUN95Repo" rel="nofollow">AFUN95 - Azure Functions 이해</a></li>
+<li><a href="https://aka.ms/AIML10Repo" rel="nofollow">AIML10 - AI로 구조화되지 않은 데이터 이해</a></li>
+<li><a href="https://aka.ms/AIML20Repo" rel="nofollow">AIML20 - 미리 빌드된 AI를 사용하여 비즈니스 과제 해결</a></li>
+<li><a href="https://aka.ms/AIML10Repo" rel="nofollow">AIML30 - 머신 러닝 모델을 예상보다 빠르게 구축하기</a></li>
+<li><a href="https://aka.ms/AIML40Repo" rel="nofollow">AIML40 - Azure Machine Learning 모범 사례를 사용한 모델 개선</a></li>
+<li><a href="https://aka.ms/AIML50Repo" rel="nofollow">AIML50 - 기계 학습 작업: 데이터 사이언스에 DevOps 적용</a></li>
+<li><a href="https://aka.ms/APPS10Repo" rel="nofollow">APPS10 - 클라우드에서 앱을 빌드하고 실행하기 위한 옵션</a></li>
+<li><a href="https://aka.ms/APPS20Repo" rel="nofollow">APPS20 - 클라우드의 데이터 옵션</a></li>
+<li><a href="https://aka.ms/APPS30Repo" rel="nofollow">APPS30 - 컨테이너를 사용하여 애플리케이션 현대화</a></li>
+<li><a href="https://aka.ms/APPS40Repo" rel="nofollow">APPS40 - 인프라와 Azure Kubernetes Service 통합</a></li>
+<li><a href="https://aka.ms/APPS50Repo" rel="nofollow">APPS50 - 모니터링, 성능, 크기 조정으로 앱 개선</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/know-your-data-use-intelligence-to-identify-protect-and-govern/td-p/907365" rel="nofollow">COMP10 - 데이터 이해: 인텔리전스를 이용해 중요한 데이터 파악, 보호 및 관리</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/identify-and-take-action-on-insider-risks-threats-and-code-of/td-p/907364" rel="nofollow">COMP20 - 중요한 내부자 보안 위협 및 리스크를 지능적으로 식별하고 재구성</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/take-control-of-your-data-explosion-with-intelligent-information/td-p/907363" rel="nofollow">COMP30 - 인텔리전트 정보 거버넌스로 데이터 관리</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/ediscovery-and-audit-harnessing-intelligent-and-end-to-end/td-p/907362" rel="nofollow">COMP40 - eDiscovery 및 감사: 인텔리전트 방식의 엔드 투 엔드 솔루션을 활용하여 성과를 개선하고 비용 절감</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/supercharge-your-ability-to-simplify-it-compliance-and-reduce/td-p/907361" rel="nofollow">COMP50 - 간단하며 자동화된 IT 리스크 평가를 통해 관리 능력 극대화</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/why-windows-10-enterprise-and-office-365-proplus-security/td-p/907360" rel="nofollow">DEP10 - 왜 Windows 10 Enterprise 및 Office 365 ProPlus를 선택해야 할까요? 보안, 프라이버시 및 탁월한 사용자 환경</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/modern-windows-10-and-office-365-deployment-with-windows/td-p/907359" rel="nofollow">DEP20 - Windows Autopilot, Desktop Analytics, Microsoft Intune, Configuration Manager를 통해 최신 Windows 10 및 Office 365 구축</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/streamline-and-stay-current-with-windows-10-and-office-365/td-p/907358" rel="nofollow">DEP30 - Windows 10 및 Office 365 ProPlus로 간소화 및 최신 상태 유지</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/supercharge-pc-and-mobile-device-management-attach-configuration/td-p/907357" rel="nofollow">DEP40 - PC 및 모바일 기기 관리 효율 극대화: Microsoft Intune 및 Microsoft 365 클라우드에 Configuration Manager 연결</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/why-microsoft-365-device-management-is-essential-to-your-zero/td-p/907356" rel="nofollow">DEP50 - 신뢰할 수 없는 디바이스 관리 전략에 Microsoft 365가 필수인 이유</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/dynamics-365-establish-and-administer-a-cross-organization/td-p/907410" rel="nofollow">DYNA10 - Dynamics 365 - 조직 전반의 비즈니스 애플리케이션 전략을 수립하고 관리</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/configuring-and-managing-dynamics-365-sales-and-dynamics-365/td-p/907409" rel="nofollow">DYNA20 - Dynamics 365 Sales와 Dynamics 365 Marketing의 구성 및 관리 - 영업과 마케팅의 통합 운영</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/configuring-and-managing-dynamics-365-customer-service-and/td-p/907408" rel="nofollow">DYNA30 - Dynamics 365 Customer Service와 Dynamics 365 Field Service의 구성 및 관리 - 선제적인 서비스 조직을 운영</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/configuring-and-managing-dynamics-365-finance-modernize-finance/td-p/907407" rel="nofollow">DYNA40 - Dynamics 365 Finance의 구성 및 관리 - 최신 방식의 재무 운영과 공급망</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/configuring-and-managing-dynamics-365-retail-enable-connected/td-p/907406" rel="nofollow">DYNA50 - Dynamics 365 Retail의 구성 및 관리 - 커넥티드 소매유통업 운영</a></li>
+<li><a href="https://aka.ms/MCO10Repo" rel="nofollow">MCO10 - IaaS VM 작업</a></li>
+<li><a href="https://aka.ms/MCO20Repo" rel="nofollow">MCO20 - Azure 거버넌스 및 관리</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/the-perfectly-tailored-productivity-suite-starts-with-the/td-p/907339" rel="nofollow">MDEV10 - Microsoft 365 플랫폼으로 시작되는 완벽한 맞춤형 업무 생산성 제품군</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/microsoft-graph-a-primer-for-developers/td-p/907338" rel="nofollow">MDEV20 - Microsoft Graph: 신원 확인 및 업무 생산성의 기본</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/building-modern-enterprise-grade-collaboration-solutions-with/td-p/907333" rel="nofollow">MDEV30 - Microsoft Teams와 SharePoint로 엔터프라이즈급 최신 협업 솔루션 구축</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/transform-everyday-business-processes-with-microsoft-365/td-p/907335" rel="nofollow">MDEV40 - Microsoft 365 플랫폼 도구로 일상적인 비즈니스 프로세스 혁신하기</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/windows-10-the-developer-platform-and-modern-application/td-p/907336" rel="nofollow">MDEV50 - Windows 10 운영의 개발자 플랫폼 및 최신 방식의 애플리케이션 개발</a></li>
+<li><a href="https://aka.ms/MOD10Repo" rel="nofollow">MOD10 - 웹 애플리케이션을 Azure로 마이그레이션</a></li>
+<li><a href="https://aka.ms/MOD10Repo" rel="nofollow">MOD20 - 데이터베이스를 Azure로 이전</a></li>
+<li><a href="https://aka.ms/MOD10Repo" rel="nofollow">MOD30 - 클라우드 인텔리전스를 사용하여 웹 애플리케이션 향상</a></li>
+<li><a href="https://aka.ms/MOD10Repo" rel="nofollow">MOD40 - 프로덕션 애플리케이션 디버깅 및 상호 작용</a></li>
+<li><a href="https://aka.ms/MOD10Repo" rel="nofollow">MOD50 - DevOps를 통해 앱 배달 관리</a></li>
+<li><a href="https://aka.ms/MSI10Repo" rel="nofollow">MSI10 - Windows Server 2019로 마이그레이션</a></li>
+<li><a href="https://aka.ms/MSI20Repo" rel="nofollow">MSI20 - 하이브리드 관리 기술</a> (<a href="https://www.slideshare.net/ssuserc17528/microsoft-ignite-the-tour-seoul-msi20-hybrid" rel="nofollow">한글 자료</a>)</li>
+<li><a href="https://aka.ms/MSI30Repo" rel="nofollow">MSI30 - IaaS 워크로드를 Azure로 마이그레이션</a></li>
+<li><a href="https://aka.ms/OPS10Repo" rel="nofollow">OPS10 - 현대적 운영의 기반 구축: 모니터링</a></li>
+<li><a href="https://aka.ms/OPS20Repo" rel="nofollow">OPS20 - 인시던트에 대한 대응</a></li>
+<li><a href="https://aka.ms/OPS30Repo" rel="nofollow">OPS30 - 실패로부터 배우기</a></li>
+<li><a href="https://aka.ms/OPS40Repo" rel="nofollow">OPS40 - 안정성 향상을 위한 배포 방법</a></li>
+<li><a href="https://aka.ms/OPS50Repo" rel="nofollow">OPS50 - 성장 대비: 용량 계획 및 크기 조정</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/enabling-everyone-to-digitize-apps-and-processes-with-powerapps/td-p/907405" rel="nofollow">POWA10 - Microsoft Power Apps과 Power Platform으로 모든 사용자의 앱과 프로세스를 디지털화</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/intelligent-automation-with-microsoft-flow/td-p/907403" rel="nofollow">POWA20 - Intelligent automation with Microsoft Power Automate</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/enable-modern-analytics-and-enterprise-business-intelligence/td-p/907404" rel="nofollow">POWA30 - Microsoft Power BI로 최신 방식의 분석, 엔터프라이즈 비즈니스 인텔리전스 활용</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/connecting-powerapps-microsoft-flow-power-bi-and-the-common-data/td-p/907402" rel="nofollow">POWA40 - Power Apps, Microsoft Power Automate, Power BI, Common Data Service와 데이터 연결하기</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/managing-and-supporting-the-powerapps-and-microsoft-flow-at/td-p/907401" rel="nofollow">POWA50 - 규모에 따라 Power Apps과 Microsoft Power Automate의 관리 및 지원</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/secure-your-enterprise-with-a-strong-identity-foundation/td-p/907355" rel="nofollow">SECO10 - 제목: 강력한 ID 기반으로 기업을 보호하세요</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/dive-deep-into-microsoft-365-threat-protection-see-how-we-defend/td-p/907354" rel="nofollow">SECO20 - 제목: Microsoft 365 Threat Protection에 대해 자세히 알아보고 피싱과 같은 위협으로부터 어떻게 보호하고 해당 지역의 트랙에서 공격을 차단하는지 확인합니다</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/end-to-end-cloud-security-for-all-your-xaas-resources/td-p/907353" rel="nofollow">SECO30 - 귀사의 모든 XaaS 리소스를 위한 엔드 투 엔드 클라우드 보안</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/understanding-how-the-latest-microsoft-information-protection/td-p/907352" rel="nofollow">SECO40 - 최신 Microsoft Information Protection 솔루션이 중요한 데이터를 보호하는 방법 알아보기</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/top-10-best-security-practices-for-azure-today/td-p/907351" rel="nofollow">SECO50 - 현재 Azure 최고의 보안 실천 모범 사례 10가지</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/content-collaboration-and-protection-with-sharepoint-onedrive/td-p/907345" rel="nofollow">SOYS10 - SharePoint, OneDrive 및 Microsoft Teams의 컨텐츠 협업 및 보호 기능</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/connect-the-organization-and-engage-people-with-sharepoint/td-p/907344" rel="nofollow">SOYS20 - SharePoint, Yammer 및 Microsoft Stream을 통해 조직을 연결하고 사람들의 참여 유도</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/the-intelligent-intranet-transform-communications-and-digital/td-p/907343" rel="nofollow">SOYS30 - 인텔리전트 인트라넷: 커뮤니케이션 및 디지털 직원 환경 혁신</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/harness-collective-knowledge-with-intelligent-content-services/td-p/907342" rel="nofollow">SOYS40 - 인텔리전트 콘텐츠 서비스와 Microsoft Search로 집단적 지식을 활용</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/what-s-new-with-microsoft-teams-the-hub-for-teamwork-in/td-p/907350" rel="nofollow">TMS10 - Microsoft Teams의 새로운 기능: Microsoft 365 내의 팀 작업용 중심지</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/intelligent-communications-in-microsoft-teams/td-p/907349" rel="nofollow">TMS20 - Microsoft Teams에서의 인텔리전트 커뮤니케이션</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/designing-your-path-from-skype-for-business-to-teams/td-p/907347" rel="nofollow">TMS30 - 비즈니스용 Skype에서 Teams로 경로 전환</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/managing-microsoft-teams-effectively/td-p/907348" rel="nofollow">TMS40 - Microsoft Teams를 효과적으로 관리하기</a></li>
+<li><a href="https://techcommunity.microsoft.com/t5/microsoft-ignite-the-tour-2019/streamline-business-processes-with-the-microsoft-teams/td-p/907346" rel="nofollow">TMS50 - Microsoft Teams 개발 플랫폼을 활용해 비즈니스 프로세스 간소화</a></li>
+</ul>
+</article>
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/ianychoi/d6ca01ed4f57d1ddbef588e6d125f563/raw/90869f0a355f171f28c718122ff36e6b0fe5a614/Ignite%20the%20Tour%20Seoul%20materials.md" style="float:right">view raw</a>
+        <a href="https://gist.github.com/ianychoi/d6ca01ed4f57d1ddbef588e6d125f563#file-ignite-the-tour-seoul-materials-md">Ignite the Tour Seoul materials.md</a>
+        hosted with &#10084; by <a href="https://github.com">GitHub</a>
+      </div>
+    </div>
+</div>
+</div>
+<h3 id="gist-내-특정-파일-공유"><a href="#gist-%EB%82%B4-%ED%8A%B9%EC%A0%95-%ED%8C%8C%EC%9D%BC-%EA%B3%B5%EC%9C%A0" aria-hidden="true"><span class="icon icon-link"></span></a>Gist 내 특정 파일 공유</h3>
+<div class="gridsome-highlight" data-language="text"><pre class="language-text"><code class="language-text">https://gist.github.com/&lt;username_or_orgname&gt;/&lt;gist_id&gt;?file=07-proxy-http-trigger.js</code></pre></div>
+<div class="gist-embed">
+    <div id="gist103760896" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-07-proxy-http-trigger-js" class="file my-2">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-javascript  ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-07-proxy-http-trigger-js-LC1" class="blob-code blob-code-inner js-file-line"><span class=pl-k>const</span> <span class=pl-s1>axios</span> <span class=pl-c1>=</span> <span class=pl-en>require</span><span class=pl-kos>(</span><span class=pl-s>&#39;axios&#39;</span><span class=pl-kos>)</span><span class=pl-kos>;</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-07-proxy-http-trigger-js-LC2" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-07-proxy-http-trigger-js-LC3" class="blob-code blob-code-inner js-file-line"><span class=pl-smi>module</span><span class=pl-kos>.</span><span class=pl-en>exports</span> <span class=pl-c1>=</span> <span class=pl-k>async</span> <span class=pl-k>function</span> <span class=pl-kos>(</span><span class=pl-s1>context</span><span class=pl-kos>,</span> <span class=pl-s1>req</span><span class=pl-kos>)</span> <span class=pl-kos>{</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-07-proxy-http-trigger-js-LC4" class="blob-code blob-code-inner js-file-line">    <span class=pl-k>let</span> <span class=pl-s1>baseUri</span> <span class=pl-c1>=</span> <span class=pl-s1>process</span><span class=pl-kos>.</span><span class=pl-c1>env</span><span class=pl-kos>.</span><span class=pl-c1>API__BASE_URI</span><span class=pl-kos>;</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-07-proxy-http-trigger-js-LC5" class="blob-code blob-code-inner js-file-line">    <span class=pl-k>let</span> <span class=pl-s1>endpoint</span> <span class=pl-c1>=</span> <span class=pl-s1>process</span><span class=pl-kos>.</span><span class=pl-c1>env</span><span class=pl-kos>.</span><span class=pl-c1>API__ENDPOINT</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-07-proxy-http-trigger-js-LC6" class="blob-code blob-code-inner js-file-line">    <span class=pl-k>let</span> <span class=pl-s1>authKey</span> <span class=pl-c1>=</span> <span class=pl-s1>process</span><span class=pl-kos>.</span><span class=pl-c1>env</span><span class=pl-kos>.</span><span class=pl-c1>API__AUTH_KEY</span> <span class=pl-c1>===</span> <span class=pl-c1>undefined</span> ? <span class=pl-s>&#39;&#39;</span> : <span class=pl-s1>process</span><span class=pl-kos>.</span><span class=pl-c1>env</span><span class=pl-kos>.</span><span class=pl-c1>API__AUTH_KEY</span><span class=pl-kos>;</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-07-proxy-http-trigger-js-LC7" class="blob-code blob-code-inner js-file-line">    <span class=pl-k>let</span> <span class=pl-s1>count</span> <span class=pl-c1>=</span> <span class=pl-s1>req</span><span class=pl-kos>.</span><span class=pl-c1>query</span><span class=pl-kos>.</span><span class=pl-c1>count</span> <span class=pl-c1>===</span> <span class=pl-c1>undefined</span> ? <span class=pl-c1>0</span> : <span class=pl-s1>req</span><span class=pl-kos>.</span><span class=pl-c1>query</span><span class=pl-kos>.</span><span class=pl-c1>count</span><span class=pl-kos>;</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-07-proxy-http-trigger-js-LC8" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-07-proxy-http-trigger-js-LC9" class="blob-code blob-code-inner js-file-line">    <span class=pl-k>let</span> <span class=pl-s1>requestUri</span> <span class=pl-c1>=</span> <span class=pl-s1>baseUri</span> <span class=pl-c1>+</span> <span class=pl-s1>endpoint</span> <span class=pl-c1>+</span> <span class=pl-s>&#39;?count=&#39;</span> <span class=pl-c1>+</span> <span class=pl-s1>count</span> <span class=pl-c1>+</span> <span class=pl-s>&#39;&amp;code=&#39;</span> <span class=pl-c1>+</span> <span class=pl-s1>authKey</span><span class=pl-kos>;</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-07-proxy-http-trigger-js-LC10" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-07-proxy-http-trigger-js-LC11" class="blob-code blob-code-inner js-file-line">    <span class=pl-k>let</span> <span class=pl-s1>response</span> <span class=pl-c1>=</span> <span class=pl-k>await</span> <span class=pl-s1>axios</span><span class=pl-kos>.</span><span class=pl-en>get</span><span class=pl-kos>(</span><span class=pl-s1>requestUri</span><span class=pl-kos>)</span><span class=pl-kos>;</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-07-proxy-http-trigger-js-LC12" class="blob-code blob-code-inner js-file-line">    <span class=pl-k>let</span> <span class=pl-s1>result</span> <span class=pl-c1>=</span> <span class=pl-kos>{</span> <span class=pl-s>&quot;text&quot;</span>: <span class=pl-s1>response</span><span class=pl-kos>.</span><span class=pl-c1>data</span><span class=pl-kos>.</span><span class=pl-c1>message</span> <span class=pl-kos>}</span><span class=pl-kos>;</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-07-proxy-http-trigger-js-LC13" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-07-proxy-http-trigger-js-LC14" class="blob-code blob-code-inner js-file-line">    <span class=pl-s1>context</span><span class=pl-kos>.</span><span class=pl-c1>res</span> <span class=pl-c1>=</span> <span class=pl-kos>{</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-07-proxy-http-trigger-js-LC15" class="blob-code blob-code-inner js-file-line">        <span class=pl-c>// status: 200, /* Defaults to 200 */</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-07-proxy-http-trigger-js-LC16" class="blob-code blob-code-inner js-file-line">        <span class=pl-c1>body</span>: <span class=pl-s1>result</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-07-proxy-http-trigger-js-LC17" class="blob-code blob-code-inner js-file-line">    <span class=pl-kos>}</span><span class=pl-kos>;</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-07-proxy-http-trigger-js-LC18" class="blob-code blob-code-inner js-file-line"><span class=pl-kos>}</span></td>
+      </tr>
+</table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/justinyoo/fcba3e387d240a057e76a28f233fec82/raw/be05e2673aef659d82c32e8f15cca9579c2d0d6e/07-proxy-http-trigger.js" style="float:right">view raw</a>
+        <a href="https://gist.github.com/justinyoo/fcba3e387d240a057e76a28f233fec82#file-07-proxy-http-trigger-js">07-proxy-http-trigger.js</a>
+        hosted with &#10084; by <a href="https://github.com">GitHub</a>
+      </div>
+    </div>
+</div>
+</div>
+<h3 id="gist-내-특정-파일의-특정-라인-하이라이트"><a href="#gist-%EB%82%B4-%ED%8A%B9%EC%A0%95-%ED%8C%8C%EC%9D%BC%EC%9D%98-%ED%8A%B9%EC%A0%95-%EB%9D%BC%EC%9D%B8-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8" aria-hidden="true"><span class="icon icon-link"></span></a>Gist 내 특정 파일의 특정 라인 하이라이트</h3>
+<div class="gridsome-highlight" data-language="text"><pre class="language-text"><code class="language-text">https://gist.github.com/&lt;username_or_orgname&gt;/&lt;gist_id&gt;?file=07-proxy-http-trigger.js&amp;highlights=4-6,9,11</code></pre></div>
+<div class="gist-embed">
+    <html><head></head><body><div id="gist103760896" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-07-proxy-http-trigger-js" class="file my-2">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-javascript  ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-07-proxy-http-trigger-js-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-07-proxy-http-trigger-js-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">const</span> <span class="pl-s1">axios</span> <span class="pl-c1">=</span> <span class="pl-en">require</span><span class="pl-kos">(</span><span class="pl-s">'axios'</span><span class="pl-kos">)</span><span class="pl-kos">;</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-07-proxy-http-trigger-js-LC2" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-07-proxy-http-trigger-js-LC3" class="blob-code blob-code-inner js-file-line"><span class="pl-smi">module</span><span class="pl-kos">.</span><span class="pl-en">exports</span> <span class="pl-c1">=</span> <span class="pl-k">async</span> <span class="pl-k">function</span> <span class="pl-kos">(</span><span class="pl-s1">context</span><span class="pl-kos">,</span> <span class="pl-s1">req</span><span class="pl-kos">)</span> <span class="pl-kos">{</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-07-proxy-http-trigger-js-LC4" class="blob-code blob-code-inner js-file-line highlighted">    <span class="pl-k">let</span> <span class="pl-s1">baseUri</span> <span class="pl-c1">=</span> <span class="pl-s1">process</span><span class="pl-kos">.</span><span class="pl-c1">env</span><span class="pl-kos">.</span><span class="pl-c1">API__BASE_URI</span><span class="pl-kos">;</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-07-proxy-http-trigger-js-LC5" class="blob-code blob-code-inner js-file-line highlighted">    <span class="pl-k">let</span> <span class="pl-s1">endpoint</span> <span class="pl-c1">=</span> <span class="pl-s1">process</span><span class="pl-kos">.</span><span class="pl-c1">env</span><span class="pl-kos">.</span><span class="pl-c1">API__ENDPOINT</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-07-proxy-http-trigger-js-LC6" class="blob-code blob-code-inner js-file-line highlighted">    <span class="pl-k">let</span> <span class="pl-s1">authKey</span> <span class="pl-c1">=</span> <span class="pl-s1">process</span><span class="pl-kos">.</span><span class="pl-c1">env</span><span class="pl-kos">.</span><span class="pl-c1">API__AUTH_KEY</span> <span class="pl-c1">===</span> <span class="pl-c1">undefined</span> ? <span class="pl-s">''</span> : <span class="pl-s1">process</span><span class="pl-kos">.</span><span class="pl-c1">env</span><span class="pl-kos">.</span><span class="pl-c1">API__AUTH_KEY</span><span class="pl-kos">;</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-07-proxy-http-trigger-js-LC7" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">let</span> <span class="pl-s1">count</span> <span class="pl-c1">=</span> <span class="pl-s1">req</span><span class="pl-kos">.</span><span class="pl-c1">query</span><span class="pl-kos">.</span><span class="pl-c1">count</span> <span class="pl-c1">===</span> <span class="pl-c1">undefined</span> ? <span class="pl-c1">0</span> : <span class="pl-s1">req</span><span class="pl-kos">.</span><span class="pl-c1">query</span><span class="pl-kos">.</span><span class="pl-c1">count</span><span class="pl-kos">;</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-07-proxy-http-trigger-js-LC8" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-07-proxy-http-trigger-js-LC9" class="blob-code blob-code-inner js-file-line highlighted">    <span class="pl-k">let</span> <span class="pl-s1">requestUri</span> <span class="pl-c1">=</span> <span class="pl-s1">baseUri</span> <span class="pl-c1">+</span> <span class="pl-s1">endpoint</span> <span class="pl-c1">+</span> <span class="pl-s">'?count='</span> <span class="pl-c1">+</span> <span class="pl-s1">count</span> <span class="pl-c1">+</span> <span class="pl-s">'&amp;code='</span> <span class="pl-c1">+</span> <span class="pl-s1">authKey</span><span class="pl-kos">;</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-07-proxy-http-trigger-js-LC10" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-07-proxy-http-trigger-js-LC11" class="blob-code blob-code-inner js-file-line highlighted">    <span class="pl-k">let</span> <span class="pl-s1">response</span> <span class="pl-c1">=</span> <span class="pl-k">await</span> <span class="pl-s1">axios</span><span class="pl-kos">.</span><span class="pl-en">get</span><span class="pl-kos">(</span><span class="pl-s1">requestUri</span><span class="pl-kos">)</span><span class="pl-kos">;</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-07-proxy-http-trigger-js-LC12" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">let</span> <span class="pl-s1">result</span> <span class="pl-c1">=</span> <span class="pl-kos">{</span> <span class="pl-s">"text"</span>: <span class="pl-s1">response</span><span class="pl-kos">.</span><span class="pl-c1">data</span><span class="pl-kos">.</span><span class="pl-c1">message</span> <span class="pl-kos">}</span><span class="pl-kos">;</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-07-proxy-http-trigger-js-LC13" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-07-proxy-http-trigger-js-LC14" class="blob-code blob-code-inner js-file-line">    <span class="pl-s1">context</span><span class="pl-kos">.</span><span class="pl-c1">res</span> <span class="pl-c1">=</span> <span class="pl-kos">{</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-07-proxy-http-trigger-js-LC15" class="blob-code blob-code-inner js-file-line">        <span class="pl-c">// status: 200, /* Defaults to 200 */</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-07-proxy-http-trigger-js-LC16" class="blob-code blob-code-inner js-file-line">        <span class="pl-c1">body</span>: <span class="pl-s1">result</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-07-proxy-http-trigger-js-LC17" class="blob-code blob-code-inner js-file-line">    <span class="pl-kos">}</span><span class="pl-kos">;</span></td>
+      </tr>
+      <tr>
+        <td id="file-07-proxy-http-trigger-js-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-07-proxy-http-trigger-js-LC18" class="blob-code blob-code-inner js-file-line"><span class="pl-kos">}</span></td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/justinyoo/fcba3e387d240a057e76a28f233fec82/raw/be05e2673aef659d82c32e8f15cca9579c2d0d6e/07-proxy-http-trigger.js" style="float:right">view raw</a>
+        <a href="https://gist.github.com/justinyoo/fcba3e387d240a057e76a28f233fec82#file-07-proxy-http-trigger-js">07-proxy-http-trigger.js</a>
+        hosted with ❤ by <a href="https://github.com">GitHub</a>
+      </div>
+    </div>
+</div>
+</body></html>
+</div>
+<h3 id="유튜브-youtube"><a href="#%EC%9C%A0%ED%8A%9C%EB%B8%8C-youtube" aria-hidden="true"><span class="icon icon-link"></span></a>유튜브 YouTube</h3>
+<div class="gridsome-highlight" data-language="text"><pre class="language-text"><code class="language-text">https://youtu.be/q2N6NZKxipg</code></pre></div>
+<div class="youtube-embed">
+    <div style="width: 100%; margin: 0 auto;">
+        <div style="position: relative; padding-bottom: 56.25%; padding-top: 25px; height: 0;">
+            <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                src="https://www.youtube-nocookie.com/embed/q2N6NZKxipg"
+                allow="autoplay; encrypted-media" allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</div>
+<h3 id="트위터-twitter"><a href="#%ED%8A%B8%EC%9C%84%ED%84%B0-twitter" aria-hidden="true"><span class="icon icon-link"></span></a>트위터 Twitter</h3>
+<div class="gridsome-highlight" data-language="text"><pre class="language-text"><code class="language-text">https://twitter.com/microsofttechKR/status/1340869604869025793</code></pre></div>
+<div class="twitter-embed">
+    <blockquote class="twitter-tweet" data-dnt="true" data-theme="light"><p lang="ko" dir="ltr">대세 중 대세. 하이브리드 클라우드란?, 간단하게 3.가.지.로 설명해드립니다. <br>마이크로소프트에서 제공하는 하이브리드 클라우드 Azure Stack 3형제, 적재 적소에 사용하는 방법을 알려드립니다. <a href="https://twitter.com/hashtag/%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C?src=hash&amp;ref_src=twsrc%5Etfw">#클라우드</a> <a href="https://twitter.com/hashtag/%ED%95%98%EC%9D%B4%EB%B8%8C%EB%A6%AC%EB%93%9C%ED%81%B4%EB%9D%BC%EC%9A%B0%EB%93%9C?src=hash&amp;ref_src=twsrc%5Etfw">#하이브리드클라우드</a> <a href="https://twitter.com/hashtag/Azure?src=hash&amp;ref_src=twsrc%5Etfw">#Azure</a><a href="https://t.co/Q0jiknwYvu">https://t.co/Q0jiknwYvu</a></p>&mdash; Microsoft Tech KR (@microsofttechKR) <a href="https://twitter.com/microsofttechKR/status/1340869604869025793?ref_src=twsrc%5Etfw">December 21, 2020</a></blockquote>
+
+</div>
+</div></section></div></div><div class="bg-gray-100 dark:bg-gray-900 text-black dark:text-gray-400 text-center text-sm"><div class="container mx-auto py-16"><div class="mb-4"><p>
+        Copyright 2020 by 마이크로소프트 기술 블로그 · Powered by
+        <a href="https://www.gridsome.org" target="_blank">Gridsome</a></p></div><div class="mb-4"><ul class="list-reset flex justify-center"><li class="px-4"><a href="https://youtube.com/channel/UCdgR-b2t7Byu_UGrHnu-T0g" target="_blank" title="YouTube" class="hover:text-blue-500"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="youtube" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svg-inline--fa fa-youtube fa-w-18 fa-lg"><path fill="currentColor" d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path></svg></a></li><li class="px-4"><a href="https://twitter.com/microsofttechKR" target="_blank" title="Twitter" class="hover:text-blue-500"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="twitter" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-twitter fa-w-16 fa-lg"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg></a></li><li class="px-4"><a href="https://facebook.com/MicrosoftDeveloper.Korea" target="_blank" title="Facebook" class="hover:text-blue-500"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-square" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-facebook-square fa-w-14 fa-lg"><path fill="currentColor" d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"></path></svg></a></li></ul></div><div class="mb-4"><ul class="list-reset flex justify-center"><li class="px-4"><a href="/developerkorea/rss.xml" title="RSS" class="hover:text-blue-500">RSS</a><!----></li><li class="px-4"><!----><a href="https://youtube.com/channel/UCdgR-b2t7Byu_UGrHnu-T0g" target="_blank" title="YouTube" class="hover:text-blue-500 ">YouTube</a></li><li class="px-4"><!----><a href="https://twitter.com/microsofttechKR" target="_blank" title="Twitter" class="hover:text-blue-500 ">Twitter</a></li><li class="px-4"><!----><a href="https://facebook.com/MicrosoftDeveloper.Korea" target="_blank" title="Facebook" class="hover:text-blue-500 ">Facebook</a></li></ul></div></div></div></div>
+    <script src="/developerkorea/assets/js/app.d5e031a4.js" defer></script><script src="/developerkorea/assets/js/page--src--templates--custom-page-vue.a7b579d1.js" defer></script>
+  </body>
+</html>
