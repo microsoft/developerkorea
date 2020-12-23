@@ -2,12 +2,12 @@
   "headerNavigation": [
     {
       "name": "🏠 홈",
-      "link": "/developerkorea",
+      "link": "/",
       "external": false
     },
     {
       "name": "🚀 시작하기",
-      "link": "/developerkorea/getting-started",
+      "link": "/getting-started",
       "external": false
     },
     {
@@ -43,14 +43,14 @@
     },
     {
       "name": "📣 RSS",
-      "link": "/developerkorea/feed.xml",
+      "link": "/feed.xml",
       "external": false
     }
   ],
   "footerNavigation": [
     {
       "name": "RSS",
-      "link": "/developerkorea/feed.xml",
+      "link": "/feed.xml",
       "external": false
     },
     {
