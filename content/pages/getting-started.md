@@ -3,47 +3,96 @@ title: 시작하기
 slug: getting-started
 ---
 
-이 페이지는 블로그를 마크다운 형식으로 작성할 때 필요한 마크다운 문법과 간단한 외부 미디어 삽입 방법에 대해 알려줍니다.
+이 페이지는 블로그를 마크다운 형식으로 작성할 때 필요한 메타데이터 삽입 요령과, 마크다운 문법, 그리고 유튜브 비디오 혹은 gist 코드 블록과 같은 외부 미디어 삽입 방법에 대해 알려줍니다.
 
-## 프론트매터 Front Matter ##
+
+## 목차 ##
+
+> - [목차](#목차)
+> - [글쓴이 생성](#글쓴이-생성)
+>   - [글쓴이용 프론트매터](#글쓴이용-프론트매터)
+> - [포스트 생성](#포스트-생성)
+>   - [포스트 프론트매터](#포스트-프론트매터)
+> - [헤딩 Headings](#헤딩-headings)
+> - [일반 텍스트 Normal Text](#일반-텍스트-normal-text)
+>   - [한글 Korean](#한글-korean)
+>   - [영문 English](#영문-english)
+> - [인용문 Blockquotes](#인용문-blockquotes)
+> - [리스트 Lists](#리스트-lists)
+>   - [Ordered List](#ordered-list)
+>   - [Unordered List](#unordered-list)
+> - [테이블 Tables](#테이블-tables)
+> - [코드 블록 Codeblocks](#코드-블록-codeblocks)
+>   - [인라인 코드 Inline Code](#인라인-코드-inline-code)
+>   - [코드 블록 Codeblock](#코드-블록-codeblock)
+> - [이미지 Images](#이미지-images)
+>   - [외부 이미지](#외부-이미지)
+>   - [내부 이미지](#내부-이미지)
+> - [단축 코드](#단축-코드)
+>   - [깃헙 Gist](#깃헙-gist)
+>   - [Gist 전체 공유](#gist-전체-공유)
+>   - [Gist 내 특정 파일 공유](#gist-내-특정-파일-공유)
+>   - [Gist 내 특정 파일의 특정 라인 하이라이트](#gist-내-특정-파일의-특정-라인-하이라이트)
+>   - [유튜브 YouTube](#유튜브-youtube)
+>   - [트위터 Twitter](#트위터-twitter)
+
+
+## 글쓴이 생성 ##
+
+모든 포스트는 기본적으로 글 작성자를 포함해야 합니다.
+
+* 파일 이름: `<first-name>-<last-name>.md`
+* 파일 위치: `content/authors`
+* 커퍼 파일 이름: `<first-name>-<last-name>.(jpg|png)` 최소 `2000x1000`px 사이즈 이상
+* 커버 파일 위치: `content/authors/covers`
+* 프사 파일 이름: `<first-name>-<last-name>.(jpg|png)` 최소 `500x500`px 사이즈 이상
+* 프사 파일 위치: `content/authors/images`
+
+
+### 글쓴이용 프론트매터 ###
+
+글쓴이 정보를 아래와 같이 프론트매터 형식으로 작성합니다.
+
+```yaml
+---
+id: (필수) gildong-hong
+slug: (필수) gildong-hong
+name: (필수) 홍길동
+bio: (필수) 글쓴이에 대한 간략한 소개
+cover: (필수) ./covers/gildong-hong.png (외부 URL, 내부 URL 모두 허용)
+image: (필수) ./images/gildong-hong.png (외부 URL, 내부 URL 모두 허용)
+github: (선택) https://github.com
+linkedin: (선택) https://www.linkedin.com
+twitter: (선택) https://www.twitter.com
+facebook: (선택) https://www.facebook.com
+instagram: (선택) https://instagram.com
+---
+```
+
+
+## 포스트 생성 ##
+
+* 파일 이름: `<yyyy>-<MM>-<dd>-<slug>.md`
+* 파일 위치: `content/posts/<year>-<MM>`
+
+
+### 포스트 프론트매터 ###
 
 프론트매터는 모든 포스트의 맨 첫머리에 포스트의 기본적인 메타데이터를 정의하는 부분입니다. 아래와 같은 형식으로 작성합니다.
-
-
-### 포스트용 프론트매터 ###
 
 ```yaml
 ---
 title: (필수) 블로그 포스트 제목
 slug: (필수) post-url
 description: (필수) 포스트 간략 설명
-date: (필수) 2019-01-10
-image: (선택) 히어로 이미지 URL
+date: (필수) 2021-01-01
+image: (선택) 히어로 이미지 URL (외부 URL만 허용)
 image_caption: (선택) 히어로 이미지 캡션
-author: (필수) author1, author2, author3
+author: (필수) author-id
 category: (필수) Microsoft Azure, Microsoft 365, Power Platform 셋 중 하나 선택
-tags: (필수) tag1, tag2 
+tags: (필수) tag1, tag2
 canonical_url: (선택) 원본 포스트가 있을 경우 원본 포스트 URL
 featured: true (관리자가 지정)
----
-```
-
-
-### 글 작성자용 프론트매터 ###
-
-```yaml
----
-id: (필수) author-1
-slug: (필수) gildong-hong
-name: (필수) 홍길동
-bio: (필수) Primis vitae mauris turpis ornare libero odio torquent vehicula proin consequat curabitur mattis
-cover: (필수) ./cover/benjamin-voros-Lxq_TyMMHtQ-unsplash.jpg
-image: (필수) ./images/author1.png
-github: (선택) https://github.com
-linkedin: (선택) https://www.linkedin.com
-twitter: (선택) https://www.twitter.com
-facebook: (선택) https://www.facebook.com
-instagram: (선택) https://instagram.com
 ---
 ```
 
@@ -143,7 +192,7 @@ Vestibulum non sapien massa. In risus mauris, auctor at eros ut, semper sodales 
 * 나는 이름을 말 이름과 있습니다.
 
 
-## 테이블 Table ##
+## 테이블 Tables ##
 
 ```html
 | Tables   |      Are      |  Cool |
@@ -160,7 +209,7 @@ Vestibulum non sapien massa. In risus mauris, auctor at eros ut, semper sodales 
 | col 3 is | right-aligned |    $1 |
 
 
-## 코드 블록 Codeblock ##
+## 코드 블록 Codeblocks ##
 
 ### 인라인 코드 Inline Code ###
 
@@ -220,7 +269,7 @@ function visitor(node) {
 
 ## 이미지 Images ##
 
-### 외부 URL ###
+### 외부 이미지 ###
 
 ```html
 ![Photo by Ingmar Hoogerhoud on Unsplash](https://github.com/devrel-kr/gridsome-starter-liebling/blob/main/content/blog/images/ingmar-hoogerhoud-lm91dJNPRS4-unsplash.jpg?raw=true)
@@ -229,7 +278,7 @@ function visitor(node) {
 ![Photo by Ingmar Hoogerhoud on Unsplash](https://github.com/devrel-kr/gridsome-starter-liebling/blob/main/content/blog/images/ingmar-hoogerhoud-lm91dJNPRS4-unsplash.jpg?raw=true)
 
 
-### 내부 URL ###
+### 내부 이미지 ###
 
 ```html
 ![Designed by Ashley Willis](./images/bit-apex.png)
@@ -238,7 +287,11 @@ function visitor(node) {
 ![Designed by Ashley Willis](./images/bit-apex.png)
 
 
-## 깃헙 Gist ##
+## 단축 코드 ##
+
+자주 쓰는 외부 미디어들 링크를 위한 단축 코드를 나타냅니다.
+
+### 깃헙 Gist ###
 
 ### Gist 전체 공유 ###
 
@@ -267,7 +320,7 @@ https://gist.github.com/<username_or_orgname>/<gist_id>?file=07-proxy-http-trigg
 https://gist.github.com/justinyoo/fcba3e387d240a057e76a28f233fec82?file=07-proxy-http-trigger.js&highlights=4-6,9,11
 
 
-## 유튜브 YouTube ##
+### 유튜브 YouTube ###
 
 ```
 https://youtu.be/q2N6NZKxipg
@@ -276,7 +329,7 @@ https://youtu.be/q2N6NZKxipg
 https://youtu.be/q2N6NZKxipg
 
 
-## 트위터 Twitter ##
+### 트위터 Twitter ###
 
 ```
 https://twitter.com/microsofttechKR/status/1340869604869025793
