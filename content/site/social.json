@@ -1,19 +1,19 @@
 {
-    "social" : [
-        {
-            "name": "Facebook",
-            "link": "#",
-            "icon": "facebook-square"
-        },
-        {
-            "name": "Instagram",
-            "link": "#",
-            "icon": "instagram"
-        },
-        {
-            "name": "Github",
-            "link": "#",
-            "icon": "github"
-        }
-    ]
+  "social": [
+    {
+      "name": "YouTube",
+      "link": "https://youtube.com/channel/UCdgR-b2t7Byu_UGrHnu-T0g",
+      "icon": "youtube"
+    },
+    {
+      "name": "Twitter",
+      "link": "https://twitter.com/microsofttechKR",
+      "icon": "twitter"
+    },
+    {
+      "name": "Facebook",
+      "link": "https://facebook.com/MicrosoftDeveloper.Korea",
+      "icon": "facebook-square"
+    }
+  ]
 }

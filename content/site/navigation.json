@@ -1,62 +1,67 @@
 {
   "headerNavigation": [
     {
-      "name": "Home",
-      "link": "/",
+      "name": "🏠 홈",
+      "link": "/developerkorea",
       "external": false
     },
     {
-      "name": "About",
-      "link": "/about-us",
+      "name": "🚀 시작하기",
+      "link": "/developerkorea/getting-started",
       "external": false
     },
     {
-      "name": "Getting started",
-      "link": "/category/getting-started",
-      "external": false
+      "name": "📝 Docs",
+      "link": "https://docs.microsoft.com/ko-kr/",
+      "external": true
     },
     {
-      "name": "More",
+      "name": "📘 Learn",
+      "link": "https://docs.microsoft.com/ko-kr/learn/",
+      "external": true
+    },
+    {
+      "name": "📌 북마크",
       "link": "#",
       "children": [
         {
-          "name": "Theme Repository",
-          "link": "https://www.github.com/jammeryhq/gridsome-starter-liebling",
+          "name": "Microsoft Azure",
+          "link": "https://azure.microsoft.com/ko-kr/",
           "external": true
         },
         {
-          "name": "Gridsome Docs",
-          "link": "https://www.gridsome.org/docs",
+          "name": "Microsoft 365",
+          "link": "https://www.microsoft.com/ko-kr/microsoft-365",
           "external": true
         },
          {
-           "name": "Internal Page ( About )",
-           "link": "/about-us",
-           "external": false
+           "name": "Microsoft Power Platform",
+           "link": "https://powerplatform.microsoft.com/ko-kr/",
+           "external": true
          }
       ]
     }
   ],
   "footerNavigation": [
     {
-      "name": "Latest Posts",
-      "link": "/",
-      "external" : false
-    },
-    {
-      "name": "Facebook",
-      "link": "https://www.facebook.com",
-      "external": true
-    },
-    {
-      "name": "Gridsome",
-      "link": "https://www.gridsome.org",
-      "external": true
-    },
-    {
       "name": "RSS",
       "link": "/rss.xml",
       "external": false
+    },
+    {
+      "name": "YouTube",
+      "link": "https://youtube.com/channel/UCdgR-b2t7Byu_UGrHnu-T0g",
+      "external": true
+    },
+    {
+      "name": "Twitter",
+      "link": "https://twitter.com/microsofttechKR",
+      "external": true
+    },
+    {
+      "name": "Facebook",
+      "link": "https://facebook.com/MicrosoftDeveloper.Korea",
+      "external": true
     }
   ]
 }
