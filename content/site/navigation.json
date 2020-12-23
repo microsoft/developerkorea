@@ -40,12 +40,17 @@
            "external": true
          }
       ]
+    },
+    {
+      "name": "📣 RSS",
+      "link": "/developerkorea/feed.xml",
+      "external": false
     }
   ],
   "footerNavigation": [
     {
       "name": "RSS",
-      "link": "/rss.xml",
+      "link": "/developerkorea/feed.xml",
       "external": false
     },
     {
