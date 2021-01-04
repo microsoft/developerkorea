@@ -14,7 +14,7 @@ featured: true
 
 안녕하세요!
 
-2021년 한국 마이크로소프트에서 새롭게 기술 블로그를 선보입니다. 마이크로소프트의 클라우드 서비스 삼대 축을 이루는 [Microsoft Azure][ms azure], [Microsoft 365][ms 365] 그리고 [Microsoft Power Platform][ms pwpf]을 중심으로 현업 개발자들이 필요로하는 기술적인 내용들을 다룰 예정입니다.
+2021년 한국 마이크로소프트에서 새롭게 기술 블로그를 선보입니다. 마이크로소프트의 클라우드 서비스 삼대 축을 이루는 [Microsoft Azure][ms azure], [Microsoft 365][ms 365] 그리고 [Microsoft Power Platform][ms pwpf]을 중심으로 현업 개발자들이 필요로 하는 기술적인 내용들을 다룰 예정입니다.
 
 많은 성원 부탁드립니다!
 
