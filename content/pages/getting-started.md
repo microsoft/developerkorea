@@ -272,10 +272,10 @@ function visitor(node) {
 ### 외부 이미지 ###
 
 ```html
-![Photo by Ingmar Hoogerhoud on Unsplash](https://github.com/devrel-kr/gridsome-starter-liebling/blob/main/content/blog/images/ingmar-hoogerhoud-lm91dJNPRS4-unsplash.jpg?raw=true)
+![Photo by Ingmar Hoogerhoud on Unsplash](https://github.com/devrel-kr/gridsome-starter-liebling/blob/main/content/posts/images/ingmar-hoogerhoud-lm91dJNPRS4-unsplash.jpg?raw=true)
 ```
 
-![Photo by Ingmar Hoogerhoud on Unsplash](https://github.com/devrel-kr/gridsome-starter-liebling/blob/main/content/blog/images/ingmar-hoogerhoud-lm91dJNPRS4-unsplash.jpg?raw=true)
+![Photo by Ingmar Hoogerhoud on Unsplash](https://github.com/devrel-kr/gridsome-starter-liebling/blob/main/content/posts/images/ingmar-hoogerhoud-lm91dJNPRS4-unsplash.jpg?raw=true)
 
 
 ### 내부 이미지 ###
