@@ -119,7 +119,8 @@ module.exports = {
       options: {
         contentTypeName: 'Blog',
         feedOptions: {
-          title: 'Gridsome',
+          title: '마이크로소프트 기술 블로그',
+          description: 'Microsoft Azure, Microsoft 365, Microsoft Power Platform 개발의 모든 것을 다룹니다',
           feed_url: 'https://microsoft.github.io/developerkorea/feed.xml',
           site_url: 'https://microsoft.github.io/developerkorea',
         },
