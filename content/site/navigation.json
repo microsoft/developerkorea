@@ -45,6 +45,11 @@
       "name": "📣 RSS",
       "link": "/feed.xml",
       "external": false
+    },
+    {
+      "name": "깃헙",
+      "link": "https://github.com/microsoft/developerkorea",
+      "external": true
     }
   ],
   "footerNavigation": [
