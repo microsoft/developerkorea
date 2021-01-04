@@ -94,12 +94,19 @@ module.exports = {
     {
       use: 'gridsome-plugin-flexsearch',
       options: {
+        autoSetup: false,
         searchFields: ['title', 'content'],
         collections: [{
           typeName: 'Blog',
           indexName: 'Blog',
           fields: ['title', 'category', 'description', 'content']
-        }]
+        }],
+        flexsearch: {
+          encode: false,
+          tokenize: function(str){
+            return str.replace(/[\x00-\x7F]/g, "").split("");
+          }
+        }
       }
     },
     {
