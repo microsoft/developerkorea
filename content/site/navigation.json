@@ -72,6 +72,11 @@
       "name": "Facebook",
       "link": "https://facebook.com/MicrosoftDeveloper.Korea",
       "external": true
+    },
+    {
+      "name": "Github",
+      "link": "https://github.com/microsoft/developerkorea",
+      "external": true
     }
   ]
 }
