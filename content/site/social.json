@@ -1,6 +1,11 @@
 {
   "social": [
     {
+      "name": "RSS",
+      "link": "https://microsoft.github.io/developerkorea/feed.xml",
+      "icon": "rss-square"
+    },
+    {
       "name": "YouTube",
       "link": "https://youtube.com/channel/UCdgR-b2t7Byu_UGrHnu-T0g",
       "icon": "youtube"
@@ -14,6 +19,11 @@
       "name": "Facebook",
       "link": "https://facebook.com/MicrosoftDeveloper.Korea",
       "icon": "facebook-square"
+    },
+    {
+      "name": "GitHub",
+      "link": "https://github.com/microsoft/developerkorea",
+      "icon": "github"
     }
   ]
 }

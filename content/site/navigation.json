@@ -45,6 +45,11 @@
       "name": "📣 RSS",
       "link": "/feed.xml",
       "external": false
+    },
+    {
+      "name": "깃헙",
+      "link": "https://github.com/microsoft/developerkorea",
+      "external": true
     }
   ],
   "footerNavigation": [
@@ -66,6 +71,11 @@
     {
       "name": "Facebook",
       "link": "https://facebook.com/MicrosoftDeveloper.Korea",
+      "external": true
+    },
+    {
+      "name": "GitHub",
+      "link": "https://github.com/microsoft/developerkorea",
       "external": true
     }
   ]
