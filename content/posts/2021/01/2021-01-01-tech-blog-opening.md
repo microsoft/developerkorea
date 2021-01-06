@@ -17,7 +17,7 @@ featured: true
 
 많은 성원 부탁드립니다!
 
-![][image-01]
+![Developer Advocate Bit][image-01]
 
 
 [image-01]: https://sa0blogs.blob.core.windows.net/msdevkr/2021/01/2021-01-01-tech-blog-opening-01.png
