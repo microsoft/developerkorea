@@ -86,7 +86,12 @@ https://gist.github.com/justinyoo/8865213b31baeda9f7c1ad258351a039?file=05-one-l
 
 지금까지 이벤트그리드 구독자를 프로비저닝하고 로직앱을 그 처리자로 설정하기 위해 애저 CLI를 이용하는 방법에 대해 알아 보았습니다. 이를 조금 더 활용하면 [깃헙 액션][gh actions]과 같은 CI/CD 파이프라인에서도 손쉽게 통합시킬 수 있을 것입니다.
 
+
+## 더 궁금하다면... ##
+
 * 애저 클라우드에 관심이 있으신가요? ➡️ [무료 애저 계정 생성하기][az account free]
+* 애저 클라우드 무료 온라인 강의 코스를 들어 보세요! ➡️ [Microsoft Learn][ms learn]
+* 마이크로소프트 개발자 유튜브 채널 ➡️ [Microsoft Developer Korea][yt msdevkr]
 
 
 [image-01]: https://docs.microsoft.com/ko-kr/azure/event-grid/media/overview/functional-model.png?WT.mc_id=devops-12244-juyoo
@@ -95,6 +100,8 @@ https://gist.github.com/justinyoo/8865213b31baeda9f7c1ad258351a039?file=05-one-l
 [image-04]: https://sa0blogs.blob.core.windows.net/aliencube/2021/01/provisioning-eventgrid-subscription-and-logicapp-handler-using-azure-cli-04.png
 
 [az account free]: https://azure.microsoft.com/ko-kr/free/?WT.mc_id=devops-12244-juyoo
+[ms learn]: https://docs.microsoft.com/ko-kr/learn/?WT.mc_id=devops-12244-juyoo
+[yt msdevkr]: https://www.youtube.com/channel/UCdgR-b2t7Byu_UGrHnu-T0g
 
 [az cli]: https://docs.microsoft.com/ko-kr/cli/azure/what-is-azure-cli?WT.mc_id=devops-12244-juyoo
 [az cli extensions]: https://docs.microsoft.com/ko-kr/cli/azure/azure-cli-extensions-list?WT.mc_id=devops-12244-juyoo
