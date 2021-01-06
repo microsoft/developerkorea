@@ -137,6 +137,9 @@ export default {
         { property: "og:url", content: this.site.url },
         { property: "og:image", content: this.site.hero },
 
+        { name: "twitter:card", content: 'summary_large_image' },
+        { name: "twitter:site", content:  '@microsofttechKR'},
+        { name: "twitter:creator", content: '@microsofttechKR' },
         { name: "twitter:title", content: this.site.title },
         { name: "twitter:description", content: this.site.description },
         { name: "twitter:image", content: this.site.hero },
