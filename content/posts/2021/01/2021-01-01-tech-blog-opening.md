@@ -8,7 +8,6 @@ image_caption: APEX Bit
 author: devrel-kr
 category: Announcement
 tags: azure, microsoft365, power-platform
-canonical_url: https://microsoft.github.io/developerkorea
 featured: true
 ---
 
