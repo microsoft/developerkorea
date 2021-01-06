@@ -48,8 +48,8 @@
     },
     {
       "name": "📣 RSS",
-      "link": "/feed.xml",
-      "external": false
+      "link": "https://microsoft.github.io/developerkorea/feed.xml",
+      "external": true
     }
   ],
   "footerNavigation": [
@@ -75,8 +75,8 @@
     },
     {
       "name": "RSS",
-      "link": "/feed.xml",
-      "external": false
+      "link": "https://microsoft.github.io/developerkorea/feed.xml",
+      "external": true
     }
   ]
 }
