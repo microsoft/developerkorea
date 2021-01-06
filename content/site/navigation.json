@@ -42,22 +42,17 @@
       ]
     },
     {
-      "name": "📣 RSS",
-      "link": "/feed.xml",
-      "external": false
-    },
-    {
       "name": "깃헙",
       "link": "https://github.com/microsoft/developerkorea",
       "external": true
+    },
+    {
+      "name": "📣 RSS",
+      "link": "/feed.xml",
+      "external": false
     }
   ],
   "footerNavigation": [
-    {
-      "name": "RSS",
-      "link": "/feed.xml",
-      "external": false
-    },
     {
       "name": "YouTube",
       "link": "https://youtube.com/channel/UCdgR-b2t7Byu_UGrHnu-T0g",
@@ -77,6 +72,11 @@
       "name": "GitHub",
       "link": "https://github.com/microsoft/developerkorea",
       "external": true
+    },
+    {
+      "name": "RSS",
+      "link": "/feed.xml",
+      "external": false
     }
   ]
 }
