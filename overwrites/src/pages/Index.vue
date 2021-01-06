@@ -90,19 +90,61 @@ query {
 </static-query>
 
 <script>
+import config from '~/.temp/config.js'
 import CardItem from "~/components/Content/CardItem.vue";
 import FeaturedCard from "~/components/Content/FeaturedCard.vue";
 import ContentHeader from "~/components/Partials/ContentHeader.vue";
 
 
 export default {
-  metaInfo: {
-    title: "🏠"
-  },
   components: {
     CardItem,
     FeaturedCard,
     ContentHeader
+  },
+  computed: {
+    config() {
+      return config
+    },
+    siteUrl () {
+      let siteUrl = this.config.siteUrl
+      let pathPrefix = this.config.pathPrefix
+
+      return `${siteUrl}${pathPrefix}`
+    },
+    site() {
+      return {
+        title: this.$static.metadata.siteName,
+        description: this.$static.metadata.siteDescription,
+        url: this.siteUrl,
+        hero: 'https://raw.githubusercontent.com/microsoft/developerkorea/main/overwrites/src/assets/images/hero.png'
+      }
+    }
+  },
+  metaInfo() {
+    let metaInfo = {
+      title: '🏠',
+      meta: [
+        {
+          key: 'description',
+          name: 'description',
+          content: this.site.description
+        },
+
+        { property: "og:type", content: 'website' },
+        { property: "og:title", content: this.site.title },
+        { property: "og:description", content: this.site.description },
+        { property: "og:url", content: this.site.url },
+        { property: "og:image", content: this.site.hero },
+
+        { name: "twitter:title", content: this.site.title },
+        { name: "twitter:description", content: this.site.description },
+        { name: "twitter:image", content: this.site.hero },
+      ],
+      link: []
+    }
+
+    return metaInfo
   }
 };
 </script>
