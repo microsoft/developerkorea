@@ -1,0 +1,71 @@
+name: Pull Request
+
+on:
+  pull_request:
+    branches:
+    - dev
+    types:
+    - opened
+    # - edited
+    # - synchronize
+
+jobs:
+  schedule_publish:
+    name: Schedule publish
+
+    runs-on: ubuntu-latest
+
+    steps:
+    # - name: Check event payload
+    #   shell: bash
+    #   run: |
+    #     echo ${{ toJSON(github.event) }}
+
+    - name: Check PR title
+      id: prtitle
+      shell: bash
+      run: |
+        echo ::set-output name=value::$(echo ${{ github.event.pull_request.title }})
+
+    - name: Check PR body
+      id: prbody
+      shell: bash
+      run: |
+        echo ::set-output name=value::$(echo ${{ toJSON(github.event.pull_request.body) }})
+
+    - name: Check PR values
+      shell: bash
+      run: |
+        echo "Title: ${{ steps.prtitle.outputs.value }}"
+        echo "Body: ${{ steps.prbody.outputs.value }}"
+
+    - name: Extract frontmatter from PR body
+      if: startsWith(steps.prtitle.outputs.value, '새 포스트:') || startsWith(steps.prtitle.outputs.value, '새포스트:')
+      id: frontmatter
+      uses: aliencube/frontmatter-to-json-actions@v1
+      with:
+        markdown: '${{ toJSON(steps.prbody.outputs.value) }}'
+
+    - name: Get publish schedule
+      if: startsWith(steps.prtitle.outputs.value, '새 포스트:') || startsWith(steps.prtitle.outputs.value, '새포스트:')
+      id: schedule
+      shell: bash
+      run: |
+        schedule=$(echo '${{ steps.frontmatter.outputs.jsonised }}' | jq ".schedule" -r | sed 's!\+00\:00!+09:00!g')
+        echo ::set-output name=value::$schedule
+
+    # - name: Get owner and repository
+    #   uses: jungwinter/split@v1
+    #   id: split
+    #   with:
+    #     msg: ${{ github.event.repository.full_name) }}
+    #     separator: '/'
+
+    - name: Schedule publish
+      if: startsWith(steps.prtitle.outputs.value, '새 포스트:') || startsWith(steps.prtitle.outputs.value, '새포스트:')
+      shell: bash
+      run: |
+        curl -X POST 'https://${{ secrets.AZURE_FUNCTIONS_NAME }}.azurewebsites.net/api/orchestrators/schedule-event' \
+          -H "x-functions-key: ${{ secrets.AZURE_FUNCTIONS_KEY }}" \
+          -H "Content-Type: application/json" \
+          -d '{ "owner": "microsoft", "repository": "developerkorea", "issueId": ${{ github.event.pull_request.number }}, "schedule": "${{ steps.schedule.outputs.value }}" }} }'
