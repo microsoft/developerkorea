@@ -1,6 +1,6 @@
 ---
-title: 애저 DevOps 파이프라인 리팩토링하기
-slug: refactoring-azure-devops-pipelines
+title: 애저 DevOps 파이프라인을 리팩토링하는 6가지 방법
+slug: 6-ways-refactoring-azure-devops-pipelines
 description: 애저 DevOps 파이프라인 YAML 파일을 사용하다 보면 반복적인 작업이 많이 나옵니다. 이 반복적인 작업 부분을 템플릿 형태로 리팩토링할 수 있는 포인트가 최소 여섯 군데 정도인데, 이러한 리팩토링 테크닉에 대해 다뤄봅니다.
 date: 2021-01-13
 image: https://sa0blogs.blob.core.windows.net/aliencube/2019/08/azure-devops-pipelines-refactoring-technics-00.jpg
