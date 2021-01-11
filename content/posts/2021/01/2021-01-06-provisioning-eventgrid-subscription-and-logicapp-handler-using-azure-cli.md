@@ -4,7 +4,7 @@ slug: provisioning-eventgrid-subscription-and-logicapp-handler-using-azure-cli
 description: 애저 이벤트그리드 커스텀 토픽에 대한 애저 이벤트그리드 구독 리소스는 ARM 템플릿을 통해 프로비저닝 할 수 없습니다. 이 포스트는 애저 CLI를 이용해서 이 애저 이벤트그리드 구독과 로직앱 이벤트 핸들러를 별다른 외부 입력값 없이 자동으로 프로비저닝하는 방법에 대해 알아봅니다.
 date: 2021-01-06
 image: https://sa0blogs.blob.core.windows.net/aliencube/2021/01/provisioning-eventgrid-subscription-and-logicapp-handler-using-azure-cli-00.png
-image_caption: Azure CLI for Azure Event Grid Subscription
+image_caption: 애저 이벤트그리드 구독을 위한 애저 CLI 명령어
 author: justin-yoo
 category: Azure
 tags: devops, azure-cli, azure-logic-apps, azure-eventgrid, github-actions
@@ -14,7 +14,7 @@ featured: false
 
 [애저 이벤트그리드][az evtgrd]라는 서비스를 이용하면 다양한 형태의 이벤트 기반 아키텍처를 구성할 수 있습니다. 특히 다양한 형태로 기존에 존재하는 애플리케이션간 이벤트 메시지를 전송하는데 있어서 꽤 유용하게 쓰이지요.
 
-![Azure Event Grid][image-01]
+![애저 이벤트그리드][image-01]
 
 
 ## 이벤트 기반 아키텍처의 세 요소 ##
@@ -26,21 +26,21 @@ featured: false
 
 이벤트 생성자/퍼블리셔는 이벤트가 발생하는 근원입니다. 이벤트만 발생시킬 수 있다면 무엇이든 이벤트 생성자가 될 수 있죠. 아래 그림은 지난 2018년 [오픈 인프라 데이즈][oid]에서 발표했던 [클라우드이벤트 CloudEvents][oid ce] 발표 내용의 일부를 캡쳐한 것인데요, 아래 그림에서는 라즈베리파이 장치에서 이벤트를 생성하는 것에 대해 묘사합니다.
 
-![Event Publisher][image-02]
+![이벤트 생성자 Event Publisher][image-02]
 
 
 ### 이벤트 구독자/섭스크라이버/처리자/핸들러 ###
 
 이벤트 구독자와 처리자는 엄밀히 말하면 다른 것이긴 하지만, 보통은 구독하면서 동시에 해당 이벤트를 처리하기 때문에 같은 것드로 봐도 큰 무리는 없습니다. 아래 그림에서는 이벤트 생성자가 보낸 이벤트를 받아 시각화 처리를 하는 형태를 보여줍니다.
 
-![Event Subscriber][image-03]
+![이벤트 구독자 Event Subscriber][image-03]
 
 
 ### 이벤트 중개자/브로커 ###
 
 일반적으로 이 이벤트 생성자와 구독자 사이에서는 직접적인 연결을 하지 않고 비동기식으로 진행하는데, 이 때 필요한 것이 바로 [애저 이벤트그리드][az evtgrd]와 같은 이벤트 중개자입니다. 아래 그림은 바로 [애저 이벤트그리드][az evtgrd]가 이벤트 생성자와 구독자 사이에서 어떤 역할을 하는지 보여줍니다.
 
-![Event Broker][image-04]
+![이벤트 중개자 Event Broker][image-04]
 
 > [클라우드이벤트][ce]에 대해 좀 더 알고 싶다면, [발표 영상][oid yt]과 [발표 자료][oid ss]를 확인해 보세요!
 
