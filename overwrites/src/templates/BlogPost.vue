@@ -1,6 +1,6 @@
 <template>
   <Layout>
-    <content-header :image="$page.blog.image" :staticImage="false" :opacity="0"></content-header>
+    <content-header :image="$page.blog.image" :caption="$page.blog.image_caption" :staticImage="false" :opacity="0"></content-header>
 
     <div class="container sm:pxi-0 mx-auto overflow-x-hidden text-gray-800 dark:text-gray-500">
       <div class="lg:mx-32 md:mx-16 sm:mx-8 mx-4 pt-8">
