@@ -51,7 +51,7 @@ jobs:
       id: schedule
       shell: bash
       run: |
-        schedule=$(echo '${{ steps.frontmatter.outputs.jsonised }}' | jq ".schedule" -r | sed 's!\+00\:00!+09:00!g')
+        schedule=$(TZ=Asia/Seoul date --date $(echo ${{ toJSON(steps.frontmatter.outputs.jsonised) }} | jq -r ".schedule") --iso-8601=s)
         echo ::set-output name=value::$schedule
 
     # - name: Get owner and repository
