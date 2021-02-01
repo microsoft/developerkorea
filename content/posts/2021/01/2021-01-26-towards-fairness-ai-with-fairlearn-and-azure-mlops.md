@@ -104,9 +104,9 @@ https://gist.github.com/ianychoi/3850d7c34c76aa2e6219db698ed57241?file=09-azurem
 * 애저 클라우드 무료 온라인 강의 코스를 들어 보세요! ➡️ [Microsoft Learn][ms-learn]
 * 마이크로소프트 개발자 유튜브 채널 ➡️ [Microsoft Developer Korea][yt-msdevkr]
 
-[ms-az-account-free]: https://azure.microsoft.com/ko-kr/free/?ocid=AID3027813&WT.mc_id=aiml-13440-yechoi
-[ms-azure-ml-service-page]: https://azure.microsoft.com/ko-kr/services/machine-learning/?ocid=AID3027813&WT.mc_id=aiml-13440-yechoi
-[ms-learn]: https://docs.microsoft.com/ko-kr/learn/?ocid=AID3027813&WT.mc_id=aiml-13440-yechoi
+[ms-az-account-free]: https://azure.microsoft.com/ko-kr/free/?ocid=AID3027813&WT.mc_id=aiml-13829-yechoi
+[ms-azure-ml-service-page]: https://azure.microsoft.com/ko-kr/services/machine-learning/?ocid=AID3027813&WT.mc_id=aiml-13829-yechoi
+[ms-learn]: https://docs.microsoft.com/ko-kr/learn/?ocid=AID3027813&WT.mc_id=aiml-13829-yechoi
 [yt-msdevkr]: https://www.youtube.com/channel/UCdgR-b2t7Byu_UGrHnu-T0g
 
 [fairlearn-website]: https://fairlearn.github.io
@@ -124,13 +124,13 @@ https://gist.github.com/ianychoi/3850d7c34c76aa2e6219db698ed57241?file=09-azurem
 [linkedin-soeun-park]: https://www.linkedin.com/in/soeun-park-b55613176/
 [linkedin-seokjin-han]: https://www.linkedin.com/in/seokjinhan/
 
-[ms-ai-approach]: https://www.microsoft.com/ko-kr/ai/our-approach?ocid=AID3027813&WT.mc_id=aiml-13440-yechoi
-[ms-build-korea-2020-azure-track]: https://info.microsoft.com/AP-AzureINFRA-WBNR-FY21-07Jul-23-BuildKorea-SRDEM31279_LP02OnDemandRegistration-ForminBody.html?ocid=AID3027813&WT.mc_id=aiml-13440-yechoi
-[ms-docs-ml-algorithm-evaluation-model-metrics]: https://docs.microsoft.com/en-us/azure/machine-learning/algorithm-module-reference/evaluate-model#metrics?ocid=AID3027813&WT.mc_id=aiml-13440-yechoi
-[ms-learn-azure-ml-workspace]: https://docs.microsoft.com/ko-kr/learn/modules/intro-to-azure-machine-learning-service/2-azure-ml-workspace?ocid=AID3027813&WT.mc_id=aiml-13440-yechoi
-[ms-azureml-core-experiment-class]: https://docs.microsoft.com/ko-kr/python/api/azureml-core/azureml.core.experiment(class)?view=azure-ml-py&ocid=AID3027813&WT.mc_id=aiml-13440-yechoi
-[ms-tc-fairlearn]: https://techcommunity.microsoft.com/t5/educator-developer-blog/fairlearn-a-python-package-to-assess-ai-system-s-fairness/ba-p/1402950?ocid=AID3027813&WT.mc_id=aiml-13440-yechoi
-[ms-docs-responsible-ml]: https://docs.microsoft.com/en-us/azure/machine-learning/concept-responsible-ml?ocid=AID3027813&WT.mc_id=aiml-13440-yechoi
-[ms-research-fairlearn]: https://www.microsoft.com/en-us/research/publication/fairlearn-a-toolkit-for-assessing-and-improving-fairness-in-ai/?ocid=AID3027813&WT.mc_id=aiml-13440-yechoi
-[ms-azure-ml-jupyter]: https://docs.microsoft.com/ko-kr/azure/machine-learning/how-to-run-jupyter-notebooks/?ocid=AID3027813&WT.mc_id=aiml-13440-yechoi
-[ms-azure-ml-docs]: https://docs.microsoft.com/ko-kr/azure/machine-learning/?ocid=AID3027813&WT.mc_id=aiml-13440-yechoi
+[ms-ai-approach]: https://www.microsoft.com/ko-kr/ai/our-approach?ocid=AID3027813&WT.mc_id=aiml-13829-yechoi
+[ms-build-korea-2020-azure-track]: https://info.microsoft.com/AP-AzureINFRA-WBNR-FY21-07Jul-23-BuildKorea-SRDEM31279_LP02OnDemandRegistration-ForminBody.html?ocid=AID3027813&WT.mc_id=aiml-13829-yechoi
+[ms-docs-ml-algorithm-evaluation-model-metrics]: https://docs.microsoft.com/en-us/azure/machine-learning/algorithm-module-reference/evaluate-model#metrics?ocid=AID3027813&WT.mc_id=aiml-13829-yechoi
+[ms-learn-azure-ml-workspace]: https://docs.microsoft.com/ko-kr/learn/modules/intro-to-azure-machine-learning-service/2-azure-ml-workspace?ocid=AID3027813&WT.mc_id=aiml-13829-yechoi
+[ms-azureml-core-experiment-class]: https://docs.microsoft.com/ko-kr/python/api/azureml-core/azureml.core.experiment(class)?view=azure-ml-py&ocid=AID3027813&WT.mc_id=aiml-13829-yechoi
+[ms-tc-fairlearn]: https://techcommunity.microsoft.com/t5/educator-developer-blog/fairlearn-a-python-package-to-assess-ai-system-s-fairness/ba-p/1402950?ocid=AID3027813&WT.mc_id=aiml-13829-yechoi
+[ms-docs-responsible-ml]: https://docs.microsoft.com/en-us/azure/machine-learning/concept-responsible-ml?ocid=AID3027813&WT.mc_id=aiml-13829-yechoi
+[ms-research-fairlearn]: https://www.microsoft.com/en-us/research/publication/fairlearn-a-toolkit-for-assessing-and-improving-fairness-in-ai/?ocid=AID3027813&WT.mc_id=aiml-13829-yechoi
+[ms-azure-ml-jupyter]: https://docs.microsoft.com/ko-kr/azure/machine-learning/how-to-run-jupyter-notebooks/?ocid=AID3027813&WT.mc_id=aiml-13829-yechoi
+[ms-azure-ml-docs]: https://docs.microsoft.com/ko-kr/azure/machine-learning/?ocid=AID3027813&WT.mc_id=aiml-13829-yechoi

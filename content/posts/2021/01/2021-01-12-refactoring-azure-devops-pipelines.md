@@ -192,20 +192,20 @@ https://gist.github.com/justinyoo/41e3c56debe1eaa0bb1d0ac062bb38b9?file=template
 * 마이크로소프트 개발자 유튜브 채널 ➡️ [Microsoft Developer Korea][yt msdevkr]
 
 
-[az account free]: https://azure.microsoft.com/ko-kr/free/?WT.mc_id=devops-12575-juyoo
-[az devops free]: https://azure.microsoft.com/ko-kr/services/devops/?WT.mc_id=devops-12575-juyoo
-[ms learn]: https://docs.microsoft.com/ko-kr/learn/?WT.mc_id=devops-12575-juyoo
+[az account free]: https://azure.microsoft.com/ko-kr/free/?WT.mc_id=devops-12575-juyoo&ocid=AID3027813
+[az devops free]: https://azure.microsoft.com/ko-kr/services/devops/?WT.mc_id=devops-12575-juyoo&ocid=AID3027813
+[ms learn]: https://docs.microsoft.com/ko-kr/learn/?WT.mc_id=devops-12575-juyoo&ocid=AID3027813
 [yt msdevkr]: https://www.youtube.com/channel/UCdgR-b2t7Byu_UGrHnu-T0g
 
-[az devops]: https://docs.microsoft.com/ko-kr/azure/devops/user-guide/what-is-azure-devops?view=azure-devops&WT.mc_id=devops-12575-juyoo
-[az devops pipelines]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/get-started/what-is-azure-pipelines?view=azure-devops&WT.mc_id=devops-12575-juyoo
-[az devops pipelines tasks]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/process/tasks?view=azure-devops&tabs=yaml&WT.mc_id=devops-12575-juyoo
-[az devops pipelines jobs]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/process/phases?view=azure-devops&tabs=yaml&WT.mc_id=devops-12575-juyoo
-[az devpos pipelines deploymentjobs]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/process/deployment-jobs?view=azure-devops&WT.mc_id=devops-12575-juyoo
-[az devops pipelines stages]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/process/stages?view=azure-devops&tabs=yaml&WT.mc_id=devops-12575-juyoo
-[az devops pipelines yaml]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema%2Cparameter-schema&WT.mc_id=devops-12575-juyoo
-[az devops pipelines templates]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/process/templates?view=azure-devops&WT.mc_id=devops-12575-juyoo
-[az devops pipelines conditions]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml&WT.mc_id=devops-12575-juyoo
-[az devops pipelines agents]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/agents/agents?view=azure-devops&tabs=browser&WT.mc_id=devops-12575-juyoo
-[az devops pipelines multi-stage]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/get-started/multi-stage-pipelines-experience?view=azure-devops&WT.mc_id=devops-12575-juyoo
-[az devops pipelines environments]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/process/environments?view=azure-devops&WT.mc_id=devops-12575-juyoo
+[az devops]: https://docs.microsoft.com/ko-kr/azure/devops/user-guide/what-is-azure-devops?view=azure-devops&WT.mc_id=devops-12575-juyoo&ocid=AID3027813
+[az devops pipelines]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/get-started/what-is-azure-pipelines?view=azure-devops&WT.mc_id=devops-12575-juyoo&ocid=AID3027813
+[az devops pipelines tasks]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/process/tasks?view=azure-devops&tabs=yaml&WT.mc_id=devops-12575-juyoo&ocid=AID3027813
+[az devops pipelines jobs]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/process/phases?view=azure-devops&tabs=yaml&WT.mc_id=devops-12575-juyoo&ocid=AID3027813
+[az devpos pipelines deploymentjobs]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/process/deployment-jobs?view=azure-devops&WT.mc_id=devops-12575-juyoo&ocid=AID3027813
+[az devops pipelines stages]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/process/stages?view=azure-devops&tabs=yaml&WT.mc_id=devops-12575-juyoo&ocid=AID3027813
+[az devops pipelines yaml]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema%2Cparameter-schema&WT.mc_id=devops-12575-juyoo&ocid=AID3027813
+[az devops pipelines templates]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/process/templates?view=azure-devops&WT.mc_id=devops-12575-juyoo&ocid=AID3027813
+[az devops pipelines conditions]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/process/conditions?view=azure-devops&tabs=yaml&WT.mc_id=devops-12575-juyoo&ocid=AID3027813
+[az devops pipelines agents]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/agents/agents?view=azure-devops&tabs=browser&WT.mc_id=devops-12575-juyoo&ocid=AID3027813
+[az devops pipelines multi-stage]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/get-started/multi-stage-pipelines-experience?view=azure-devops&WT.mc_id=devops-12575-juyoo&ocid=AID3027813
+[az devops pipelines environments]: https://docs.microsoft.com/ko-kr/azure/devops/pipelines/process/environments?view=azure-devops&WT.mc_id=devops-12575-juyoo&ocid=AID3027813

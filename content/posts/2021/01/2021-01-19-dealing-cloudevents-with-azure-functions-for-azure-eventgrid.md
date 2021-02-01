@@ -100,20 +100,20 @@ https://gist.github.com/justinyoo/8282de7244bccca562cd508e64d89470?file=08-handl
 * 마이크로소프트 개발자 유튜브 채널 ➡️ [Microsoft Developer Korea][yt msdevkr]
 
 
-[az account free]: https://azure.microsoft.com/ko-kr/free/?WT.mc_id=dotnet-12565-juyoo
-[az devops free]: https://azure.microsoft.com/ko-kr/services/devops/?WT.mc_id=dotnet-12565-juyoo
-[ms learn]: https://docs.microsoft.com/ko-kr/learn/?WT.mc_id=dotnet-12565-juyoo
+[az account free]: https://azure.microsoft.com/ko-kr/free/?WT.mc_id=dotnet-12565-juyoo&ocid=AID3027813
+[az devops free]: https://azure.microsoft.com/ko-kr/services/devops/?WT.mc_id=dotnet-12565-juyoo&ocid=AID3027813
+[ms learn]: https://docs.microsoft.com/ko-kr/learn/?WT.mc_id=dotnet-12565-juyoo&ocid=AID3027813
 [yt msdevkr]: https://www.youtube.com/channel/UCdgR-b2t7Byu_UGrHnu-T0g
 
-[az cli]: https://docs.microsoft.com/ko-kr/cli/azure/what-is-azure-cli?WT.mc_id=dotnet-12565-juyoo
-[az cli extensions]: https://docs.microsoft.com/ko-kr/cli/azure/azure-cli-extensions-list?WT.mc_id=dotnet-12565-juyoo
+[az cli]: https://docs.microsoft.com/ko-kr/cli/azure/what-is-azure-cli?WT.mc_id=dotnet-12565-juyoo&ocid=AID3027813
+[az cli extensions]: https://docs.microsoft.com/ko-kr/cli/azure/azure-cli-extensions-list?WT.mc_id=dotnet-12565-juyoo&ocid=AID3027813
 
-[az fncapp]: https://docs.microsoft.com/ko-kr/azure/azure-functions/functions-overview?WT.mc_id=dotnet-12565-juyoo
-[az fncapp binding evtgrd]: https://docs.microsoft.com/ko-kr/azure/azure-functions/functions-bindings-event-grid?WT.mc_id=dotnet-12565-juyoo
-[az fncapp trigger http]: https://docs.microsoft.com/ko-kr/azure/azure-functions/functions-bindings-http-webhook-trigger?tabs=csharp&WT.mc_id=dotnet-12565-juyoo
+[az fncapp]: https://docs.microsoft.com/ko-kr/azure/azure-functions/functions-overview?WT.mc_id=dotnet-12565-juyoo&ocid=AID3027813
+[az fncapp binding evtgrd]: https://docs.microsoft.com/ko-kr/azure/azure-functions/functions-bindings-event-grid?WT.mc_id=dotnet-12565-juyoo&ocid=AID3027813
+[az fncapp trigger http]: https://docs.microsoft.com/ko-kr/azure/azure-functions/functions-bindings-http-webhook-trigger?tabs=csharp&WT.mc_id=dotnet-12565-juyoo&ocid=AID3027813
 
-[az evtgrd]: https://docs.microsoft.com/ko-kr/azure/event-grid/overview?WT.mc_id=dotnet-12565-juyoo
-[az evtgrd topic custom]: https://docs.microsoft.com/ko-kr/azure/event-grid/custom-topics?WT.mc_id=dotnet-12565-juyoo
+[az evtgrd]: https://docs.microsoft.com/ko-kr/azure/event-grid/overview?WT.mc_id=dotnet-12565-juyoo&ocid=AID3027813
+[az evtgrd topic custom]: https://docs.microsoft.com/ko-kr/azure/event-grid/custom-topics?WT.mc_id=dotnet-12565-juyoo&ocid=AID3027813
 
 [nuget evtgrd legacy]: https://www.nuget.org/packages/Microsoft.Azure.EventGrid/
 [nuget evtgrd new]: https://www.nuget.org/packages/Azure.Messaging.EventGrid/

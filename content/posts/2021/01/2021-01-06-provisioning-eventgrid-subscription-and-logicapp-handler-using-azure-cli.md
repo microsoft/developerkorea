@@ -117,27 +117,27 @@ https://gist.github.com/justinyoo/8865213b31baeda9f7c1ad258351a039?file=05-one-l
 * 마이크로소프트 개발자 유튜브 채널 ➡️ [Microsoft Developer Korea][yt msdevkr]
 
 
-[image-01]: https://docs.microsoft.com/ko-kr/azure/event-grid/media/overview/functional-model.png?WT.mc_id=devops-12244-juyoo
+[image-01]: https://docs.microsoft.com/ko-kr/azure/event-grid/media/overview/functional-model.png?WT.mc_id=devops-12244-juyoo&ocid=AID3027813
 [image-02]: https://sa0blogs.blob.core.windows.net/aliencube/2021/01/provisioning-eventgrid-subscription-and-logicapp-handler-using-azure-cli-02.png
 [image-03]: https://sa0blogs.blob.core.windows.net/aliencube/2021/01/provisioning-eventgrid-subscription-and-logicapp-handler-using-azure-cli-03.png
 [image-04]: https://sa0blogs.blob.core.windows.net/aliencube/2021/01/provisioning-eventgrid-subscription-and-logicapp-handler-using-azure-cli-04.png
 
-[az account free]: https://azure.microsoft.com/ko-kr/free/?WT.mc_id=devops-12244-juyoo
-[ms learn]: https://docs.microsoft.com/ko-kr/learn/?WT.mc_id=devops-12244-juyoo
+[az account free]: https://azure.microsoft.com/ko-kr/free/?WT.mc_id=devops-12244-juyoo&ocid=AID3027813
+[ms learn]: https://docs.microsoft.com/ko-kr/learn/?WT.mc_id=devops-12244-juyoo&ocid=AID3027813
 [yt msdevkr]: https://www.youtube.com/channel/UCdgR-b2t7Byu_UGrHnu-T0g
 
-[az cli]: https://docs.microsoft.com/ko-kr/cli/azure/what-is-azure-cli?WT.mc_id=devops-12244-juyoo
-[az cli extensions]: https://docs.microsoft.com/ko-kr/cli/azure/azure-cli-extensions-list?WT.mc_id=devops-12244-juyoo
+[az cli]: https://docs.microsoft.com/ko-kr/cli/azure/what-is-azure-cli?WT.mc_id=devops-12244-juyoo&ocid=AID3027813
+[az cli extensions]: https://docs.microsoft.com/ko-kr/cli/azure/azure-cli-extensions-list?WT.mc_id=devops-12244-juyoo&ocid=AID3027813
 [az cli extensions eventgrid]: https://github.com/Azure/azure-cli-extensions/tree/master/src/eventgrid
 [az cli extensions logic]: https://github.com/Azure/azure-cli-extensions/tree/master/src/logic
 
 [az bicep]: https://github.com/Azure/bicep
 
-[az logapp]: https://docs.microsoft.com/ko-kr/azure/logic-apps/logic-apps-overview?WT.mc_id=devops-12244-juyoo
+[az logapp]: https://docs.microsoft.com/ko-kr/azure/logic-apps/logic-apps-overview?WT.mc_id=devops-12244-juyoo&ocid=AID3027813
 
-[az evtgrd]: https://docs.microsoft.com/ko-kr/azure/event-grid/overview?WT.mc_id=devops-12244-juyoo
-[az evtgrd arm topic]: https://docs.microsoft.com/ko-kr/azure/templates/microsoft.eventgrid/topics?WT.mc_id=devops-12244-juyoo
-[az evtgrd arm sub]: https://docs.microsoft.com/ko-kr/azure/templates/microsoft.eventgrid/eventsubscriptions?WT.mc_id=devops-12244-juyoo
+[az evtgrd]: https://docs.microsoft.com/ko-kr/azure/event-grid/overview?WT.mc_id=devops-12244-juyoo&ocid=AID3027813
+[az evtgrd arm topic]: https://docs.microsoft.com/ko-kr/azure/templates/microsoft.eventgrid/topics?WT.mc_id=devops-12244-juyoo&ocid=AID3027813
+[az evtgrd arm sub]: https://docs.microsoft.com/ko-kr/azure/templates/microsoft.eventgrid/eventsubscriptions?WT.mc_id=devops-12244-juyoo&ocid=AID3027813
 
 [oid]: https://event.openinfradays.kr/2018/about/
 [oid ce]: https://event.openinfradays.kr/2018/session1/track_4_0
