@@ -210,8 +210,8 @@ https://gist.github.com/justinyoo/cb04844306f9a44dcdcaaa70a6a55326?file=10-video
 [image-13]: https://sa0blogs.blob.core.windows.net/aliencube/2021/01/websub-to-eventgrid-via-cloudevents-and-beyond-13-ko.png
 [image-14]: https://sa0blogs.blob.core.windows.net/aliencube/2021/01/websub-to-eventgrid-via-cloudevents-and-beyond-14.png
 
-[az account free]: https://azure.microsoft.com/ko-kr/free/?WT.mc_id=dotnet-12565-juyoo
-[ms learn]: https://docs.microsoft.com/ko-kr/learn/?WT.mc_id=dotnet-12565-juyoo
+[az account free]: https://azure.microsoft.com/ko-kr/free/?WT.mc_id=dotnet-12565-juyoo&ocid=AID3027813
+[ms learn]: https://docs.microsoft.com/ko-kr/learn/?WT.mc_id=dotnet-12565-juyoo&ocid=AID3027813
 [yt msdevkr]: https://www.youtube.com/channel/UCdgR-b2t7Byu_UGrHnu-T0g
 
 [post prev 1]: /developerkorea/posts/2021/01/19/cloudevents-for-azure-eventgrid-via-azure-functions/
@@ -232,18 +232,18 @@ https://gist.github.com/justinyoo/cb04844306f9a44dcdcaaa70a6a55326?file=10-video
 [ce]: https://cloudevents.io/
 [ce binding http]: https://github.com/cloudevents/spec/blob/master/http-protocol-binding.md#3-http-message-mapping
 
-[az evtgrd]: https://docs.microsoft.com/ko-kr/azure/event-grid/overview?WT.mc_id=devops-dotnet-12869-juyoo
-[az evtgrd ce]: https://docs.microsoft.com/ko-kr/azure/event-grid/cloudevents-schema?WT.mc_id=devops-dotnet-12869-juyoo#use-with-azure-functions
-[az evtgrd delivery auth]: https://docs.microsoft.com/ko-kr/azure/event-grid/security-authentication?WT.mc_id=devops-dotnet-12869-juyoo
+[az evtgrd]: https://docs.microsoft.com/ko-kr/azure/event-grid/overview?WT.mc_id=devops-dotnet-12869-juyoo&ocid=AID3027813
+[az evtgrd ce]: https://docs.microsoft.com/ko-kr/azure/event-grid/cloudevents-schema?WT.mc_id=devops-dotnet-12869-juyoo&ocid=AID3027813#use-with-azure-functions
+[az evtgrd delivery auth]: https://docs.microsoft.com/ko-kr/azure/event-grid/security-authentication?WT.mc_id=devops-dotnet-12869-juyoo&ocid=AID3027813
 
-[az logapp]: https://docs.microsoft.com/ko-kr/azure/logic-apps/logic-apps-overview?WT.mc_id=dotnet-12869-juyoo
-[az logapp connector twitter]: https://docs.microsoft.com/ko-kr/connectors/twitter/?WT.mc_id=dotnet-12869-juyoo
-[az logapp connector linkedin]: https://docs.microsoft.com/ko-kr/connectors/linkedinv2/?WT.mc_id=dotnet-12869-juyoo
-[az logapp connector facebook]: https://docs.microsoft.com/ko-kr/connectors/facebook/?WT.mc_id=dotnet-12869-juyoo
+[az logapp]: https://docs.microsoft.com/ko-kr/azure/logic-apps/logic-apps-overview?WT.mc_id=dotnet-12869-juyoo&ocid=AID3027813
+[az logapp connector twitter]: https://docs.microsoft.com/ko-kr/connectors/twitter/?WT.mc_id=dotnet-12869-juyoo&ocid=AID3027813
+[az logapp connector linkedin]: https://docs.microsoft.com/ko-kr/connectors/linkedinv2/?WT.mc_id=dotnet-12869-juyoo&ocid=AID3027813
+[az logapp connector facebook]: https://docs.microsoft.com/ko-kr/connectors/facebook/?WT.mc_id=dotnet-12869-juyoo&ocid=AID3027813
 [az logapp connector facebook custom]: https://github.com/microsoft/PowerPlatformConnectors/tree/master/custom-connectors/Facebook
 
-[az fncapp]: https://docs.microsoft.com/ko-kr/azure/azure-functions/functions-overview?WT.mc_id=dotnet-12869-juyoo
-[az fncapp binding evtgrd]: https://docs.microsoft.com/ko-kr/azure/azure-functions/functions-bindings-event-grid?WT.mc_id=dotnet-12869-juyoo
+[az fncapp]: https://docs.microsoft.com/ko-kr/azure/azure-functions/functions-overview?WT.mc_id=dotnet-12869-juyoo&ocid=AID3027813
+[az fncapp binding evtgrd]: https://docs.microsoft.com/ko-kr/azure/azure-functions/functions-bindings-event-grid?WT.mc_id=dotnet-12869-juyoo&ocid=AID3027813
 
 [ifttt]: https://ifttt.com/
 [ifttt facebook page]: https://ifttt.com/facebook_pages
