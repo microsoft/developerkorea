@@ -19,6 +19,9 @@ https://gist.github.com/justinyoo/75c16e773d9e1c8b8a1d5d5efa37f9c9?file=01-keyva
 
 위와 같이 설정하면 애저 앱 서비스와 애저 펑션 앱에서 가장 최신 버전의 시크릿 값을 자동으로 가져와서 보여줍니다. 만약 최신 버전의 시크릿 값이 생성된지 아직 만 하루가 지나지 않았다면, 애저 앱 서비스 혹은 애저 펑션 내부적으로 작동하는 캐싱 메카니즘이 완전히 값을 받아오지 않았을 수도 있기 때문에, 이전 버전과 함께 [로테이션][az kv secrets rotation]을 시켜줘야 합니다. 이 때 로테이션을 위해서는 가급적이면 두 가지 버전 정도로만 활성화 상태로 유지하고 나머지는 비활성화 시켜주는 것이 보안상의 관점에서도 좋습니다.
 
+* ***애저 키 저장소 시크릿 로테이션 관리***
+* [이벤트 기반 애저 키 저장소 시크릿 로테이션 관리][post next]
+
 [애저 키 저장소][az kv]에 저장할 수 있는 시크릿의 갯수는 딱히 제한된 것이 없습니다. 따라서 현업에서 사용하다 보면 굉장히 많은 수의 시크릿을 저장하게 되는데, 이럴 경우 로테이션에 더이상 쓰이지 않는 시크릿 버전을 일일이 찾아 비활성화 시켜주기에는 너무 많을 수 있습니다. 그렇다면, 이를 자동화할 수 있는 방법에는 무엇이 있을까요? 이 포스트에서는 오래되었지만 여전히 활성화 상태로 남아있는 시크릿 버전들을 일괄적으로 비활성화시키는 방법을 애저 펑션으로 구현해 보기로 합니다.
 
 > 실제 작동하는 코드를 보고 싶으신가요? 이 [깃헙 리포지토리][gh sample]에서 다운로드 받아 로컬에서 돌려보세요!
@@ -94,7 +97,7 @@ https://gist.github.com/justinyoo/75c16e773d9e1c8b8a1d5d5efa37f9c9?file=05-secre
 
 ---
 
-지금까지 [애저 키 저장소][az kv]의 시크릿 값을 [애저 앱 서비스][az appsvc] 혹은 [애저 펑션][az fncapp]에서 참조할 때 더이상 사용하지 않는 시크릿 버전을 자동으로 비활성화 시키는 방법에 대해 알아 보았습니다. 이렇게 자동화를 시켜놓으면 추가적인 관리 부담을 줄일 수 있으니 한 번 시도해 보면 좋겠습니다.
+지금까지 [애저 키 저장소][az kv]의 시크릿 값을 [애저 앱 서비스][az appsvc] 혹은 [애저 펑션][az fncapp]에서 참조할 때 더이상 사용하지 않는 시크릿 버전을 자동으로 비활성화 시키는 방법에 대해 알아 보았습니다. 이렇게 자동화를 시켜놓으면 추가적인 관리 부담을 줄일 수 있으니 한 번 시도해 보면 좋겠습니다. [다음 포스트][post next]에서는 시크릿에 새 버전이 추가될 경우 발생하는 이벤트를 통해 특정 시크릿만을 대상으로 로테이션 관리를 하는 방법에 대해 알아보겠습니다.
 
 
 ## 더 궁금하다면... ##
@@ -105,6 +108,7 @@ https://gist.github.com/justinyoo/75c16e773d9e1c8b8a1d5d5efa37f9c9?file=05-secre
 
 
 [post prev]: https://blog.aliencube.org/ko/2020/04/30/3-ways-referencing-azure-key-vault-from-azure-functions/
+[post next]: /developerkorea/posts/2021/03/02/event-driven-keyvault-secrets-rotation-management/
 
 [az account free]: https://azure.microsoft.com/ko-kr/free/?WT.mc_id=dotnet-16807-juyoo&ocid=AID3027813
 [ms learn]: https://docs.microsoft.com/ko-kr/learn/?WT.mc_id=dotnet-16807-juyoo&ocid=AID3027813
