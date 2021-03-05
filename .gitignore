@@ -332,5 +332,6 @@ ASALocalRun/
 **/blog/
 **/published/
 **/docs/
+**/content/assets/
 
 .DS_Store

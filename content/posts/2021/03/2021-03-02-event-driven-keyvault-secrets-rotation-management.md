@@ -144,6 +144,13 @@ https://gist.github.com/justinyoo/948385359cc739a48ad5afdf07db932e?file=02-disab
 지금까지 [애저 키 저장소][az kv] 인스턴스에 새 [시크릿][az kv secrets] 버전이 추가되는 이벤트를 캡쳐해서, 해당 시크릿만 대상으로 [버전 로테이션 관리][az kv secrets rotation]를 하는 방법을 [애저 이벤트그리드][az evtgrd], [애저 로직 앱][az logapp], [애저 펑션][az fncapp]을 이용해서 구현해 보았습니다. 여러분의 실무에서도 이와 비슷한 방식으로 이벤트를 캡쳐해서 처리하게 하는 방식을 도입해 본다면 꽤 유용할 것입니다.
 
 
+## 더 궁금하다면... ##
+
+* 애저 클라우드에 관심이 있으신가요? ➡️ [무료 애저 계정 생성하기][az account free]
+* 애저 클라우드 무료 온라인 강의 코스를 들어 보세요! ➡️ [Microsoft Learn][ms learn]
+* 마이크로소프트 개발자 유튜브 채널 ➡️ [Microsoft Developer Korea][yt msdevkr]
+
+
 [image-01]: https://sa0blogs.blob.core.windows.net/aliencube/2021/02/event-driven-keyvault-secrets-rotation-management-01.png
 [image-02]: https://sa0blogs.blob.core.windows.net/aliencube/2021/02/event-driven-keyvault-secrets-rotation-management-02-ko.png
 [image-03]: https://sa0blogs.blob.core.windows.net/aliencube/2021/02/event-driven-keyvault-secrets-rotation-management-03-ko.png
@@ -156,6 +163,10 @@ https://gist.github.com/justinyoo/948385359cc739a48ad5afdf07db932e?file=02-disab
 [image-10]: https://sa0blogs.blob.core.windows.net/aliencube/2021/02/event-driven-keyvault-secrets-rotation-management-10-ko.png
 [image-11]: https://sa0blogs.blob.core.windows.net/aliencube/2021/02/event-driven-keyvault-secrets-rotation-management-11-ko.png
 [image-12]: https://sa0blogs.blob.core.windows.net/aliencube/2021/02/event-driven-keyvault-secrets-rotation-management-12-ko.png
+
+[az account free]: https://azure.microsoft.com/ko-kr/free/?WT.mc_id=dotnet-17246-juyoo&ocid=AID3027813
+[ms learn]: https://docs.microsoft.com/ko-kr/learn/?WT.mc_id=dotnet-17246-juyoo&ocid=AID3027813
+[yt msdevkr]: https://www.youtube.com/channel/UCdgR-b2t7Byu_UGrHnu-T0g
 
 [post prev 1]: /developerkorea/posts/2021/02/23/keyvault-secrets-rotation-management-in-bulk/
 [post prev 2]: /developerkorea/posts/2021/02/02/websub-to-eventgrid-via-cloudevents-and-beyond/
