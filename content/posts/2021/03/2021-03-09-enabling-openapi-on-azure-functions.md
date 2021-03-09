@@ -21,36 +21,19 @@ featured: false
 
 가장 먼저 애저 펑션 프로젝트를 생성합니다.
 
-```bash
-func init MyFunctionApp --worker-runtime dotnet
-```
+https://gist.github.com/justinyoo/2516ec59b204e2bbf85181620f1d0aea?file=01-func-init.sh
 
 그 다음에 [HTTP 트리거 펑션][az fncapp trigger http]을 하나 생성합니다.
 
-```bash
-func new --name DefaultHttpTrigger --language C#  --template "HTTP trigger"
-```
+https://gist.github.com/justinyoo/2516ec59b204e2bbf85181620f1d0aea?file=02-func-new.sh
 
 그러면 아래와 같이 기본 HTTP 트리거 펑션 코드가 만들어 집니다.
 
-```csharp
-public static class DefaultHttpTrigger
-{
-    [FunctionName("DefaultHttpTrigger")]
-    public static async Task<IActionResult> Run(
-        [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-        ILogger log)
-    {
-        ...
-    }
-}
-```
+https://gist.github.com/justinyoo/2516ec59b204e2bbf85181620f1d0aea?file=03-default-http-trigger.cs
 
 이제 아래 명령어를 통해 이 애저 펑션 앱을 한 번 실행시켜 보겠습니다.
 
-```bash
-func host start
-```
+https://gist.github.com/justinyoo/2516ec59b204e2bbf85181620f1d0aea?file=04-func-start.sh
 
 예상한 바와 같이 애저 펑션의 엔드포인트는 `/api/DefaultHttpTrigger` 하나만 보입니다.
 
@@ -61,10 +44,7 @@ func host start
 
 이제 Open API 기능을 활성화 시키기 위해 NuGet 패키지를 설치할 차례입니다. 아래 명령어를 통해 [확장 기능 패키지 라이브러리][nuget openapi]를 설치합니다.
 
-```bash
-dotnet add package Microsoft.Azure.WebJobs.Extensions.OpenApi \
-                   --version 0.5.1-preview
-```
+https://gist.github.com/justinyoo/2516ec59b204e2bbf85181620f1d0aea?file=05-dotnet-add-package.sh
 
 > **NOTE**: 이 포스트를 작성하는 시점에서 이 확장 기능 패키지 라이브러리의 버전은 `0.5.1-preview` 입니다.
 
@@ -76,24 +56,9 @@ dotnet add package Microsoft.Azure.WebJobs.Extensions.OpenApi \
 
 ![Swagger UI 페이지 - 엔드포인트 안보임][image-03]
 
-그런데, 위 페이지를 보면 분명히 이 앱에서는 `/api/DefaultHttpTrigger`라는 엔드포인트가 있는데, 이 UI에서는 없다고 나옵니다. 어떻게 된 일일까요? 아직 해당 엔드포인트에 설정을 하지 않은 상태라서 그렇습니다. 이제 아래와 같이 Open API 관련 설정을 엔드포인트에 추가해 보도록 하겠습니다.
+그런데, 위 페이지를 보면 분명히 이 앱에서는 `/api/DefaultHttpTrigger`라는 엔드포인트가 있는데, 이 UI에서는 없다고 나옵니다. 어떻게 된 일일까요? 아직 해당 엔드포인트에 설정을 하지 않은 상태라서 그렇습니다. 이제 아래와 같이 Open API 관련 설정을 엔드포인트에 추가해 보도록 하겠습니다 (line #3-5).
 
-```csharp
-public static class DefaultHttpTrigger
-{
-    [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
-    [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = of(string), Description = "The **Name** parameter")]
-    [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
-
-    [FunctionName("DefaultHttpTrigger")]
-    public static async Task<IActionResult> Run(
-        [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-        ILogger log)
-    {
-        ...
-    }
-}
-```
+https://gist.github.com/justinyoo/2516ec59b204e2bbf85181620f1d0aea?file=06-default-http-trigger.cs&highlights=3-5
 
 * `OpenApiOperation`: Open API 스펙에 따르면 모든 엔드포인트는 고유의 Operation ID 값을 갖고 있어야 합니다. 이를 정의하는 데코레이터입니다.
 * `OpenApiParameter`: 이 엔드포인트로 파라미터를 보내는 방법에 대해 정의합니다. 여기서는 쿼리스트링으로 `name`이라는 파라미터를 통해 값을 전송합니다.
@@ -106,26 +71,9 @@ public static class DefaultHttpTrigger
 
 ## Open API 보안 기능 추가하기 ##
 
-일반적으로 API는 부정한 방법으로 접근하는 것을 방지하기 위해 보안 설정을 하죠. 그렇다면, 이 확장 기능으로는 어떻게 이 보안 설정을 정의할까요? 아래 코드를 한 번 보겠습니다.
+일반적으로 API는 부정한 방법으로 접근하는 것을 방지하기 위해 보안 설정을 하죠. 그렇다면, 이 확장 기능으로는 어떻게 이 보안 설정을 정의할까요? 아래 코드를 한 번 보겠습니다 (line #7).
 
-```csharp
-public static class DefaultHttpTrigger
-{
-    [OpenApiOperation(operationId: "Run", tags: new[] { "name" })]
-    [OpenApiParameter(name: "name", In = ParameterLocation.Query, Required = true, Type = of(string), Description = "The **Name** parameter")]
-    [OpenApiResponseWithBody(statusCode: HttpStatusCode.OK, contentType: "text/plain", bodyType: typeof(string), Description = "The OK response")]
-
-    [OpenApiSecurity("function_key", SecuritySchemeType.ApiKey, Name = "code", In = OpenApiSecurityLocationType.Query)]
-
-    [FunctionName("DefaultHttpTrigger")]
-    public static async Task<IActionResult> Run(
-        [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
-        ILogger log)
-    {
-        ...
-    }
-}
-```
+https://gist.github.com/justinyoo/2516ec59b204e2bbf85181620f1d0aea?file=07-default-http-trigger.cs&highlights=7
 
 * `OpenApiSecurity`: 애저 펑션은 기본적으로 API Key 값을 통해 보안을 설정할 수 있습니다. 이 키 값을 쿼리스트링으로 보낼 때는 `code`라는 파라미터로, 요청 헤더를 통해 보낼 때는 `x-functions-key`를 통해 보내는데요, 여기서는 쿼리스트링으로 보내는 것으로 정의합니다.
 
