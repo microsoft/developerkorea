@@ -9,7 +9,7 @@ author: ian-choi
 category: Azure
 tags: azure, azure-ml, fairness, fairlearn, open-source, mlops, python
 canonical_url: https://github.com/ianychoi/Azure-oss-hands-on-labs/blob/master/06-Azure-ML-with-Fairlearn/README.md
-featured: true
+featured: false
 ---
 
 개인의 삶에 영향을 미치는 중요한 결정에 많은 데이터 활용이 이루어지면서 보다 안전하고, 윤리적이면서 책임감있는 사용을 보장하는 AI(인공지능)에 대한 중요성이 대두되고 있습니다. 선한 목적으로 알고리즘을 개발하고 데이터를 활용하더라도 의도하지 않게 성별, 문화적, 민족적 편향성을 AI가 보여준다면 결코 공정하다고 할 수 없을 것입니다.

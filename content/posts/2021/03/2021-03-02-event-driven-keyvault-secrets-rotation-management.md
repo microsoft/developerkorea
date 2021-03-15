@@ -9,7 +9,7 @@ author: justin-yoo
 category: Azure
 tags: azure-keyvault, azure-eventgrid, azure-logic-apps, azure-functions, azure-sdk
 canonical_url: https://blog.aliencube.org/ko/2021/02/24/event-driven-keyvault-secrets-rotation-management/
-featured: false
+featured: true
 ---
 
 
