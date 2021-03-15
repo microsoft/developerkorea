@@ -97,7 +97,7 @@ https://gist.github.com/justinyoo/2516ec59b204e2bbf85181620f1d0aea?file=07-defau
 
 ---
 
-이렇게 해서 애저 펑션에 Open API 기능을 활성화 시키는 방법에 대해 알아 봤습니다. 한 가지 문제가 있다면, 이 확장 기능은 런타임 버전 v2 이상만을 지원한다는 건데요, 여러 가지 이유로 v1 런타임을 사용해야 하는 경우에는 어떻게 해야 할까요? 다음 포스트에서는 애저 펑션 런타임 v1을 지원하는 방법에 대해 알아보도록 하겠습니다.
+이렇게 해서 애저 펑션에 Open API 기능을 활성화 시키는 방법에 대해 알아 봤습니다. 한 가지 문제가 있다면, 이 확장 기능은 런타임 버전 v2 이상만을 지원한다는 건데요, 여러 가지 이유로 v1 런타임을 사용해야 하는 경우에는 어떻게 해야 할까요? [다음 포스트][post next]에서는 애저 펑션 런타임 v1을 지원하는 방법에 대해 알아보도록 하겠습니다.
 
 
 ## 더 궁금하다면... ##
@@ -119,6 +119,8 @@ https://gist.github.com/justinyoo/2516ec59b204e2bbf85181620f1d0aea?file=07-defau
 [az account free]: https://azure.microsoft.com/ko-kr/free/?WT.mc_id=dotnet-19697-juyoo&ocid=AID3027813
 [ms learn]: https://docs.microsoft.com/ko-kr/learn/?WT.mc_id=dotnet-19697-juyoo&ocid=AID3027813
 [yt msdevkr]: https://www.youtube.com/channel/UCdgR-b2t7Byu_UGrHnu-T0g
+
+[post next]: /developerkorea/posts/2021/03/16/openapi-extension-to-support-azure-functions-v1/
 
 [gh openapi]: https://github.com/Azure/azure-functions-openapi-extension
 [gh openapi issues]: https://github.com/Azure/azure-functions-openapi-extension/issues
