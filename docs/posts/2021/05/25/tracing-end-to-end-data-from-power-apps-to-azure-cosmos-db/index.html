@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html data-html-server-rendered="true" lang="en" data-vue-tag="%7B%22lang%22:%7B%22ssr%22:%22en%22%7D%7D">
+  <head>
+    <title>파워 앱의 종단간 데이터 흐름 실시간 추적 | 마이크로소프트 기술 블로그</title><meta name="gridsome:hash" content="60aeb9a6331d738f4beada1c63b0d61e088a7177"><meta data-vue-tag="ssr" charset="utf-8"><meta data-vue-tag="ssr" name="generator" content="Gridsome v0.7.23"><meta data-vue-tag="ssr" data-key="viewport" name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta data-vue-tag="ssr" data-key="format-detection" name="format-detection" content="telephone=no"><meta data-vue-tag="ssr" data-key="description" name="description" content="이 포스트에서는 퓨전 개발팀에서 개발한 파워 앱에서 코스모스 DB까지 종단간 데이터 흐름을 오픈 텔레메트리 기법을 이용해 실시간으로 추적하는 방법에 대해 알아봅니다."><meta data-vue-tag="ssr" property="og:type" content="article"><meta data-vue-tag="ssr" property="og:title" content="파워 앱의 종단간 데이터 흐름 실시간 추적"><meta data-vue-tag="ssr" property="og:description" content="이 포스트에서는 퓨전 개발팀에서 개발한 파워 앱에서 코스모스 DB까지 종단간 데이터 흐름을 오픈 텔레메트리 기법을 이용해 실시간으로 추적하는 방법에 대해 알아봅니다."><meta data-vue-tag="ssr" property="og:url" content="https://microsoft.github.io/developerkorea/posts/2021/05/25/tracing-end-to-end-data-from-power-apps-to-azure-cosmos-db/"><meta data-vue-tag="ssr" property="article:published_time" content="2021-05-24"><meta data-vue-tag="ssr" property="og:image" content="https://sa0blogs.blob.core.windows.net/aliencube/2021/05/tracing-end-to-end-data-from-power-apps-to-azure-cosmos-db-00.png"><meta data-vue-tag="ssr" name="twitter:card" content="summary_large_image"><meta data-vue-tag="ssr" name="twitter:site" content="@microsofttechKR"><meta data-vue-tag="ssr" name="twitter:creator" content="@microsofttechKR"><meta data-vue-tag="ssr" name="twitter:title" content="파워 앱의 종단간 데이터 흐름 실시간 추적"><meta data-vue-tag="ssr" name="twitter:description" content="이 포스트에서는 퓨전 개발팀에서 개발한 파워 앱에서 코스모스 DB까지 종단간 데이터 흐름을 오픈 텔레메트리 기법을 이용해 실시간으로 추적하는 방법에 대해 알아봅니다."><meta data-vue-tag="ssr" name="twitter:image" content="https://sa0blogs.blob.core.windows.net/aliencube/2021/05/tracing-end-to-end-data-from-power-apps-to-azure-cosmos-db-00.png"><link data-vue-tag="ssr" rel="icon" href="data:,"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="16x16" href="/developerkorea/assets/static/favicon.ce0531f.956d6987e7d3d645bed3e641d6455e72.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="32x32" href="/developerkorea/assets/static/favicon.ac8d93a.956d6987e7d3d645bed3e641d6455e72.png"><link data-vue-tag="ssr" rel="icon" type="image/png" sizes="96x96" href="/developerkorea/assets/static/favicon.b9532cc.956d6987e7d3d645bed3e641d6455e72.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="76x76" href="/developerkorea/assets/static/favicon.f22e9f3.956d6987e7d3d645bed3e641d6455e72.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="152x152" href="/developerkorea/assets/static/favicon.62d22cb.956d6987e7d3d645bed3e641d6455e72.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="120x120" href="/developerkorea/assets/static/favicon.1539b60.956d6987e7d3d645bed3e641d6455e72.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="167x167" href="/developerkorea/assets/static/favicon.dc0cdc5.956d6987e7d3d645bed3e641d6455e72.png"><link data-vue-tag="ssr" rel="apple-touch-icon" type="image/png" sizes="180x180" href="/developerkorea/assets/static/favicon.7b22250.956d6987e7d3d645bed3e641d6455e72.png"><link data-vue-tag="ssr" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&amp;display=swap"><link data-vue-tag="ssr" rel="stylesheet" href="https://github.githubassets.com/assets/gist-embed-d89dc96f3ab6372bb73ee45cafdd0711.css"><link data-vue-tag="ssr" rel="canonical" href="https://blog.aliencube.org/ko/2021/05/19/tracing-end-to-end-data-from-power-apps-to-azure-cosmos-db/"><link rel="preload" href="/developerkorea/assets/css/1.styles.a2925b16.css" as="style"><link rel="preload" href="/developerkorea/assets/js/app.a004e0ad.js" as="script"><link rel="preload" href="/developerkorea/assets/js/page--src--templates--blog-post-vue.c211ede3.js" as="script"><link rel="prefetch" href="/developerkorea/assets/js/page--node-modules--gridsome--app--pages--404-vue.ef0f12da.js"><link rel="prefetch" href="/developerkorea/assets/js/page--src--pages--index-vue.3ba335bc.js"><link rel="prefetch" href="/developerkorea/assets/js/page--src--pages--infinity-vue.1ecb3c0c.js"><link rel="prefetch" href="/developerkorea/assets/js/page--src--templates--author-vue.6aad95b7.js"><link rel="prefetch" href="/developerkorea/assets/js/page--src--templates--author-vue~page--src--templates--category-vue~page--src--templates--tag-vue.74fb66e1.js"><link rel="prefetch" href="/developerkorea/assets/js/page--src--templates--category-vue.aec175fd.js"><link rel="prefetch" href="/developerkorea/assets/js/page--src--templates--custom-page-vue.7f442cf2.js"><link rel="prefetch" href="/developerkorea/assets/js/page--src--templates--tag-vue.91ca211b.js"><link rel="prefetch" href="/developerkorea/assets/js/vendors~page--src--templates--blog-post-vue.40135467.js"><link rel="stylesheet" href="/developerkorea/assets/css/1.styles.a2925b16.css"><script data-vue-tag="ssr" src="https://platform.twitter.com/widgets.js"></script><noscript data-vue-tag="ssr"><style>.g-image--loading{display:none;}</style></noscript>
+  </head>
+  <body >
+    
+    <script>
+      // Add dark / light detection that runs before Vue.js load. Borrowed from overreacted.io
+      // for this starter, i used the code from gridsome.org
+      (function() {
+        window.__onThemeChange = function() {};
+        function setTheme(newTheme) {
+
+          window.__theme = newTheme;
+          preferredTheme = newTheme;
+          document.body.setAttribute('data-theme', newTheme);
+          document.documentElement.classList.remove('light')
+          document.documentElement.classList.remove('dark')
+          document.documentElement.classList.add(newTheme)
+
+
+          window.__onThemeChange(newTheme);
+        }
+
+        var preferredTheme;
+        try {
+          preferredTheme = localStorage.getItem('theme');
+        } catch (err) { }
+
+        window.__setPreferredTheme = function(newTheme) {
+          setTheme(newTheme);
+          try {
+            localStorage.setItem('theme', newTheme);
+          } catch (err) {}
+        }
+
+        var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+        darkQuery.addListener(function(e) {
+          window.__setPreferredTheme(e.matches ? 'dark' : 'light');
+        });
+
+        setTheme(preferredTheme || (darkQuery.matches ? 'dark' : 'light'));
+      })();
+    </script>
+
+    <div id="app" data-server-rendered="true" class="dark:bg-black"><div class="h-16 dark:bg-black bg-white"><div style="height:px;"><div class="headroom bg-white dark:bg-black border-b dark:border-gray-900" style="position:relative;top:0;left:0;right:0;z-index:9999;"><nav class="hidden md:block lg:block xl:block items-center justify-between flex-wrap container mx-auto py-3 z-20 dark:text-gray-400"><div class="flex-grow flex items-center w-auto mx-4"><div class="flex items-center flex-shrink-0 mr-6"><span class="font-semibold text-xl tracking-tight">마이크로소프트 기술 블로그</span></div><div class="flex-grow"><ul class="list-none flex justify-left"><li class="px-4 py-1"><a href="/developerkorea/" title="🏠 홈" class="block py-1 active">🏠 홈</a><!----><!----><!----></li><li class="px-4 py-1"><a href="/developerkorea/getting-started" title="🚀 시작하기" class="block py-1">🚀 시작하기</a><!----><!----><!----></li><li class="px-4 py-1"><!----><a href="https://docs.microsoft.com/ko-kr/" target="_blank" title="📝 Docs" class="block py-1">📝 Docs</a><!----><!----></li><li class="px-4 py-1"><!----><a href="https://docs.microsoft.com/ko-kr/learn/" target="_blank" title="📘 Learn" class="block py-1">📘 Learn</a><!----><!----></li><li class="px-4 py-1"><!----><!----><!----><!----></li><li class="px-4 py-1"><!----><!----><a href="https://github.com/microsoft/developerkorea" target="_blank" title="깃헙" class="block py-1"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="svg-inline--fa fa-github fa-w-16"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg> 깃헙</a><!----></li><li class="px-4 py-1"><!----><a href="https://microsoft.github.io/developerkorea/feed.xml" target="_blank" title="📣 RSS" class="block py-1">📣 RSS</a><!----><!----></li><li class="px-4 py-1"><a role="button" aria-label="Open Subnavigation" title="Open Subnavigation" class="block px-4 py-1"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="ellipsis-h" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-ellipsis-h fa-w-16 fa-lg"><path fill="currentColor" d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"></path></svg></a><div class="py-4 mega-menu mb-16 border-t border-gray-200 shadow-xl bg-white dark:bg-black dark:border-gray-900 hidden"><div><div class="container mx-auto"><div class="flex flex-wrap md:my-4 md:mx-4"><div class="w-full mb-2"><h2 class="text-xl mt-0 mb-2">Recent articles</h2><div class="w-full"><div class="-mx-4 slick-slider slick-initialized" data-v-3d1a4f76><div class="slick-list" data-v-3d1a4f76><div class="slick-track" style="width:100%;left:0%;" data-v-e4caeaf8 data-v-3d1a4f76><div tabIndex="-1" data-index="0" aria-hidden="false" class="slick-slide slick-active slick-current" style="outline:none;width:25%;" data-v-e4caeaf8><div data-v-e4caeaf8><div tabIndex="-1" class="px-4" style="width:100%;display:inline-block;" data-v-e4caeaf8><a href="/developerkorea/posts/2021/05/25/tracing-end-to-end-data-from-power-apps-to-azure-cosmos-db/" aria-current="page" class="active--exact active"><div id="e9acf1d5c64799991cfe0a0302124d77"><img alt="파워 앱의 종단간 데이터 흐름 실시간 추적" src="https://sa0blogs.blob.core.windows.net/aliencube/2021/05/tracing-end-to-end-data-from-power-apps-to-azure-cosmos-db-00.png" class="rounded-lg h-32 object-cover w-full g-image"><div class="post-card-content"><h3 class="tracking-wider mt-3 mb-3 text-lg font-light max-w-xl">파워 앱의 종단간 데이터 흐름 실시간 추적</h3></div><div class="post-card-footer"><p class="text-xs"><time datetime="2021-05-25">25 May 2021</time>
+                     • 
+                    21 min read
+                  </p></div></div></a></div></div></div><div tabIndex="-1" data-index="1" aria-hidden="false" class="slick-slide slick-active" style="outline:none;width:25%;" data-v-e4caeaf8><div data-v-e4caeaf8><div tabIndex="-1" class="px-4" style="width:100%;display:inline-block;" data-v-e4caeaf8><a href="/developerkorea/posts/2021/05/18/power-apps-in-fusion-teams/"><div id="754c4246d2c4e19254770437cf6c7e13"><img alt="퓨전 개발팀의 파워 앱 개발 실사례" src="https://sa0blogs.blob.core.windows.net/aliencube/2021/05/power-apps-in-fusion-teams-00.png" class="rounded-lg h-32 object-cover w-full g-image"><div class="post-card-content"><h3 class="tracking-wider mt-3 mb-3 text-lg font-light max-w-xl">퓨전 개발팀의 파워 앱 개발 실사례</h3></div><div class="post-card-footer"><p class="text-xs"><time datetime="2021-05-18">18 May 2021</time>
+                     • 
+                    13 min read
+                  </p></div></div></a></div></div></div><div tabIndex="-1" data-index="2" aria-hidden="false" class="slick-slide slick-active" style="outline:none;width:25%;" data-v-e4caeaf8><div data-v-e4caeaf8><div tabIndex="-1" class="px-4" style="width:100%;display:inline-block;" data-v-e4caeaf8><a href="/developerkorea/posts/2021/04/27/bicep-refreshed/"><div id="33023f0b85b75a552a67b17ef06ddf6b"><img alt="애저 Bicep 되짚어보기" src="https://sa0blogs.blob.core.windows.net/aliencube/2021/04/bicep-refreshed-00.png" class="rounded-lg h-32 object-cover w-full g-image"><div class="post-card-content"><h3 class="tracking-wider mt-3 mb-3 text-lg font-light max-w-xl">애저 Bicep 되짚어보기</h3></div><div class="post-card-footer"><p class="text-xs"><time datetime="2021-04-27">27 Apr 2021</time>
+                     • 
+                    9 min read
+                  </p></div></div></a></div></div></div><div tabIndex="-1" data-index="3" aria-hidden="false" class="slick-slide slick-active" style="outline:none;width:25%;" data-v-e4caeaf8><div data-v-e4caeaf8><div tabIndex="-1" class="px-4" style="width:100%;display:inline-block;" data-v-e4caeaf8><a href="/developerkorea/posts/2021/04/13/single-command-provisioning-for-power-platform-hands-on-labs-environment/"><div id="3c1336bc84c74507d24f213b78431f39"><img alt="명령어 한 줄로 파워 플랫폼 실습 환경 설정하기" src="https://sa0blogs.blob.core.windows.net/aliencube/2021/04/automatic-provisioning-power-platform-hands-on-labs-environment-00.png" class="rounded-lg h-32 object-cover w-full g-image"><div class="post-card-content"><h3 class="tracking-wider mt-3 mb-3 text-lg font-light max-w-xl">명령어 한 줄로 파워 플랫폼 실습 환경 설정하기</h3></div><div class="post-card-footer"><p class="text-xs"><time datetime="2021-04-13T00:00:00.000Z">13 Apr 2021</time>
+                     • 
+                    19 min read
+                  </p></div></div></a></div></div></div></div></div></div></div></div><div class="w-full mb-8"><h2 class="text-xl mt-2 mb-2">Tags</h2><ul class="flex flex-wrap"><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/open-telemetry/">open-telemetry</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/traceability/">traceability</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/observability/">observability</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/power-apps/">power-apps</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/fusion-teams/">fusion-teams</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/iac/">iac</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/arm/">arm</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/bicep/">bicep</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/provisioning/">provisioning</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/powershell/">powershell</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/microsoft-365/">microsoft-365</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/backward-compatibility/">backward-compatibility</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/azure-functions-proxy/">azure-functions-proxy</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/secret-management/">secret-management</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/azure-keyvault/">azure-keyvault</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/requestbin/">requestbin</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/statefulness/">statefulness</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/azure-durable-functions/">azure-durable-functions</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/custom-connector/">custom-connector</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/openapi/">openapi</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/azure-logicapps/">azure-logicapps</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/python/">python</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/mlops/">mlops</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/open-source/">open-source</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/fairlearn/">fairlearn</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/fairness/">fairness</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/azure-ml/">azure-ml</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/azure-sdk/">azure-sdk</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/cloudevents/">cloudevents</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/azure-functions/">azure-functions</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/yaml/">yaml</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/refactoring/">refactoring</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/multi-stage-pipelines/">multi-stage-pipelines</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/azure-pipelines/">azure-pipelines</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/azure-devops/">azure-devops</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/github-actions/">github-actions</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/azure-eventgrid/">azure-eventgrid</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/azure-logic-apps/">azure-logic-apps</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/azure-cli/">azure-cli</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/devops/">devops</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/power-platform/">power-platform</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/microsoft365/">microsoft365</a></li><li class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-4 mb-4 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full"><a href="/developerkorea/tags/azure/">azure</a></li></ul></div></div></div></div></div></li></ul></div><div class="inline-block"><ul class="list-none flex justify-center md:justify-end"><li class="mr-6"><a role="button" aria-label="Open Search" title="Open Search"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-search fa-w-16"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg></a></li><li><a role="button" aria-label="Toggle dark" title="Toggle dark" class="toggle-theme"><!----><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="moon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-moon fa-w-16"><path fill="currentColor" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"></path></svg></a></li></ul></div></div></nav><nav class="block md:hidden flex items-center justify-between flex-wrap container mx-auto py-4 dark:text-gray-400"><div class="block flex-grow flex items-center w-auto mx-4"><div class="flex items-center flex-shrink-0 mr-6"><a role="button" aria-label="Open Navigation" title="Open Navigation"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-bars fa-w-14"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path></svg></a></div><div class="flex-grow text-center font-bold text-lg"><span class="font-semibold text-xl tracking-tight">마이크로소프트 기술 블로그</span></div><div class="inline-block"><ul class="list-none flex justify-center md:justify-end"><li class="mr-6"><a role="button" aria-label="Open Search" title="Open Search"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-search fa-w-16"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path></svg></a></li><li><a role="button" aria-label="Toggle dark" title="Toggle dark" class="toggle-theme"><!----><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="moon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-moon fa-w-16"><path fill="currentColor" d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"></path></svg></a></li></ul></div></div></nav></div></div><!----><!----></div><div><!----><div class="z-100 relative mt-0 h-auto"><!----><img alt="여러 점들의 연결" src="https://sa0blogs.blob.core.windows.net/aliencube/2021/05/tracing-end-to-end-data-from-power-apps-to-azure-cosmos-db-00.png" class="object-cover absolute h-full w-full g-image"><div class="text-center text-white bg-gray-800 lg:py-48 md:py-32 py-24 bg-opacity-0"><!----><!----></div></div></div><div class="container sm:pxi-0 mx-auto overflow-x-hidden text-gray-800 dark:text-gray-500"><div class="lg:mx-32 md:mx-16 sm:mx-8 mx-4 pt-8"><section class="post-header container mx-auto px-0 mb-16 text-center"><h1 class="text-gray-800 dark:text-gray-400 font-extrabold tracking-wider mb-6">파워 앱의 종단간 데이터 흐름 실시간 추적</h1><span class="tracking-wide text-sm"><a href="/developerkorea/categories/power-platform/" class="font-medium">Power Platform</a>
+           · 
+          <time datetime="Tue May 25 2021 12:00:00 UTC+00:00">25 May 2021</time>
+           · 
+          21 min read
+          <span>
+             · 
+            originally posted at <a href="https://blog.aliencube.org/ko/2021/05/19/tracing-end-to-end-data-from-power-apps-to-azure-cosmos-db/" target="_blank" rel="noopener" style="font-style:italic;">blog.aliencube.org</a>.
+          </span></span></section></div><div class="lg:mx-32 md:mx-16 px-4"><section class="post-content container mx-auto relative"><div><p>클라우드 기반의 애플리케이션 아키텍처를 보고 있노라면, 굳이 마이크로서비스 아키텍처가 아니라고 하더라도 수많은 시스템들이 복잡하게 연결되어 서로 데이터 혹은 메시지를 주고 받는 경우가 대부분입니다. 이런 경우에 서로 다른 시스템으로 메시지가 오가다 보면 어느 순간 메시지를 잃어버린다든가, 처리가 되지 않은 채로 계속 남아있다든가 하는 경우가 종종 생기곤 하지요.</p>
+<p>클라우드 환경에서는 시스템을 구성하는 수많은 컴포넌트들이 저마다의 리듬으로 작동하기 때문에 어느 특정한 시점에서 특정 서비스가 다운될 수 있다는 것을 항상 전제 조건으로 하고 아키텍처를 설계해야 합니다. 따라서, 메시지가 처음부터 끝까지 무슨 경로를 통해 어떻게 흘러가는지를 지속적으로 확인할 수 있게끔 설계하는 것이 좋은데요, 이런 기능을 가리켜 관측 용이성(Observability)과 추적 용이성(Traceability)이라고 합니다.</p>
+<p><a href="/developerkorea/posts/2021/05/18/power-apps-in-fusion-teams/">지난 포스트</a>에서는 퓨전 개발팀 안에서 시민 개발자가 OpenAPI 기능을 추가한 <a href="https://docs.microsoft.com/ko-kr/azure/azure-functions/functions-overview?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">애저 펑션</a> 기반의 API를 이용해 <a href="https://powerapps.microsoft.com/ko-kr/?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">파워 앱</a>을 개발하는 과정에 대해 알아보았습니다. 이번에는 이 파워 앱에서 데이터베이스까지 데이터가 이동하는 과정을 <a href="https://docs.microsoft.com/ko-kr/azure/azure-monitor/overview?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">애저 모니터</a> 서비스와 <a href="https://docs.microsoft.com/ko-kr/azure/azure-monitor/app/app-insights-overview?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">애플리케이션 인사이트</a> 서비스를 이용해 추적하는 방법에 대해 알아보고, 이를 <a href="https://opentelemetry.io/" target="_blank" rel="nofollow noopener noreferrer">오픈 텔레메트리</a>에서 제공하는 개념과 연결지어 논의해 보기로 합니다.</p>
+<ul>
+<li><a href="/developerkorea/posts/2021/05/18/power-apps-in-fusion-teams/">퓨전 개발팀의 파워 앱 개발 실사례</a></li>
+<li><strong><em>파워 앱의 종단간 데이터 흐름 실시간 추적</em></strong></li>
+<li>파워 앱에 DevOps 적용하기</li>
+</ul>
+<blockquote>
+<p>이 포스트에 사용한 백엔드 API 샘플 코드는 이곳 <a href="https://github.com/aliencube/GymLog" target="_blank" rel="nofollow noopener noreferrer">GitHub 리포지토리</a>에서 다운로드 받을 수 있습니다.</p>
+</blockquote>
+<h2 id="시나리오"><a href="#%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4" aria-hidden="true"><span class="icon icon-link"></span></a>시나리오</h2>
+<p>Lamna 피트니스 센터에서는 회원들을 위해 <a href="https://powerapps.microsoft.com/ko-kr/?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">파워 앱</a>으로 만든 모바일 앱으로 운동 일지를 작성하는 서비스를 제공하고 있습니다. 그런데, 종종 데이터 입력시 오류가 난다는 회원들의 피드백을 받곤 하는데요, 퓨전 개발팀에서 퍼스널 트레이너 팀을 대표하는 안지민쌤은 이 문제를 같은 팀의 전문 개발자인 권수빈쌤과 공유했습니다. 따라서, 수빈쌤은 어떻게 데이터가 파워 앱에서 애저 코스모스 DB로 흘러가는지 추적할 수 있는 로직을 추가하기로 방향을 잡고 애플리케이션을 수정하기로 했습니다. 데이터 추적 프로세스를 그림으로 나타내면 아래와 같습니다.</p>
+<p><img src="https://sa0blogs.blob.core.windows.net/aliencube/2021/05/tracing-end-to-end-data-from-power-apps-to-azure-cosmos-db-01.png" alt="GymLog Telemetry Architecture"></p>
+<p>위의 프로세스를 <a href="https://opentelemetry.io/" target="_blank" rel="nofollow noopener noreferrer">오픈 텔레메트리</a>에서 정의한 스펙에 맞춰 분석해 볼까요?</p>
+<ul>
+<li><a href="https://powerapps.microsoft.com/ko-kr/?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">파워 앱</a>에서 <a href="https://docs.microsoft.com/ko-kr/azure/cosmos-db/introduction?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">코스모스 DB</a>까지 데이터가 흘러가는 전체 흐름을 <a href="https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/overview.md#traces" target="_blank" rel="nofollow noopener noreferrer">트레이스(trace)</a>라고 합니다.</li>
+<li>
+<p>이 전체 흐름은 <a href="https://docs.microsoft.com/ko-kr/azure/service-bus-messaging/service-bus-messaging-overview?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">애저 서비스 버스</a>를 경계로 삼아 서비스 버스에 메시지를 보내기 전과 후로 나눌 수 있는데, 서비스 버스 전과 후는 완전히 다른 독립적인 애플리케이션(퍼블리셔와 섭스크라이버)이기 때문입니다. 이렇게 나뉘어진 각각을 가리켜 <a href="https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/overview.md#spans" target="_blank" rel="nofollow noopener noreferrer">스팬(span)</a>이라고 합니다. 즉, 스팬은 데이터 혹은 메시지를 처리하는 하나의 작업 단위라고 할 수 있죠.</p>
+<ul>
+<li>파워 앱에서 보낸 데이터는 <a href="https://docs.microsoft.com/ko-kr/azure/storage/tables/table-storage-overview?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">애저 테이블 저장소</a>에 저장되고 마지막 <code class="language-text">publish</code> 액션을 통해 합산(aggregate)된 데이터가 <a href="https://docs.microsoft.com/ko-kr/azure/service-bus-messaging/service-bus-messaging-overview?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">애저 서비스 버스</a>로 전송됩니다.</li>
+</ul>
+<blockquote>
+<p>위 그림에서는 이 부분이 <code class="language-text">routine</code>, <code class="language-text">exercise</code>, <code class="language-text">publish</code>의 세 가지 액션으로 구성되어 있습니다. 따라서, 이 부분을 세 개의 스팬으로 잘게 쪼갤 수도 있습니다만, 여기서는 하나의 스팬으로 처리하기로 하겠습니다.</p>
+</blockquote>
+<ul>
+<li><a href="https://docs.microsoft.com/ko-kr/azure/service-bus-messaging/service-bus-messaging-overview?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">애저 서비스 버스</a>에서 받은 메시지를 처리해서 <a href="https://docs.microsoft.com/ko-kr/azure/cosmos-db/introduction?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">코스모스 DB</a>에 저장합니다.</li>
+</ul>
+</li>
+<li>한 스팬에서 다른 스팬으로 데이터가 이동할 때 데이터 추적에 필요한 메타 데이터가 함께 이동해야 합니다. 이를 <a href="https://github.com/open-telemetry/opentelemetry-specification/blob/main/specification/overview.md#spancontext" target="_blank" rel="nofollow noopener noreferrer">스팬 컨텍스트(span context)</a>라고 합니다.</li>
+</ul>
+<h2 id="파워-앱-개선"><a href="#%ED%8C%8C%EC%9B%8C-%EC%95%B1-%EA%B0%9C%EC%84%A0" aria-hidden="true"><span class="icon icon-link"></span></a>파워 앱 개선</h2>
+<p>앞서 언급한 바와 같이 트레이스는 파워 앱에서부터 시작하기 때문에, 파워 앱에서 트레이스를 위해 작업해 줘야 할 것이 있습니다. 아래 그림과 같이 <strong>Start</strong> 버튼을 누를 때 <code class="language-text">correlationId</code> 값과 <code class="language-text">spanId</code> 값을 파워 앱에서 준비해서 첫번째 <code class="language-text">routine</code> 액션을 수행할 때 API로 보내는 것이 되겠네요.</p>
+<p><img src="https://sa0blogs.blob.core.windows.net/aliencube/2021/05/tracing-end-to-end-data-from-power-apps-to-azure-cosmos-db-02.png" alt="Power Apps Canvas - Correlation ID and Span ID"></p>
+<p>이렇게 함으로써, 파워 앱에서부터 추적을 시작한다는 것을 전체 모니터링 과정에서 알 수 있고, 첫번째 스팬도 파워 앱에서부터 시작한다는 것 역시도 알 수 있습니다. 여기서 생성한 <code class="language-text">correlationId</code> 값과 <code class="language-text">spanId</code> 값은 <code class="language-text">publish</code> 액션을 수행할 때 까지 계속해서 따라다닙니다. 더우기 <code class="language-text">correlationId</code> 값은 애저 서비스 버스를 통해 다른 스팬으로 넘어갈 때에도 스팬 컨텍스트를 통해 계속해서 다른 스팬으로 전달됩니다.</p>
+<h2 id="백엔드-개선"><a href="#%EB%B0%B1%EC%97%94%EB%93%9C-%EA%B0%9C%EC%84%A0" aria-hidden="true"><span class="icon icon-link"></span></a>백엔드 개선</h2>
+<p>애저 펑션은 <a href="https://docs.microsoft.com/ko-kr/azure/azure-monitor/app/app-insights-overview?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">애플리케이션 인사이트</a> 서비스의 계측 키(instrumentation key)만 연결해 놓으면 자동으로 모든 추적 데이터를 수집합니다. <a href="https://opentelemetry.io/" target="_blank" rel="nofollow noopener noreferrer">오픈 텔레메트리</a>의 구현체 중 하나인 <a href="https://opentelemetry.io/docs/net/" target="_blank" rel="nofollow noopener noreferrer">OpenTelemetry.NET</a>을 보면 현재 추적 관련 구현은 <a href="https://devblogs.microsoft.com/dotnet/opentelemetry-net-reaches-v1-0/?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">1.0 버전으로 안정화 되었고</a>, 메트릭이라든가 세부 로그 작성 관련해서는 곧 GA를 목표로 활발하게 작업중입니다. 하지만 안타깝게도 이 구현체가 <a href="https://github.com/open-telemetry/opentelemetry-dotnet/issues/1602" target="_blank" rel="nofollow noopener noreferrer">애저 펑션에서는 제대로 작동하지 않습니다</a>. 따라서, 여기서는 오픈 텔레메트리의 추적 과정을 로그 저장 수준에서만 구현해서 애플리케이션 인사이트와 통합해 보기로 하겠습니다.</p>
+<h3 id="퍼블리셔--http-트리거"><a href="#%ED%8D%BC%EB%B8%94%EB%A6%AC%EC%85%94--http-%ED%8A%B8%EB%A6%AC%EA%B1%B0" aria-hidden="true"><span class="icon icon-link"></span></a>퍼블리셔 – HTTP 트리거</h3>
+<p>그렇다면 로그는 어느 시점에 저장하는 것이 좋을까요?</p>
+<p>백엔드 API는 <code class="language-text">routine</code>, <code class="language-text">exercise</code>, <code class="language-text">publish</code> 액션으로 구성되어 있고, 각 액션은 <a href="https://docs.microsoft.com/ko-kr/azure/storage/tables/table-storage-overview?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">애저 테이블 저장소</a>에 이벤트 소싱 형태로 데이터를 일시 저장합니다. 따라서, 테이블에 데이터를 저장하는 시점에 추적을 위한 일종의 체크포인트로서 로그를 하나 남기는 것이 좋습니다. 또한, 마지막 <code class="language-text">publish</code> 액션에서는 이렇게 저장된 데이터를 합산(aggregate)해서 <a href="https://docs.microsoft.com/ko-kr/azure/service-bus-messaging/service-bus-messaging-overview?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">애저 서비스 버스</a>로 메시지를 보내는데, 메시지를 보낸 후에도 체크포인트 로그를 남겨 놓습니다.</p>
+<p>애저 펑션의 로깅 기능은 <code class="language-text">ILogger</code> 인터페이스를 통해 사용할 수 있는데, 애플리케이션 인사이트와 연동시켜 놓으면 사용자 지정 텔레메트리 속성을 손쉽게 저장합니다. 그렇다면 사용자 지정 텔레메트리 속성으로 어떤 것들을 지정하면 좋을까요?</p>
+<ul>
+<li><strong>이벤트 종류</strong>: 액션과 액션의 수행 여부 – <code class="language-text">RoutineReceived</code>, <code class="language-text">ExerciseCreated</code>, <code class="language-text">MessageNotPublished</code> 등</li>
+<li><strong>이벤트 상태</strong>: 성공 혹은 실패 – <code class="language-text">Succeeded</code>, <code class="language-text">Failed</code> 등</li>
+<li><strong>이벤트 ID</strong>: 애저 펑션의 Invocation ID로 실행될 때 마다 새롭게 GUID가 할당됨</li>
+<li><strong>스팬 종류</strong>: 스팬의 종류 – <code class="language-text">Publisher</code> 또는 <code class="language-text">Subscriber</code></li>
+<li><strong>스팬 상태</strong>: 스팬의 상태 – <code class="language-text">PublisherInitiated</code>, <code class="language-text">SubscriberInProgress</code>, <code class="language-text">PublisherCompleted</code> 등</li>
+<li><strong>스팬 ID</strong>: 매번 스팬이 실행될 때 마다 새롭게 할당되는 GUID</li>
+<li><strong>인터페이스 종류</strong>: 사용자 인터페이스의 종류 – <code class="language-text">Test Harness</code> 또는 <code class="language-text">Power Apps App</code></li>
+<li><strong>코릴레이션 ID</strong>: 트레이스 전체에서 메시지 추적을 위한 고유 ID</li>
+</ul>
+<p>이 정도를 <a href="https://docs.microsoft.com/ko-kr/azure/azure-monitor/app/app-insights-overview?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">애플리케이션 인사이트</a>를 통해 저장해 두면, 어떤 트레이스에서(코릴레이션 ID) 무슨 인터페이스를 통해(테스트 혹은 파워 앱), 어떤 스팬을 거쳐서, 데이터 처리(이벤트 종류)에 성공했는지 여부(이벤트 상태)를 한 눈에 알 수 있겠죠?</p>
+<p>이를 위해 <code class="language-text">ILogger</code> <a href="https://github.com/aliencube/GymLog/blob/main/src/GymLog.FunctionApp/Extensions/LoggerExtensions.cs" target="_blank" rel="nofollow noopener noreferrer">확장 메서드를 하나 구현</a>해서 애저 펑션 안에서 아래와 같이 사용합니다. 코드에서 보이다시피 코릴레이션 ID 값과 스팬 ID 값은 파워 앱에서 보내온 것을 사용합니다 (line #9-10). 그리고, 이벤트 ID 값은 애저 펑션의 <code class="language-text">invocationId</code> 값을 그대로 사용하면 되겠네요 (line #12). 마지막으로 이벤트 종류, 이벤트 상태, 스팬 종류, 스팬 상태, 인터페이스 종류, 코릴레이션 ID 값을 로그로 보냅니다 (line #14-17). 아래의 코드는 파워 앱으로부터 <code class="language-text">routine</code> 액션을 수행할 때, 요청 데이터를 문제 없이 받았음을 기록하는 부분입니다.</p>
+<div class="gist-embed">
+    <html><head></head><body><div id="gist109586201" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-01-create-routine-01-cs" class="file my-2">
+    
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-c  ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-01-create-routine-01-cs-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-01-create-routine-01-cs-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-k">Task</span>&lt;<span class="pl-k">IActionResult</span>&gt; <span class="pl-en">CreateRoutineAsync</span>(</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-01-create-routine-01-cs-LC2" class="blob-code blob-code-inner js-file-line">    [<span class="pl-k">HttpTrigger</span>(<span class="pl-smi">AuthorizationLevel</span>.<span class="pl-smi">Function</span>, <span class="pl-smi">HttpVerbs</span>.<span class="pl-smi">Post</span>, <span class="pl-en">Route</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>routines<span class="pl-pds">"</span></span>)] <span class="pl-k">HttpRequest</span> <span class="pl-en">req</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-01-create-routine-01-cs-LC3" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">ExecutionContext</span> <span class="pl-en">context</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-01-create-routine-01-cs-LC4" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">ILogger</span> <span class="pl-en">log</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-01-create-routine-01-cs-LC5" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-01-create-routine-01-cs-LC6" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">var</span> <span class="pl-en">request</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">req</span>.<span class="pl-en">ToRequestMessageAsync</span>&lt;<span class="pl-k">RoutineRequestMessage</span>&gt;().<span class="pl-en">ConfigureAwait</span>(<span class="pl-c1">false</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-01-create-routine-01-cs-LC7" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">var</span> <span class="pl-en">@interface</span> <span class="pl-k">=</span> <span class="pl-smi">request</span>.<span class="pl-smi">Interface</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-01-create-routine-01-cs-LC8" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-01-create-routine-01-cs-LC9" class="blob-code blob-code-inner js-file-line highlighted">    <span class="pl-k">var</span> <span class="pl-en">correlationId</span> <span class="pl-k">=</span> <span class="pl-smi">request</span>.<span class="pl-smi">CorrelationId</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-01-create-routine-01-cs-LC10" class="blob-code blob-code-inner js-file-line highlighted">    <span class="pl-k">var</span> <span class="pl-en">spanId</span> <span class="pl-k">=</span> <span class="pl-smi">request</span>.<span class="pl-smi">SpanId</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-01-create-routine-01-cs-LC11" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-01-create-routine-01-cs-LC12" class="blob-code blob-code-inner js-file-line highlighted">    <span class="pl-k">var</span> <span class="pl-en">eventId</span> <span class="pl-k">=</span> <span class="pl-smi">context</span>.<span class="pl-smi">InvocationId</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-01-create-routine-01-cs-LC13" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-01-create-routine-01-cs-LC14" class="blob-code blob-code-inner js-file-line highlighted">    <span class="pl-smi">log</span>.<span class="pl-en">LogData</span>(<span class="pl-smi">LogLevel</span>.<span class="pl-smi">Information</span>, <span class="pl-smi">request</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-01-create-routine-01-cs-LC15" class="blob-code blob-code-inner js-file-line highlighted">                <span class="pl-smi">EventType</span>.<span class="pl-smi">RoutineReceived</span>, <span class="pl-smi">EventStatusType</span>.<span class="pl-smi">Succeeded</span>, <span class="pl-smi">eventId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-01-create-routine-01-cs-LC16" class="blob-code blob-code-inner js-file-line highlighted">                <span class="pl-smi">SpanType</span>.<span class="pl-smi">Publisher</span>, <span class="pl-smi">SpanStatusType</span>.<span class="pl-smi">PublisherInitiated</span>, <span class="pl-smi">spanId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-01-create-routine-01-cs-LC17" class="blob-code blob-code-inner js-file-line highlighted">                <span class="pl-smi">@interface</span>, <span class="pl-smi">correlationId</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-01-create-routine-01-cs-LC18" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-01-create-routine-01-cs-LC19" class="blob-code blob-code-inner js-file-line">    ...</td>
+      </tr>
+      <tr>
+        <td id="file-01-create-routine-01-cs-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-01-create-routine-01-cs-LC20" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/justinyoo/9679433b6d886897cc09d8bcf1c8b6de/raw/0fad83b8415619aa5a3e5f4abecedd105049cd9d/01-create-routine-01.cs" style="float:right">view raw</a>
+        <a href="https://gist.github.com/justinyoo/9679433b6d886897cc09d8bcf1c8b6de#file-01-create-routine-01-cs">01-create-routine-01.cs</a>
+        hosted with ❤ by <a href="https://github.com">GitHub</a>
+      </div>
+    </div>
+</div>
+</body></html>
+</div>
+<p>위와 같이 우선 파워 앱으로부터 요청 데이터를 잘 받았음을 체크포인트 로그로 남겨뒀으니, 이제 아래 코드를 볼까요? 우선 요청 데이터를 애저 테이블 저장소에 저장합니다 (line #14). 이 때 성공적으로 저장했다면 거기에 맞춰 로그를 기록합니다 (line #18-23). 만약 이 과정에서 에러가 발생했다면 예외 처리를 하면서 에러 로그를 작성하면 되겠네요 (line #29-34).</p>
+<div class="gist-embed">
+    <html><head></head><body><div id="gist109586201" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-02-create-routine-02-cs" class="file my-2">
+    
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-c  ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-02-create-routine-02-cs-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-02-create-routine-02-cs-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-k">Task</span>&lt;<span class="pl-k">IActionResult</span>&gt; <span class="pl-en">CreateRoutineAsync</span>(</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-02-create-routine-02-cs-LC2" class="blob-code blob-code-inner js-file-line">    [<span class="pl-k">HttpTrigger</span>(<span class="pl-smi">AuthorizationLevel</span>.<span class="pl-smi">Function</span>, <span class="pl-smi">HttpVerbs</span>.<span class="pl-smi">Post</span>, <span class="pl-en">Route</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>routines<span class="pl-pds">"</span></span>)] <span class="pl-k">HttpRequest</span> <span class="pl-en">req</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-02-create-routine-02-cs-LC3" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">ExecutionContext</span> <span class="pl-en">context</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-02-create-routine-02-cs-LC4" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">ILogger</span> <span class="pl-en">log</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-02-create-routine-02-cs-LC5" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-02-create-routine-02-cs-LC6" class="blob-code blob-code-inner js-file-line">    ...</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-02-create-routine-02-cs-LC7" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-02-create-routine-02-cs-LC8" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">try</span></td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-02-create-routine-02-cs-LC9" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-02-create-routine-02-cs-LC10" class="blob-code blob-code-inner js-file-line">        ...</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-02-create-routine-02-cs-LC11" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-02-create-routine-02-cs-LC12" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">await</span> <span class="pl-k">this</span>.<span class="pl-smi">_client</span>.<span class="pl-en">CreateTableIfNotExistsAsync</span>(<span class="pl-k">this</span>.<span class="pl-smi">_settings</span>.<span class="pl-smi">GymLog</span>.<span class="pl-smi">StorageAccount</span>.<span class="pl-smi">Table</span>.<span class="pl-smi">TableName</span>).<span class="pl-en">ConfigureAwait</span>(<span class="pl-c1">false</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-02-create-routine-02-cs-LC13" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">var</span> <span class="pl-en">table</span> <span class="pl-k">=</span> <span class="pl-k">this</span>.<span class="pl-smi">_client</span>.<span class="pl-en">GetTableClient</span>(<span class="pl-k">this</span>.<span class="pl-smi">_settings</span>.<span class="pl-smi">GymLog</span>.<span class="pl-smi">StorageAccount</span>.<span class="pl-smi">Table</span>.<span class="pl-smi">TableName</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-02-create-routine-02-cs-LC14" class="blob-code blob-code-inner js-file-line highlighted">        <span class="pl-k">var</span> <span class="pl-en">response</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">table</span>.<span class="pl-en">UpsertEntityAsync</span>(<span class="pl-smi">entity</span>).<span class="pl-en">ConfigureAwait</span>(<span class="pl-c1">false</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-02-create-routine-02-cs-LC15" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-02-create-routine-02-cs-LC16" class="blob-code blob-code-inner js-file-line">        ...</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-02-create-routine-02-cs-LC17" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-02-create-routine-02-cs-LC18" class="blob-code blob-code-inner js-file-line highlighted">        <span class="pl-smi">log</span>.<span class="pl-en">LogData</span>(<span class="pl-smi">response</span>.<span class="pl-smi">Status</span>.<span class="pl-en">ToLogLevel</span>(), <span class="pl-smi">res</span>.<span class="pl-smi">Value</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-02-create-routine-02-cs-LC19" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-smi">EventType</span>.<span class="pl-smi">RoutineCreated</span>, <span class="pl-smi">EventStatusType</span>.<span class="pl-smi">Succeeded</span>, <span class="pl-smi">eventId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-02-create-routine-02-cs-LC20" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-smi">SpanType</span>.<span class="pl-smi">Publisher</span>, <span class="pl-smi">SpanStatusType</span>.<span class="pl-smi">PublisherInProgress</span>, <span class="pl-smi">spanId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-02-create-routine-02-cs-LC21" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-smi">@interface</span>, <span class="pl-smi">correlationId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="file-02-create-routine-02-cs-LC22" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-en">clientRequestId</span>: <span class="pl-smi">response</span>.<span class="pl-smi">ClientRequestId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="file-02-create-routine-02-cs-LC23" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-en">message</span>: <span class="pl-smi">response</span>.<span class="pl-smi">Status</span>.<span class="pl-en">ToResponseMessage</span>(<span class="pl-smi">res</span>));</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L24" class="blob-num js-line-number" data-line-number="24"></td>
+        <td id="file-02-create-routine-02-cs-LC24" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L25" class="blob-num js-line-number" data-line-number="25"></td>
+        <td id="file-02-create-routine-02-cs-LC25" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">catch</span> (<span class="pl-k">Exception</span> <span class="pl-en">ex</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L26" class="blob-num js-line-number" data-line-number="26"></td>
+        <td id="file-02-create-routine-02-cs-LC26" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L27" class="blob-num js-line-number" data-line-number="27"></td>
+        <td id="file-02-create-routine-02-cs-LC27" class="blob-code blob-code-inner js-file-line">        ...</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L28" class="blob-num js-line-number" data-line-number="28"></td>
+        <td id="file-02-create-routine-02-cs-LC28" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L29" class="blob-num js-line-number" data-line-number="29"></td>
+        <td id="file-02-create-routine-02-cs-LC29" class="blob-code blob-code-inner js-file-line highlighted">        <span class="pl-smi">log</span>.<span class="pl-en">LogData</span>(<span class="pl-smi">LogLevel</span>.<span class="pl-smi">Error</span>, <span class="pl-smi">res</span>.<span class="pl-smi">Value</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L30" class="blob-num js-line-number" data-line-number="30"></td>
+        <td id="file-02-create-routine-02-cs-LC30" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-smi">EventType</span>.<span class="pl-smi">RoutineNotCreated</span>, <span class="pl-smi">EventStatusType</span>.<span class="pl-smi">Failed</span>, <span class="pl-smi">eventId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L31" class="blob-num js-line-number" data-line-number="31"></td>
+        <td id="file-02-create-routine-02-cs-LC31" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-smi">SpanType</span>.<span class="pl-smi">Publisher</span>, <span class="pl-smi">SpanStatusType</span>.<span class="pl-smi">PublisherInProgress</span>, <span class="pl-smi">spanId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L32" class="blob-num js-line-number" data-line-number="32"></td>
+        <td id="file-02-create-routine-02-cs-LC32" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-smi">@interface</span>, <span class="pl-smi">correlationId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L33" class="blob-num js-line-number" data-line-number="33"></td>
+        <td id="file-02-create-routine-02-cs-LC33" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-en">ex</span>: <span class="pl-smi">ex</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L34" class="blob-num js-line-number" data-line-number="34"></td>
+        <td id="file-02-create-routine-02-cs-LC34" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-en">message</span>: <span class="pl-smi">ex</span>.<span class="pl-smi">Message</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L35" class="blob-num js-line-number" data-line-number="35"></td>
+        <td id="file-02-create-routine-02-cs-LC35" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L36" class="blob-num js-line-number" data-line-number="36"></td>
+        <td id="file-02-create-routine-02-cs-LC36" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L37" class="blob-num js-line-number" data-line-number="37"></td>
+        <td id="file-02-create-routine-02-cs-LC37" class="blob-code blob-code-inner js-file-line">    ...</td>
+      </tr>
+      <tr>
+        <td id="file-02-create-routine-02-cs-L38" class="blob-num js-line-number" data-line-number="38"></td>
+        <td id="file-02-create-routine-02-cs-LC38" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/justinyoo/9679433b6d886897cc09d8bcf1c8b6de/raw/0fad83b8415619aa5a3e5f4abecedd105049cd9d/02-create-routine-02.cs" style="float:right">view raw</a>
+        <a href="https://gist.github.com/justinyoo/9679433b6d886897cc09d8bcf1c8b6de#file-02-create-routine-02-cs">02-create-routine-02.cs</a>
+        hosted with ❤ by <a href="https://github.com">GitHub</a>
+      </div>
+    </div>
+</div>
+</body></html>
+</div>
+<p>이와 비슷한 방식으로 다른 <code class="language-text">exercise</code>, <code class="language-text">publish</code> 액션에도 체크포인트 로그 처리를 합니다.</p>
+<h3 id="퍼블리셔--스팬-컨텍스트"><a href="#%ED%8D%BC%EB%B8%94%EB%A6%AC%EC%85%94--%EC%8A%A4%ED%8C%AC-%EC%BB%A8%ED%85%8D%EC%8A%A4%ED%8A%B8" aria-hidden="true"><span class="icon icon-link"></span></a>퍼블리셔 – 스팬 컨텍스트</h3>
+<p><code class="language-text">publish</code> 액션에서는 체크포인트 로그 기능을 구현할 뿐만 아니라, 스팬 컨텍스트 처리도 함께 해야 합니다. 스팬 컨텍스트는 스팬을 넘나들면서 데이터 추적과 관련한 메타 데이터를 함께 보내야 하는 부분인데, 이게 HTTP 요청/응답을 사용할 경우에는 요청 헤더에, 애저 서비스 버스를 사용할 경우에는 메시지 봉투에 넣어주는 형태로 구현하면 됩니다. 여기서는 애저 서비스 버스를 사용하므로 메시지 봉투에 구현된 <code class="language-text">ApplicationProperties</code> 딕셔너리를 이용하겠습니다.</p>
+<p>아래 <code class="language-text">publish</code> 액션에 대한 애저 펑션 코드를 볼까요? 서비스 버스 메시지의 본문은 운동 기록에 대한 것이지만 (line #23-24), 나머지 데이터는 메시지 개체의 <code class="language-text">CorrelationId</code>, <code class="language-text">MessageId</code> 속성에 (line #26-27), 나머지는 <code class="language-text">ApplicationProperties</code> 딕셔너리를 통해 섭스크라이버 쪽에서 활용할 수 있게끔 지정해 줍니다 (line #30-33). 마지막으로 애저 서비스 버스에 메시지를 보내고 나면 체크포인트 로그를 생성합니다 (line #37-42).</p>
+<div class="gist-embed">
+    <html><head></head><body><div id="gist109586201" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-03-publish-routine-cs" class="file my-2">
+    
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-c  ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-03-publish-routine-cs-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-03-publish-routine-cs-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-k">Task</span>&lt;<span class="pl-k">IActionResult</span>&gt; <span class="pl-en">PublishRoutineAsync</span>(</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-03-publish-routine-cs-LC2" class="blob-code blob-code-inner js-file-line">    [<span class="pl-k">HttpTrigger</span>(<span class="pl-smi">AuthorizationLevel</span>.<span class="pl-smi">Function</span>, <span class="pl-smi">HttpVerbs</span>.<span class="pl-smi">Post</span>, <span class="pl-en">Route</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">"</span>routines/{routineId}/publish<span class="pl-pds">"</span></span>)] <span class="pl-k">HttpRequest</span> <span class="pl-en">req</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-03-publish-routine-cs-LC3" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">Guid</span> <span class="pl-en">routineId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-03-publish-routine-cs-LC4" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">ExecutionContext</span> <span class="pl-en">context</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-03-publish-routine-cs-LC5" class="blob-code blob-code-inner js-file-line">    [<span class="pl-k">ServiceBus</span>(<span class="pl-smi">GymLogTopicKey</span>)] <span class="pl-k">IAsyncCollector</span>&lt;<span class="pl-k">ServiceBusMessage</span>&gt; <span class="pl-en">collector</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-03-publish-routine-cs-LC6" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">ILogger</span> <span class="pl-en">log</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-03-publish-routine-cs-LC7" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-03-publish-routine-cs-LC8" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">var</span> <span class="pl-en">request</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">req</span>.<span class="pl-en">ToRequestMessageAsync</span>&lt;<span class="pl-k">PublishRequestMessage</span>&gt;().<span class="pl-en">ConfigureAwait</span>(<span class="pl-c1">false</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-03-publish-routine-cs-LC9" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">var</span> <span class="pl-en">@interface</span> <span class="pl-k">=</span> <span class="pl-smi">request</span>.<span class="pl-smi">Interface</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-03-publish-routine-cs-LC10" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-03-publish-routine-cs-LC11" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">var</span> <span class="pl-en">correlationId</span> <span class="pl-k">=</span> <span class="pl-smi">request</span>.<span class="pl-smi">CorrelationId</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-03-publish-routine-cs-LC12" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">var</span> <span class="pl-en">spanId</span> <span class="pl-k">=</span> <span class="pl-smi">request</span>.<span class="pl-smi">SpanId</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-03-publish-routine-cs-LC13" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-03-publish-routine-cs-LC14" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">var</span> <span class="pl-en">eventId</span> <span class="pl-k">=</span> <span class="pl-smi">context</span>.<span class="pl-smi">InvocationId</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-03-publish-routine-cs-LC15" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-03-publish-routine-cs-LC16" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">try</span></td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-03-publish-routine-cs-LC17" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-03-publish-routine-cs-LC18" class="blob-code blob-code-inner js-file-line">        ...</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-03-publish-routine-cs-LC19" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-03-publish-routine-cs-LC20" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">var</span> <span class="pl-en">messageId</span> <span class="pl-k">=</span> <span class="pl-smi">Guid</span>.<span class="pl-en">NewGuid</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-03-publish-routine-cs-LC21" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">var</span> <span class="pl-en">subSpanId</span> <span class="pl-k">=</span> <span class="pl-smi">Guid</span>.<span class="pl-en">NewGuid</span>();</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="file-03-publish-routine-cs-LC22" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">var</span> <span class="pl-en">timestamp</span> <span class="pl-k">=</span> <span class="pl-smi">DateTimeOffset</span>.<span class="pl-smi">UtcNow</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="file-03-publish-routine-cs-LC23" class="blob-code blob-code-inner js-file-line highlighted">        <span class="pl-k">var</span> <span class="pl-en">message</span> <span class="pl-k">=</span> (<span class="pl-k">RoutineQueueMessage</span>)(<span class="pl-k">PublishResponseMessage</span>)<span class="pl-smi">res</span>.<span class="pl-smi">Value</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L24" class="blob-num js-line-number" data-line-number="24"></td>
+        <td id="file-03-publish-routine-cs-LC24" class="blob-code blob-code-inner js-file-line highlighted">        <span class="pl-k">var</span> <span class="pl-en">msg</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-k">ServiceBusMessage</span>(<span class="pl-smi">message</span>.<span class="pl-en">ToJson</span>())</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L25" class="blob-num js-line-number" data-line-number="25"></td>
+        <td id="file-03-publish-routine-cs-LC25" class="blob-code blob-code-inner js-file-line">        {</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L26" class="blob-num js-line-number" data-line-number="26"></td>
+        <td id="file-03-publish-routine-cs-LC26" class="blob-code blob-code-inner js-file-line highlighted">            <span class="pl-smi">CorrelationId</span> <span class="pl-k">=</span> <span class="pl-smi">correlationId</span>.<span class="pl-en">ToString</span>(),</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L27" class="blob-num js-line-number" data-line-number="27"></td>
+        <td id="file-03-publish-routine-cs-LC27" class="blob-code blob-code-inner js-file-line highlighted">            <span class="pl-smi">MessageId</span> <span class="pl-k">=</span> <span class="pl-smi">messageId</span>.<span class="pl-en">ToString</span>(),</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L28" class="blob-num js-line-number" data-line-number="28"></td>
+        <td id="file-03-publish-routine-cs-LC28" class="blob-code blob-code-inner js-file-line">            <span class="pl-smi">ContentType</span> <span class="pl-k">=</span> <span class="pl-smi">ContentTypes</span>.<span class="pl-smi">ApplicationJson</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L29" class="blob-num js-line-number" data-line-number="29"></td>
+        <td id="file-03-publish-routine-cs-LC29" class="blob-code blob-code-inner js-file-line">        };</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L30" class="blob-num js-line-number" data-line-number="30"></td>
+        <td id="file-03-publish-routine-cs-LC30" class="blob-code blob-code-inner js-file-line highlighted">        <span class="pl-smi">msg</span>.<span class="pl-smi">ApplicationProperties</span>.<span class="pl-en">Add</span>(<span class="pl-s"><span class="pl-pds">"</span>pubSpanId<span class="pl-pds">"</span></span>, <span class="pl-smi">spanId</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L31" class="blob-num js-line-number" data-line-number="31"></td>
+        <td id="file-03-publish-routine-cs-LC31" class="blob-code blob-code-inner js-file-line highlighted">        <span class="pl-smi">msg</span>.<span class="pl-smi">ApplicationProperties</span>.<span class="pl-en">Add</span>(<span class="pl-s"><span class="pl-pds">"</span>subSpanId<span class="pl-pds">"</span></span>, <span class="pl-smi">subSpanId</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L32" class="blob-num js-line-number" data-line-number="32"></td>
+        <td id="file-03-publish-routine-cs-LC32" class="blob-code blob-code-inner js-file-line highlighted">        <span class="pl-smi">msg</span>.<span class="pl-smi">ApplicationProperties</span>.<span class="pl-en">Add</span>(<span class="pl-s"><span class="pl-pds">"</span>interface<span class="pl-pds">"</span></span>, <span class="pl-smi">@interface</span>.<span class="pl-en">ToString</span>());</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L33" class="blob-num js-line-number" data-line-number="33"></td>
+        <td id="file-03-publish-routine-cs-LC33" class="blob-code blob-code-inner js-file-line highlighted">        <span class="pl-smi">msg</span>.<span class="pl-smi">ApplicationProperties</span>.<span class="pl-en">Add</span>(<span class="pl-s"><span class="pl-pds">"</span>timestamp<span class="pl-pds">"</span></span>, <span class="pl-smi">timestamp</span>.<span class="pl-en">ToString</span>(<span class="pl-smi">CultureInfo</span>.<span class="pl-smi">InvariantCulture</span>));</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L34" class="blob-num js-line-number" data-line-number="34"></td>
+        <td id="file-03-publish-routine-cs-LC34" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L35" class="blob-num js-line-number" data-line-number="35"></td>
+        <td id="file-03-publish-routine-cs-LC35" class="blob-code blob-code-inner js-file-line">        <span class="pl-k">await</span> <span class="pl-smi">collector</span>.<span class="pl-en">AddAsync</span>(<span class="pl-smi">msg</span>).<span class="pl-en">ConfigureAwait</span>(<span class="pl-c1">false</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L36" class="blob-num js-line-number" data-line-number="36"></td>
+        <td id="file-03-publish-routine-cs-LC36" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L37" class="blob-num js-line-number" data-line-number="37"></td>
+        <td id="file-03-publish-routine-cs-LC37" class="blob-code blob-code-inner js-file-line highlighted">        <span class="pl-smi">log</span>.<span class="pl-en">LogData</span>(<span class="pl-smi">LogLevel</span>.<span class="pl-smi">Information</span>, <span class="pl-smi">msg</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L38" class="blob-num js-line-number" data-line-number="38"></td>
+        <td id="file-03-publish-routine-cs-LC38" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-smi">EventType</span>.<span class="pl-smi">MessagePublished</span>, <span class="pl-smi">EventStatusType</span>.<span class="pl-smi">Succeeded</span>, <span class="pl-smi">eventId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L39" class="blob-num js-line-number" data-line-number="39"></td>
+        <td id="file-03-publish-routine-cs-LC39" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-smi">SpanType</span>.<span class="pl-smi">Publisher</span>, <span class="pl-smi">SpanStatusType</span>.<span class="pl-smi">PublisherInProgress</span>, <span class="pl-smi">spanId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L40" class="blob-num js-line-number" data-line-number="40"></td>
+        <td id="file-03-publish-routine-cs-LC40" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-smi">@interface</span>, <span class="pl-smi">correlationId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L41" class="blob-num js-line-number" data-line-number="41"></td>
+        <td id="file-03-publish-routine-cs-LC41" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-en">messageId</span>: <span class="pl-smi">messageId</span>.<span class="pl-en">ToString</span>(),</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L42" class="blob-num js-line-number" data-line-number="42"></td>
+        <td id="file-03-publish-routine-cs-LC42" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-en">message</span>: <span class="pl-smi">EventType</span>.<span class="pl-smi">MessagePublished</span>.<span class="pl-en">ToDisplayName</span>());</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L43" class="blob-num js-line-number" data-line-number="43"></td>
+        <td id="file-03-publish-routine-cs-LC43" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L44" class="blob-num js-line-number" data-line-number="44"></td>
+        <td id="file-03-publish-routine-cs-LC44" class="blob-code blob-code-inner js-file-line">        ...</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L45" class="blob-num js-line-number" data-line-number="45"></td>
+        <td id="file-03-publish-routine-cs-LC45" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L46" class="blob-num js-line-number" data-line-number="46"></td>
+        <td id="file-03-publish-routine-cs-LC46" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">catch</span> (<span class="pl-k">Exception</span> <span class="pl-en">ex</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L47" class="blob-num js-line-number" data-line-number="47"></td>
+        <td id="file-03-publish-routine-cs-LC47" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L48" class="blob-num js-line-number" data-line-number="48"></td>
+        <td id="file-03-publish-routine-cs-LC48" class="blob-code blob-code-inner js-file-line">        ...</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L49" class="blob-num js-line-number" data-line-number="49"></td>
+        <td id="file-03-publish-routine-cs-LC49" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L50" class="blob-num js-line-number" data-line-number="50"></td>
+        <td id="file-03-publish-routine-cs-LC50" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L51" class="blob-num js-line-number" data-line-number="51"></td>
+        <td id="file-03-publish-routine-cs-LC51" class="blob-code blob-code-inner js-file-line">    ...</td>
+      </tr>
+      <tr>
+        <td id="file-03-publish-routine-cs-L52" class="blob-num js-line-number" data-line-number="52"></td>
+        <td id="file-03-publish-routine-cs-LC52" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/justinyoo/9679433b6d886897cc09d8bcf1c8b6de/raw/0fad83b8415619aa5a3e5f4abecedd105049cd9d/03-publish-routine.cs" style="float:right">view raw</a>
+        <a href="https://gist.github.com/justinyoo/9679433b6d886897cc09d8bcf1c8b6de#file-03-publish-routine-cs">03-publish-routine.cs</a>
+        hosted with ❤ by <a href="https://github.com">GitHub</a>
+      </div>
+    </div>
+</div>
+</body></html>
+</div>
+<h3 id="섭스크라이버--서비스-버스-트리거"><a href="#%EC%84%AD%EC%8A%A4%ED%81%AC%EB%9D%BC%EC%9D%B4%EB%B2%84--%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%B2%84%EC%8A%A4-%ED%8A%B8%EB%A6%AC%EA%B1%B0" aria-hidden="true"><span class="icon icon-link"></span></a>섭스크라이버 – 서비스 버스 트리거</h3>
+<p>위에서 정의한 바와 같이 퍼블리셔 쪽에서 애저 서비스 버스의 메시지 봉투를 이용해서 스팬 컨텍스트를 전달했으니, 섭스크라이버 쪽에서는 이를 받아서 사용합니다.</p>
+<p>아래 코드는 메시지 봉투를 해석하는 과정을 표현한 것인데요, 스팬 컨텍스트를 통해 코릴레이션 ID 값을 복원하고 (line #10), 메시지 ID 값을 복원한다 (line #13). 그리고 메시지를 성공적으로 복원한 결과를 체크포인트 로그에 남겨둔다 (line #16-19).</p>
+<div class="gist-embed">
+    <html><head></head><body><div id="gist109586201" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-04-ingest-01-cs" class="file my-2">
+    
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-c  ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-04-ingest-01-cs-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-04-ingest-01-cs-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-k">Task</span> <span class="pl-en">IngestAsync</span>(</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-04-ingest-01-cs-LC2" class="blob-code blob-code-inner js-file-line">    [<span class="pl-k">ServiceBusTrigger</span>(<span class="pl-smi">GymLogTopicKey</span>, <span class="pl-smi">GymLogSubscriptionKey</span>)] <span class="pl-k">ServiceBusReceivedMessage</span> <span class="pl-en">msg</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-04-ingest-01-cs-LC3" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">ExecutionContext</span> <span class="pl-en">context</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-04-ingest-01-cs-LC4" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">ILogger</span> <span class="pl-en">log</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-04-ingest-01-cs-LC5" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-04-ingest-01-cs-LC6" class="blob-code blob-code-inner js-file-line">    ...</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-04-ingest-01-cs-LC7" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-04-ingest-01-cs-LC8" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">var</span> <span class="pl-en">@interface</span> <span class="pl-k">=</span> <span class="pl-smi">Enum</span>.<span class="pl-en">Parse</span>&lt;<span class="pl-k">InterfaceType</span>&gt;(<span class="pl-smi">msg</span>.<span class="pl-smi">ApplicationProperties</span>[<span class="pl-s"><span class="pl-pds">"</span>interface<span class="pl-pds">"</span></span>] <span class="pl-k">as</span> <span class="pl-en">string</span>, <span class="pl-en">ignoreCase</span>: <span class="pl-c1">true</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-04-ingest-01-cs-LC9" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-04-ingest-01-cs-LC10" class="blob-code blob-code-inner js-file-line highlighted">    <span class="pl-k">var</span> <span class="pl-en">correlationId</span> <span class="pl-k">=</span> <span class="pl-smi">Guid</span>.<span class="pl-en">Parse</span>(<span class="pl-smi">msg</span>.<span class="pl-smi">CorrelationId</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-04-ingest-01-cs-LC11" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">var</span> <span class="pl-en">spanId</span> <span class="pl-k">=</span> (<span class="pl-k">Guid</span>)<span class="pl-smi">msg</span>.<span class="pl-smi">ApplicationProperties</span>[<span class="pl-s"><span class="pl-pds">"</span>subSpanId<span class="pl-pds">"</span></span>];</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-04-ingest-01-cs-LC12" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-04-ingest-01-cs-LC13" class="blob-code blob-code-inner js-file-line highlighted">    <span class="pl-k">var</span> <span class="pl-en">messageId</span> <span class="pl-k">=</span> <span class="pl-smi">Guid</span>.<span class="pl-en">Parse</span>(<span class="pl-smi">msg</span>.<span class="pl-smi">MessageId</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-04-ingest-01-cs-LC14" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">var</span> <span class="pl-en">eventId</span> <span class="pl-k">=</span> <span class="pl-smi">context</span>.<span class="pl-smi">InvocationId</span>;</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-04-ingest-01-cs-LC15" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-04-ingest-01-cs-LC16" class="blob-code blob-code-inner js-file-line highlighted">    <span class="pl-smi">log</span>.<span class="pl-en">LogData</span>(<span class="pl-smi">LogLevel</span>.<span class="pl-smi">Information</span>, <span class="pl-smi">message</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-04-ingest-01-cs-LC17" class="blob-code blob-code-inner js-file-line highlighted">                <span class="pl-smi">EventType</span>.<span class="pl-smi">MessageReceived</span>, <span class="pl-smi">EventStatusType</span>.<span class="pl-smi">Succeeded</span>, <span class="pl-smi">eventId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-04-ingest-01-cs-LC18" class="blob-code blob-code-inner js-file-line highlighted">                <span class="pl-smi">SpanType</span>.<span class="pl-smi">Subscriber</span>, <span class="pl-smi">SpanStatusType</span>.<span class="pl-smi">SubscriberInitiated</span>, <span class="pl-smi">spanId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-04-ingest-01-cs-LC19" class="blob-code blob-code-inner js-file-line highlighted">                <span class="pl-smi">@interface</span>, <span class="pl-smi">correlationId</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-04-ingest-01-cs-LC20" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-04-ingest-01-cs-LC21" class="blob-code blob-code-inner js-file-line">    ...</td>
+      </tr>
+      <tr>
+        <td id="file-04-ingest-01-cs-L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="file-04-ingest-01-cs-LC22" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/justinyoo/9679433b6d886897cc09d8bcf1c8b6de/raw/0fad83b8415619aa5a3e5f4abecedd105049cd9d/04-ingest-01.cs" style="float:right">view raw</a>
+        <a href="https://gist.github.com/justinyoo/9679433b6d886897cc09d8bcf1c8b6de#file-04-ingest-01-cs">04-ingest-01.cs</a>
+        hosted with ❤ by <a href="https://github.com">GitHub</a>
+      </div>
+    </div>
+</div>
+</body></html>
+</div>
+<p>마지막으로 애저 코스모스 DB에 레코드를 저장하고 (line #12), 체크포인트 로그를 남겨둡니다 (line #16-21). 혹시 이 과정에서 에러가 발생할 경우 예외 처리를 한 후 마찬가지로 체크포인트 로그를 저장합니다 (line #25-30).</p>
+<div class="gist-embed">
+    <html><head></head><body><div id="gist109586201" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-05-ingest-02-cs" class="file my-2">
+    
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-c  ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-05-ingest-02-cs-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-05-ingest-02-cs-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">public</span> <span class="pl-k">async</span> <span class="pl-k">Task</span> <span class="pl-en">IngestAsync</span>(</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-05-ingest-02-cs-LC2" class="blob-code blob-code-inner js-file-line">    [<span class="pl-k">ServiceBusTrigger</span>(<span class="pl-smi">GymLogTopicKey</span>, <span class="pl-smi">GymLogSubscriptionKey</span>)] <span class="pl-k">ServiceBusReceivedMessage</span> <span class="pl-en">msg</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-05-ingest-02-cs-LC3" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">ExecutionContext</span> <span class="pl-en">context</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-05-ingest-02-cs-LC4" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">ILogger</span> <span class="pl-en">log</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-05-ingest-02-cs-LC5" class="blob-code blob-code-inner js-file-line">{</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-05-ingest-02-cs-LC6" class="blob-code blob-code-inner js-file-line">    ...</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-05-ingest-02-cs-LC7" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-05-ingest-02-cs-LC8" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">try</span></td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-05-ingest-02-cs-LC9" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-05-ingest-02-cs-LC10" class="blob-code blob-code-inner js-file-line">        ...</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-05-ingest-02-cs-LC11" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-05-ingest-02-cs-LC12" class="blob-code blob-code-inner js-file-line highlighted">        <span class="pl-k">var</span> <span class="pl-en">response</span> <span class="pl-k">=</span> <span class="pl-k">await</span> <span class="pl-smi">container</span>.<span class="pl-en">UpsertItemAsync</span>&lt;<span class="pl-k">RoutineRecordItem</span>&gt;(<span class="pl-smi">record</span>, <span class="pl-k">new</span> <span class="pl-k">PartitionKey</span>(<span class="pl-smi">record</span>.<span class="pl-smi">ItemType</span>.<span class="pl-en">ToString</span>())).<span class="pl-en">ConfigureAwait</span>(<span class="pl-c1">false</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-05-ingest-02-cs-LC13" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-05-ingest-02-cs-LC14" class="blob-code blob-code-inner js-file-line">        ...</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-05-ingest-02-cs-LC15" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-05-ingest-02-cs-LC16" class="blob-code blob-code-inner js-file-line highlighted">        <span class="pl-smi">log</span>.<span class="pl-en">LogData</span>(<span class="pl-smi">LogLevel</span>.<span class="pl-smi">Information</span>, <span class="pl-smi">message</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-05-ingest-02-cs-LC17" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-smi">EventType</span>.<span class="pl-smi">MessageProcessed</span>, <span class="pl-smi">EventStatusType</span>.<span class="pl-smi">Succeeded</span>, <span class="pl-smi">eventId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-05-ingest-02-cs-LC18" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-smi">SpanType</span>.<span class="pl-smi">Subscriber</span>, <span class="pl-smi">SpanStatusType</span>.<span class="pl-smi">SubscriberCompleted</span>, <span class="pl-smi">spanId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-05-ingest-02-cs-LC19" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-smi">@interface</span>, <span class="pl-smi">correlationId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-05-ingest-02-cs-LC20" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-en">recordId</span>: <span class="pl-smi">record</span>.<span class="pl-smi">EntityId</span>.<span class="pl-en">ToString</span>(),</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-05-ingest-02-cs-LC21" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-en">message</span>: <span class="pl-smi">response</span>.<span class="pl-smi">StatusCode</span>.<span class="pl-en">ToMessageEventType</span>().<span class="pl-en">ToDisplayName</span>());</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="file-05-ingest-02-cs-LC22" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="file-05-ingest-02-cs-LC23" class="blob-code blob-code-inner js-file-line">    <span class="pl-k">catch</span> (<span class="pl-k">Exception</span> <span class="pl-en">ex</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L24" class="blob-num js-line-number" data-line-number="24"></td>
+        <td id="file-05-ingest-02-cs-LC24" class="blob-code blob-code-inner js-file-line">    {</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L25" class="blob-num js-line-number" data-line-number="25"></td>
+        <td id="file-05-ingest-02-cs-LC25" class="blob-code blob-code-inner js-file-line highlighted">        <span class="pl-smi">log</span>.<span class="pl-en">LogData</span>(<span class="pl-smi">LogLevel</span>.<span class="pl-smi">Error</span>, <span class="pl-smi">message</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L26" class="blob-num js-line-number" data-line-number="26"></td>
+        <td id="file-05-ingest-02-cs-LC26" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-smi">EventType</span>.<span class="pl-smi">MessageNotProcessed</span>, <span class="pl-smi">EventStatusType</span>.<span class="pl-smi">Failed</span>, <span class="pl-smi">eventId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L27" class="blob-num js-line-number" data-line-number="27"></td>
+        <td id="file-05-ingest-02-cs-LC27" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-smi">SpanType</span>.<span class="pl-smi">Subscriber</span>, <span class="pl-smi">SpanStatusType</span>.<span class="pl-smi">SubscriberCompleted</span>, <span class="pl-smi">spanId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L28" class="blob-num js-line-number" data-line-number="28"></td>
+        <td id="file-05-ingest-02-cs-LC28" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-smi">@interface</span>, <span class="pl-smi">correlationId</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L29" class="blob-num js-line-number" data-line-number="29"></td>
+        <td id="file-05-ingest-02-cs-LC29" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-en">ex</span>: <span class="pl-smi">ex</span>,</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L30" class="blob-num js-line-number" data-line-number="30"></td>
+        <td id="file-05-ingest-02-cs-LC30" class="blob-code blob-code-inner js-file-line highlighted">                    <span class="pl-en">message</span>: <span class="pl-smi">ex</span>.<span class="pl-smi">Message</span>);</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L31" class="blob-num js-line-number" data-line-number="31"></td>
+        <td id="file-05-ingest-02-cs-LC31" class="blob-code blob-code-inner js-file-line">
+</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L32" class="blob-num js-line-number" data-line-number="32"></td>
+        <td id="file-05-ingest-02-cs-LC32" class="blob-code blob-code-inner js-file-line">        ...</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L33" class="blob-num js-line-number" data-line-number="33"></td>
+        <td id="file-05-ingest-02-cs-LC33" class="blob-code blob-code-inner js-file-line">    }</td>
+      </tr>
+      <tr>
+        <td id="file-05-ingest-02-cs-L34" class="blob-num js-line-number" data-line-number="34"></td>
+        <td id="file-05-ingest-02-cs-LC34" class="blob-code blob-code-inner js-file-line">}</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/justinyoo/9679433b6d886897cc09d8bcf1c8b6de/raw/0fad83b8415619aa5a3e5f4abecedd105049cd9d/05-ingest-02.cs" style="float:right">view raw</a>
+        <a href="https://gist.github.com/justinyoo/9679433b6d886897cc09d8bcf1c8b6de#file-05-ingest-02-cs">05-ingest-02.cs</a>
+        hosted with ❤ by <a href="https://github.com">GitHub</a>
+      </div>
+    </div>
+</div>
+</body></html>
+</div>
+<p>여기까지 해서 데이터가 지나가는 길목마다 체크포인트를 두고, 해당 체크포인트마다 적절한 로그를 애플리케이션 인사이트로 저장하게끔 구현했습니다. 그렇다면, 이제 실제로 이를 <a href="https://docs.microsoft.com/ko-kr/azure/azure-monitor/overview?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">애저 모니터 서비스</a>를 이용해서 어떻게 추적할 수 있는지 살펴 볼까요?</p>
+<h2 id="애저-모니터링-kusto-쿼리"><a href="#%EC%95%A0%EC%A0%80-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-kusto-%EC%BF%BC%EB%A6%AC" aria-hidden="true"><span class="icon icon-link"></span></a>애저 모니터링 KUSTO 쿼리</h2>
+<p>안지민쌤은 다시 회원으로부터 파워 앱에서 운동 일지를 저장하는 과정에서 에러가 생겼다는 피드백을 받았습니다. 마침 이번에는 스크린샷도 함께 받았는데, 대략 아래와 같군요.</p>
+<p><img src="https://sa0blogs.blob.core.windows.net/aliencube/2021/05/tracing-end-to-end-data-from-power-apps-to-azure-cosmos-db-03.png" alt="Power Apps Workout Screen">
+<img src="https://sa0blogs.blob.core.windows.net/aliencube/2021/05/tracing-end-to-end-data-from-power-apps-to-azure-cosmos-db-04.png" alt="Power Apps Error Screen"></p>
+<p>지민쌤은 이 스크린샷을 수빈쌤과 공유했고, 이를 바탕으로 수빈쌤은 아래와 같은 <a href="https://docs.microsoft.com/ko-kr/azure/azure-monitor/logs/log-query-overview?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">Kusto 쿼리</a>를 애플리케이션 인사이트 쿼리 화면에서 실행시켰습니다. 우선 이 에러를 추적하기 위해 <code class="language-text">correlationId</code> 값을 변수로 지정했습니다 (line #1). 그리고 앞서 저장했던 사용자 지정 텔레메트리 속성값을 이용해서 쿼리를 작성했습니다. 모든 사용자 지정 텔레메트리 속성 값은 <code class="language-text">customDimensions.prop__</code>으로 시작하므로 <code class="language-text">where</code> 구문에서 해당 코릴레이션 ID 값으로 필터링을 했고 (line #4), <code class="language-text">project</code> 구문에서는 전체 필드가 아닌 내가 원하는 필드만 지정했습니다 (line #5-18).</p>
+<div class="gist-embed">
+    <html><head></head><body><div id="gist109586201" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-06-kusto-query-kql" class="file my-2">
+    
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-text  ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8" data-paste-markdown-skip="">
+      <tbody><tr>
+        <td id="file-06-kusto-query-kql-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-06-kusto-query-kql-LC1" class="blob-code blob-code-inner js-file-line highlighted">let correlationId = "5380912f-9c8f-466c-a78c-e5fe194bd21f";</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-06-kusto-query-kql-LC2" class="blob-code blob-code-inner js-file-line">traces</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-06-kusto-query-kql-LC3" class="blob-code blob-code-inner js-file-line">| sort by timestamp desc</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-06-kusto-query-kql-LC4" class="blob-code blob-code-inner js-file-line highlighted">| where customDimensions.prop__correlationId == correlationId</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-06-kusto-query-kql-LC5" class="blob-code blob-code-inner js-file-line highlighted">| project Timestamp = timestamp</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-06-kusto-query-kql-LC6" class="blob-code blob-code-inner js-file-line highlighted">        , LogLevel = customDimensions.prop__logLevel</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-06-kusto-query-kql-LC7" class="blob-code blob-code-inner js-file-line highlighted">        , CorrelationId = tostring(customDimensions.prop__correlationId)</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-06-kusto-query-kql-LC8" class="blob-code blob-code-inner js-file-line highlighted">        , Interface = customDimensions.prop__interfaceType</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-06-kusto-query-kql-LC9" class="blob-code blob-code-inner js-file-line highlighted">        , SpanType = customDimensions.prop__spanType</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-06-kusto-query-kql-LC10" class="blob-code blob-code-inner js-file-line highlighted">        , SpanStatus = customDimensions.prop__spanStatus</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-06-kusto-query-kql-LC11" class="blob-code blob-code-inner js-file-line highlighted">        , SpanId = tostring(customDimensions.prop__spanId)</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-06-kusto-query-kql-LC12" class="blob-code blob-code-inner js-file-line highlighted">        , EventType = customDimensions.prop__eventType</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-06-kusto-query-kql-LC13" class="blob-code blob-code-inner js-file-line highlighted">        , EventStatus = customDimensions.prop__eventStatus</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-06-kusto-query-kql-LC14" class="blob-code blob-code-inner js-file-line highlighted">        , EventId = tostring(customDimensions.prop__eventId)</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-06-kusto-query-kql-LC15" class="blob-code blob-code-inner js-file-line highlighted">        , EntityType = customDimensions.prop__entityType</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-06-kusto-query-kql-LC16" class="blob-code blob-code-inner js-file-line highlighted">        , ClientRequestId = customDimensions.prop__clientRequestId</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-06-kusto-query-kql-LC17" class="blob-code blob-code-inner js-file-line highlighted">        , MessageId = customDimensions.prop__messageId</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-06-kusto-query-kql-LC18" class="blob-code blob-code-inner js-file-line highlighted">        , RecordId = customDimensions.prop__recordId</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-06-kusto-query-kql-LC19" class="blob-code blob-code-inner js-file-line">| project Timestamp</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-06-kusto-query-kql-LC20" class="blob-code blob-code-inner js-file-line">        , CorrelationId</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-06-kusto-query-kql-LC21" class="blob-code blob-code-inner js-file-line">        , SpanType</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="file-06-kusto-query-kql-LC22" class="blob-code blob-code-inner js-file-line">        , SpanStatus</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="file-06-kusto-query-kql-LC23" class="blob-code blob-code-inner js-file-line">        , EventType</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L24" class="blob-num js-line-number" data-line-number="24"></td>
+        <td id="file-06-kusto-query-kql-LC24" class="blob-code blob-code-inner js-file-line">        , EventStatus</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L25" class="blob-num js-line-number" data-line-number="25"></td>
+        <td id="file-06-kusto-query-kql-LC25" class="blob-code blob-code-inner js-file-line">        , EntityType</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L26" class="blob-num js-line-number" data-line-number="26"></td>
+        <td id="file-06-kusto-query-kql-LC26" class="blob-code blob-code-inner js-file-line">        , MessageId</td>
+      </tr>
+      <tr>
+        <td id="file-06-kusto-query-kql-L27" class="blob-num js-line-number" data-line-number="27"></td>
+        <td id="file-06-kusto-query-kql-LC27" class="blob-code blob-code-inner js-file-line">        , RecordId</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/justinyoo/9679433b6d886897cc09d8bcf1c8b6de/raw/0fad83b8415619aa5a3e5f4abecedd105049cd9d/06-kusto-query.kql" style="float:right">view raw</a>
+        <a href="https://gist.github.com/justinyoo/9679433b6d886897cc09d8bcf1c8b6de#file-06-kusto-query-kql">06-kusto-query.kql</a>
+        hosted with ❤ by <a href="https://github.com">GitHub</a>
+      </div>
+    </div>
+</div>
+</body></html>
+</div>
+<p>그리고 이렇게 해서 쿼리를 실행 시킨 결과는 아래와 같습니다. 운동 메시지를 받는 데 까지는 성공했지만, 이를 처리해서 애저 테이블 저장소에 저장하는 과정에서 에러가 생긴 것을 알 수 있네요.</p>
+<p><img src="https://sa0blogs.blob.core.windows.net/aliencube/2021/05/tracing-end-to-end-data-from-power-apps-to-azure-cosmos-db-05.png" alt="Application Insights Kusto Query Result - Failed"></p>
+<p>수빈쌤이 어느 부분에서 오류가 발생했는지 알아냈으니, 이 부분을 수정해서 다시 애저 펑션 API를 배포했고, 이제는 더이상 오류가 발생하지 않았습니다. 아래는 성공한 기록 중 하나를 임의로 조회한 결과입니다. 퍼블리셔 쪽에서 보낸 메시지를 섭스크라이버 쪽에서 제대로 받아 처리하고 애플리케이션 로직에 따라 이 메시지 ID 값이 그대로 코스모드 DB의 레코드 ID 값이 된 것이 보이나요?</p>
+<p><img src="https://sa0blogs.blob.core.windows.net/aliencube/2021/05/tracing-end-to-end-data-from-power-apps-to-azure-cosmos-db-06.png" alt="Application Insights Kusto Query Result - Succeeded"></p>
+<p>이렇게 해서 데이터 추적 로직이 <a href="https://docs.microsoft.com/ko-kr/azure/azure-monitor/app/app-insights-overview?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">애플리케이션 인사이트</a>를 통해 <a href="https://opentelemetry.io/" target="_blank" rel="nofollow noopener noreferrer">오픈 텔레메트리</a>의 형식을 빌어 구현한 것을 확인했습니다. 이제 지민쌤과 트레이너들, 그리고 모든 회원들이 앱을 사용하다가 에러가 생기면 코릴레이션 ID 값만 불러주면 손쉽게 어디에서 문제가 생겼는지 추적할 수 있겠군요!</p>
+<hr>
+<p>지금까지 퓨전 개발팀에서 개발한 앱을 두고, 처음부터 끝까지 하나의 ID 값을 이용해 데이터가 이동하는 과정을 추적하는 것을 <a href="https://opentelemetry.io/" target="_blank" rel="nofollow noopener noreferrer">오픈 텔레메트리</a>와 <a href="https://docs.microsoft.com/ko-kr/azure/azure-monitor/app/app-insights-overview?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">애플리케이션 인사이트</a>를 이용해 구현했습니다.</p>
+<p>아쉽게도 오픈 텔레메트리 닷넷 구현체가 아직 애저 펑션에서 완벽하게 작동하지 않긴 하지만, 여전히 애플리케이션 인사이트를 이용해 오픈 텔레메트리의 사상을 구현해 낼 수 있으므로 당분간 큰 문제는 없을 것으로 생각합니다. 곧 애플리케이션 인사이트와 오픈 텔레메트리간 통합이 애저 펑션에서도 이루어지길 기대합니다.</p>
+<p>다음 포스트에서는 파워 앱을 DevOps 기법을 이용해 배포 자동화 하는 방법을 살펴보기로 하겠습니다.</p>
+<h2 id="더-궁금하다면"><a href="#%EB%8D%94-%EA%B6%81%EA%B8%88%ED%95%98%EB%8B%A4%EB%A9%B4" aria-hidden="true"><span class="icon icon-link"></span></a>더 궁금하다면...</h2>
+<ul>
+<li>애저 클라우드에 관심이 있으신가요? ➡️ <a href="https://azure.microsoft.com/ko-kr/free/?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">무료 애저 계정 생성하기</a></li>
+<li>애저 클라우드 무료 온라인 강의 코스를 들어 보세요! ➡️ <a href="https://docs.microsoft.com/ko-kr/learn/?WT.mc_id=dotnet-28936-juyoo&#x26;ocid=AID3027813" target="_blank" rel="nofollow noopener noreferrer">Microsoft Learn</a></li>
+<li>마이크로소프트 개발자 유튜브 채널 ➡️ <a href="https://www.youtube.com/c/microsoftdeveloperkorea" target="_blank" rel="nofollow noopener noreferrer">Microsoft Developer Korea</a></li>
+</ul>
+</div></section><section class="post-tags container mx-auto relative py-10"><a href="/developerkorea/tags/azure/" class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-2 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full">azure</a><a href="/developerkorea/tags/observability/" class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-2 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full">observability</a><a href="/developerkorea/tags/traceability/" class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-2 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full">traceability</a><a href="/developerkorea/tags/open-telemetry/" class="text-xs bg-transparent hover:text-blue-700 py-2 px-4 mr-2 border hover:border-blue-500 border-gray-600 text-gray-700 dark:text-gray-400 rounded-full">open-telemetry</a></section></div></div><div class="border-t border-b bg-gray-100 dark:border-black dark:bg-gray-900 dark:text-gray-500"><div class="container mx-auto"><div class="lg:mx-32 md:mx-16 px-4 sm:px-0"><section class="container mx-auto py-10"><div class="flex flex-wrap justify-center"><div class="w-full flex justify-center md:w-10/12 mb-4 text-center"><div class="mb-2 sm:mb-0 w-full"><div class="md:flex p-6 pl-0 self-center"><img src="data:image/svg+xml,%3csvg fill='none' viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cfilter id='__svg-blur-6a0325b746fa0b3948747e4a6f689de9'%3e%3cfeGaussianBlur in='SourceGraphic' stdDeviation='40'/%3e%3c/filter%3e%3c/defs%3e%3cimage x='0' y='0' filter='url(%23__svg-blur-6a0325b746fa0b3948747e4a6f689de9)' width='500' height='500' xlink:href='data:image/png%3bbase64%2ciVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC%2baJAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAgAElEQVRo3pWZd1RT67b2ueccy7YgHQKE0HsvYkdFsaFYEKUI0nsnlPSEhBI6offeISgdpPeQ0JFi3%2bfse84Yt/x3v7%2b/udaCiLq3d9893rH2Soz4/J75zPm%2bK0jMz68sLq4tLa0LhVvLy9srK7tra%2b/Ea339/fr6h0Pr459Za2sfflyrq%2b/R9W5lZW95eVck2hGJtoWwlt4Kl7YEgk3B4oZgYWNxfm1hfm1%2bbmVudnl2RjgzvTQ9JZiaXJwYnx8fmxsbnR59M/VmZHJ4aHxocGyg/43E7KxoYWFtEf6yYFMofLu8vLO6undIPQKwsYGtTxsbH9H1CVugFbv%2bEcNhmAOA9ysr%2bwzLwm0RLATg7ZJga2lxEwVYX5j7HYDJiYWJcQCYAYCR4QkAGBwYRQBmZoTz86sLC%2bvAAADgCgBg0lHR2FWs%2b8NhgMMkf6YO3wCIdpdFCAD8o0tLW8hCAUAJCrA6PwcAIgCYmRYDzI%2bNzmIVAIb9CgDAHHx6HgGAnwIAWIpQ48WW/47oP2L4Qes7uPnxTQRAiKYIAxBsIgCLKMB%2bhEQ/VAADmP4mQtPTwtnZFWCAvwk/CH4cBnBY9%2bbmZ/T6M4ADie/gw7u7v%2b3t/fv29j/evfsn3Ozs/AZgIF0kgujvIgDLSAWQNhAiPXAAsLEIFYAegArMrs7NrmAV%2bBZgDgP4WoHx8YWpKYRhfn4N2kBcASz0IBpdn7HrH6kHcTs7/4C1t/fPmZnVzs7%2bxERaRHhMZERscFB4R0cvqAS58Ke7u/8OACLE%2b10hLAAQHDQx0gAYwCoCMLPyuxWANvimAqOjc5OTSwAAFTgE8B6z/xDA55%2bE5/Pn/%2bofmLK/ftPN1cPh5m0pyVOy0lLysjLSZ87ISksrKSiYGJmctbF95uKal1O4urK3ufVFKNwRLu3nRyhAABaRCiANcNDEfxQhAIA%2bPgAYn1iYmRGB/Yd7AG2Aj/%2bremwKra19rK5uuXL56i/HjkqePIFIl5ORg/9JSkqePi156uSpEyeP/O1vf/nLv0lISMhISz9%2b5NzSzN/Z/vvmxuclGEECFGBxc2FxHRtBUAHU/p/1wFcArInF6rExinUwqv5/wXi3908ul6evoycvI62moqyGV1FTVVFSkMMpKSgpIjVQVJBXUkTupM5ISkvB5fQvx49rENSfI9UogmqA90uo/Wj7rs8jHbyKzlCsAZamJg/vA1gFJr%2bOUdjFBIKv3qObwOH8fDxg%2bHx4YfZDpqOjE1SUFPE4JXW8ihZBTVdLw0BHSwOvoqmmqqmmoq6KwysrAg9ccYoKCvKysIDqxC/Hjx7566kTv2SkZ29ufATFSAMsiNVDBZZnp0UzU1/tB/UHANPYPrBfAWz/Ent/aIB%2bB/ANA0wbaMem5ld6unog10BXRx90q6nqa6pdtja%2bYWty46zR3QtmD%2b0s7cx17cx1zhtpauNxyggJDhjOSJ6CjP1y7Mjtm7dGhqfWoA6Lm0h%2b9gFW5iA/06LpKaE4PBjAQQMgIwgq0N83IoGdIA7UY/vux9%2brwKfD9m9tfREt7121u66BV9XX1jLS0bA21HK5aUv2f5gW4VJAdK2keFWRX1QnuWUF3MsLvMvxvuVlb37ZmKBPUFaSl4UmgTqcPnnizOmTgESMjYdBhPTu/BqqHhpgeWZaiNovENuPqv86Q/cjBOoPjH9/kOyPh8z%2bPjzIgui/%2b1dMTCJeWUlbg2Brqh/j6sAjutaz/GZqSXM1CbPlsbOlMeO80MEMPz7dvTXRpSXBpSz4Dv2JrccVAzMNJVVFOXlZGFGAcPzUyROmJiaTE4uwCczNYvavzCD2L00j6vfTP4ocImZGhsX5QdQjFTh0avi6bf1kwQd2d36LjCTiVZS11NVNdQgcP8e%2bzOCxkti5OspaR8pmV6qonjJTGD6ZHzIMALTnnTRXPtWtOfZR4ctrDCcrzwtaVurymorS8lKSp0%2bdgAUDi0ljra2%2bm5leRuyfXp6ZQgCmJgTi/GD2Q96Gh77ajwAcHNSwufn55wDQuLC58rtHFOTkVJUUYeyEPrwynBW0WJe4wU/b7c//MFLyYaRs61WWsJY0XRA%2bnhPYz3nZx3k5kObbRXWrCXVkP7SKvKb3yAx3QUNWT0laRvIk/Hf0yN9winItzZ2w34F0dP5A%2bpfE9ovH//DQ1y0M1Pf1DiEAm5sf0Ov%2bYeEnAHBY%2bPT5P5nMdGnJU1oa6udNdcuIz0YLI9Y6OO%2bGC98PFX8YKf80Vv32dZ6wjjpdHDmRHzKWGzyaEzTE9eNTXGtD7qU8sk64Zex7XuO%2bsdI1HUVteaQIUlJSsEU43b%2b/ItqZnoThA0v43fA5sH9c3L6wenv2AT4ebFuff74QgE//ERwcKS8jpaul%2beT62epEt4mS%2bJ3%2bvHeDRR9Hyj6%2bqfgwUrnawp3ixUzyIt9kBY7lBI3nhw2kercSHxd5XmU6msc7GEZc03M2V7ljqHSOIIOTkTxzRvKvf/k3C3Mz5PwzvYzaD%2bERHLYf1I8MTw4Nfk1/X%2b9wz%2btBiR%2bPDD9JP3wYpqez83MAMDMy8HS0q6F6CZtT3o%2bUQ3I%2bjVa8Gyxea09bqqdPFccOpgcNpAUOZwSM5YWOZAZ0JroUelxhOprF2utHXtd/bom/a6h4UUNWXf6MtLTU8WPHYK/jd/QIFjYhPOL2PQgPZv/k4IA4PMNg/%2btXAxIHTypfw/Pd/WGAt29/nV/YsLSwUlaUP29t4XHnYh3Lf42fvdtfvDdUujtQsMHPWO/K3uDnLbekjuaE93P8Bzg%2bQ9yACV5kf6pvbdh9jpN1zHV9v4uartZqd4wUoRM0FaRkzpw%2bdeokHDXYTM7K8g54P4XYv392EKsH%2bwf69%2b0H9WIA8Vn/o/jkfHgd7mA4J3e/GlFVweNVcBesLV7cvdyREbHGz1zryhI0ssfLSXMNKW%2bHanfH27aH67f6yuer6RO8qMki4mwlZao0qZvlVxbygP7knNcFbSdTFQd9pfPqMuoKUrCxnT55EtrA7bkbbKkT44tTB/kZfbMPMDQ48aP9r7r7JX58WPmO4TDA%2b/f/amrqxquqahLULE0MA584TFSQ1zvT5moZVWTf3ES/FKI/O9q3hBHekh4z15q3O1Inaslcak6fr%2bc0swJpnne875xzuWjkaK11SRd3RVvhIkFGTfY0jNMzp08DwDNnF9jREO%2bR9kUADoVn/Dv1sLr5fRJ/5mlLfPiB/au%2boVNZSRFmqK6aCsvHca2VtdTArE3yzIv2KGVF8mjBmfFeVazA5rTQN1WsD%2bPNi3XcocyI/uzItID7L25anTfSstAlWOuqWGspWRIULqnL6cufQrZkSQTgsdNDOFBg4Tk8fLDw9Pe9wdRD72L287t6v%2bmBny8YQfB41dk5gFeB85vSbRuDfo7XWkPSXEkMn%2b03Uc0WdBSI2nNmyknD2RHCZs7eUPHOQOlsOb2N%2bKw%2b5klxqGNJ6P02lncT1Yvz4prbeW1rgqytuoINTlLu9C8AAKftB46OS4INUC9u34OdCwP4JjxgPwJwcPj59Geeerff/n1yUmRqbKKqpEBztx9M8elIDapPi%2bFRgkqZoU3ZCUW0QLKXY%2bT9i0muN3lEj4lyyigvttDbnnjLNOK2RaqvYz7RnRv4MOG%2bjaMZ/qy6rA1e9gpBVl/u1LGjR6ECZ62t4IELdgDx9MR6F0s/NjcPq%2b/q7JEQnz3/DABMoZmZFUsrG2sr67iIKJdHD8lkMinUtZbhPt5A6SwnpjKC7lw/63JOn%2bV8sY7sXptHD/d/qa0ko6Uk8%2bCKsf8TO1tTQx2crIOZxh1jVRsNBRtdvJmmsh5OTk9LE4dT1lQndHW8hscAkH5gP5b%2b0R%2b9B/WdHa//DwBooT4vi3Zi3V1unLPKjg%2bK9XMtzM/IjXtcS3rUkh3UWhjdUUSLe37L/5Jh2rPLizXxbEq03w3bR2d1jLXwvi5XWZHOSe73Aq%2bbudho2mvLPjHHXdZSvH/HQVlV%2bemjx1cv2cXFJmC77%2bHhM9A/hs1NsB9T381H1MPqaH%2bFHeY%2b/lmAzS%2bby9vtRN%2bYl8/aqd4zuaEtueT6jLDenMCBwoiZGnIfN6wm4nGe142BrJCewthAt3uThbF1sU/PWxi%2beHCH/sIh2%2btGuutl8j3zoKu6z6zwDgbKMaFBRjrqevD0Iy/d0dwBz2Lf2d/fN9rbsx8eTD2/C9S/7ux41dHevQ8gXoe/4fkRYB15Evj8piCd4vu8Ls59Ni%2b8IyOmkB6w1Zu68TpjujC2j%2bU7xA2eLYl735PZW5CYHeP%2b6wivIc7ZUlP5qZV26mObQp8bPG/7TNdL6c5nI67pP7HWJYYF2hmoEc6ceHDdbnpiYWx0Htt6xer7ekd6Xg%2bJxw6WHPC%2bva27rZUvgX0B%2bLvr9763%2brCx/dvqYF9ugDMv6NFcQbSwMaWCFd5dQBR05k1Xs0aLk0Z48T2ZkV1ZUTBS5%2bqZv46WvKJ5XNaQdzDC5b%2b8Wh/u1BDq1BjxsMTnZuxNk9D7l72fPzqLl9eSOc2IjV0UbMKR880I1rvIzgWjE7P/sHrM%2b/Y2fmtLl4T4S8yfYHzzcvPXLdHGQk16M8V3pjBmqzP9w0jNSHVWRy61jh1ZQfKrogZUkXzqGMHTVWQo1peJqvGccD9bdQcDpYcWmmF3banP7CnOVxMeX/G/ddb5hu0lXeXrBoSzSlLF6dy5%2bfU3w1Ni%2byH9qP374QGAw%2brbWrtamjskfvwG8%2bckG3AmXdnbbM4dSQ%2bf4EWvNjHfD5X818rgfy4Pfhqq3mhOncgMmcqJ2ONnrzeytruz/jHTNF%2baFH/DmHzP4oUZ/pmJckOSVx3Rg%2bd9l/LA9omZqp2GrJ2ump2mcldzx9SUCIn%2b/sFhP/2vX%2b3bjyUH1ENywPvWls7mpvb/A8Chbz8/rtRnD6WFjOVHCuuS3nZnfh5r%2bm2h7%2bObhn6aT4nndVFz5l5vycehmo/Ddf8SdK%2b1pFDvWXrZaDjpyvvZELrInvNlpCGWT5GnvbsV4SJB9rK2spOlwfDA6PjowuHe7et9A%2bnHJg8WHsg9mpxOTH1TY5sE9oXrjwx/TPJhbePLRl/LXAV5gBu4WB632sx611v4abxpoYJR7HFtror%2bZaJxg18yVZM2Us4Z4hGro12czVWvass4GePCLuvme9j3p4b00l%2bmPbZ5ZIw7T5C5gJcJcLwBp%2biDU%2bcEGh5Qj9iPqT/oWsR4SA6mvqG%2bFQDe/QjwY0EO7j%2bsw83W3zdHh%2baLk7rZvnOlUYtVCauN9M2u3PqopwO5sWs9JaKuomV%2b0UIHb6YxvSMlqCzejeNxJdHJOuquBZxDo29bcN2v8Ske7IeWt3TlzqvL2SidDna6PTUjGtrvXSw8I69fDXXzB7DwYDMHNR5R39jQ1tjQWl/XLCH%2bvYN4/QQGWavv1ze/rM4uzZcyu5kvp4oiFmsThXXk2UpySfC9ifqUxbac7aGa3ZH6vdHmrd6q2VLmeD7pFellzvOrjEfnwm4YBdobh9obt5FcYZje0pO3xUvbG2qU5/ImJgSYerAf1IP9r7q/2o/lHrxvakTUN9S3gPq62iaJ1ZX3PzL8iLH6LcPa5hfR%2bFh3sv9YXthSA2WllTFdEtdO9x4sSqhJcO/NS1xqylmozVqsyZkvy3ydFMJ7cYf51M7rnO49feW4u9apntd70oKyXtg56MlbKhxnxMbMzW8MDkwM7u%2b7o2h4EPu7OvftR9V3HqhvxdTX1jRKLKO/bsB%2bDfFHACvwzg91WNv8e28RG556RY2MxbqkmZLY0fwoflpgpudtXtSLjaHq91NNnwT8X9dHREM19Rkx6ZHPbxjinxhplAY4tbF8BnMiom%2bZ2evKnsefqS6pmJgUDgyg4enHehexn9/V39mB2I%2bph/B8p76muv4bABC6jF7FDMh19QP2R9/%2bsujd5vZvo%2b1Nrznewkb6YiNtqoI4xosYK4pZaUvf7Sldayna6ajba2neaa5dyE9rDvAkXzIPO6eX5nyp2Mehg/GyPObJMxu1W/pyjrYmQ4OTI8MzaO%2bOH/Tuvv1o7/J/X31VfXVFrYRoeW//dz6H1o8F%2ba4yq2uA9GFhWtiZGjZZEiNsZszUJE1VJMw3MDb4Oe8GS36dbv401rbdXjOfzx5ixbSHv8h8coX2wCbH7UqR982i4HvhDiZPrPC2uON0InFmdnWgH%2bvd/fSjvYvYj02e/fCA%2btoWkF5b3QDqqyrrKstrJITLe8sog%2bhgrfwQqh95AHJr69fVjS81GQw%2bx3u8OHqsMHKiLH6xhb0GAAMlX8Zq/zHXudVfMVqe3JES2ckIqAx9WOp/p9TXIe/ldfLjs/dMcBfVTj%2b9fnF4eHp4eGZgYLL/d%2bx/Db0rtr%2b%2brqWupglTX42qryirlhCKdkUogwhdy8v7FTh83V8H6VpB1H%2bByD54%2bMTK3LQg%2bmkbw4vP8e3JCJptYKzys/cGCt8PFH0cqXo/WLfcWjjGI/fS/FojHtcG3eF5XeU8PedsTbAhSJvhTl%2b2tenpeTM0NN3fB%2bqhd5HRCenv6uzraO9ta%2b3%2bRn1t8773FbWgvry0qqykAgVA1zKKAQURruyBbgTmW4BlrETLexCh2dmVG/Y3ZGXkFHCqNJ/7dWSPGrL764zAwYLI5U7udh9vr7/gLT9rvS1P0Jg9nBUDB7hKv1sFL67QH1gEXtU/rylnhpe10cQdQb9KmZwU9va8QY894t7txUYnFh6IPqq%2bEYw/pL6ypKhcYkm0u4QCLGG/dTtEAnKxdO1f0QUf23r797KyKmVlnKKCkqqmXmtJ7nB2cEnss8pE1%2bZkn9HyxLWevPVXucL2rPnGzJm6jO7U8MrwJ/neNxMf2Phc0r5piDPFy1kR5G0I8vAY%2bfTx4/EJwevXbzD7QT1qfw9qfxe2Z4H9WNd%2bp76ooFRCINyBtQTrAGB/YQwojHihb%2b6urH2sb2q5c/c2/PO3HrrPvxlfqiGOlhBrSe7FUc5l8c/7CuNE/Jz51qyxShao56eGVsW4MFyv%2btub3DHDm6nJm%2bDlz6nJWCifgZ%2bgr6MFWe/rmxCHB%2bxvb3vd2oLkRxyemqoGLPegvrS4AlNfyCvaBxAzLB2UYgllQBoDfYl1CLyzBACr70sqKtMyODpa6m4BpLmFvaUG2tuerLlack96QE3C8/yIx/Usv56COH56UBvDp4Xuw3S76nPD/JaFlrkGzgyvYIU8y0ub4s787chRGWnJnKw8aGXwHnoXDc%2b%2b/U2NHVh4atDwVJbXHva%2bkFfMyyuQWFzaxtQLDi1QLzioydIBAKIefbm8%2bqGqpp6dlkymJDx44t00sDPbUfm2O3XzVdZcDXk4L7yF9iI32JHtfYv64maCm33A3bN3bXQvG6nbaKlYayhZ4eUuqsteVz9jpKogI6984pdjQYFBsAmAbnTywOh83dLc3dyE2d9aW9NUXVVfWYHMHEx9cWFZIa8E1Ofl5EsIAABdGMl3GN/VBAXbXl3/1NDcwU5lpnA54REhYaS81wMr4yXxG/xUUSt7pipxKCekg%2bFZFfckw%2b9WjNNZ14t6T85qO5/VvmeOv6Apf5Ygd01b3o4gaaypYWxpd/z4sWvX7MDsEShCZ39bK%2by7oJ6P2t%2bGqm%2borKirKK8pQ8ODqS/IL8rP5eVm50kIBG/FANgS/B6JEK0J/ClSB%2bFOUWlRKpedmc3lpLOJCTGMnKaGmu7elABBDWmxjjoPm1pp3Agvsj8ruI3qVhTgkOlhR3909sV5rUtaCpc15G7ryl1UlTTS1rn7NOTYseMXLtj6eHsz6GxQ/Kp7CBgaGzrq69qw8FRV1leg4cHUF/FKC/KLMfXZmTkSC4tbC4K3sBYPMSweFGRxaUewf7MNGOD99Nx6bUMjYn86m5udlpaZmsrlUKjxiawsekR4cZhTX7LPeF74dClxpjJppoY0VhjVlx7QFO9S6H/T57LeZW3cdR2F2waK51TP2JhZ%2bsdlHzl23NLSwt3D1cRY38TYIDQkrLK8DlIEGHW1Laj3teVlNaUlmPelqPcQnrycrNysjGyJ%2bcWt%2bQMG8RIc4kFeQmzWPiwKthuauxLIZBqTwmBRGWxaamZKWlZKakZqGjclOib0hZe7m9szTpR3npd9fbgjn%2bbRkxrwKtW/NyOkLy2I53fHyVLbXk/VwUDlngneWunkLfu75MxWANDV1fH197l//66M1CkFeSlrK3M3Nzc6jQXSoYmBoaS4EvG%2bAPO%2bEKKPqc9Iz5SYW9jEGMQLqQa65gXIS6FoTyDcbe/qpzGTw6PDwmPCiYmx6RkpLDYd%2bhhmEZPDgGrExEW99PHy8PKgJDOo5DiKrzPH7Xq%2b17XSkHulYQ%2byvG56nte7a0K4a6J%2bx5jgaK5hJn88LJzELuo5euwEgUAICPILCPS9fPm8vJyUkqKsJkHFyEDX/trV8LCIvJxCmJ4AwMsrQtXzxOq5aVwEAGXYPAwAC24gOaKV9/1DU9ys3KiYqMjYyERKQgKZGBYRkpaRAtKTU5ip3JTkVCY9mUahkzxfenh5v0jmMBgcFjMlmcEgF9Cj6S5XYm4aedioO5mqOJmr3zJSv22icctA5YKmYkXTGDO34%2bjx03iCZkhYUCwxsrKm%2bvad26dOHiOoKRvqaRnp6xgb6dlduRQcEASxKSmqyM1Goo%2bqz%2bKmZaSlpErMzm/AOsBAALAbaNbRcUFeYWlkTBQYT6IkJNESKQwylU4KiwimMEgZ2Wmp3GR2GgsAklMYrBRGVEyEy3NnTiorK5fLSUsGts3t7YGBfleHi/f0ZJ3MVG8b4a/pqt4yVr%2buKf3o6uWhhX%2bGkfN/OSVD0DLy9PYMjQgpKSvhFZecOX1CXl5WU13VUF/LyEAblqGBjv01u7iYuHzUfpCenoqoT2VzJGbm1jEGZC0gVzB%2bfvFtbUMbMSkBfmgCOZ5ETyLREhnJ1GQOHa7xSbGJ5HgWhw51SM1gQ5DoLAokChg8vTxiiFGZOenQ2XQWrbyyrLCs2DcwwFoHb6sqdUFd4ZoO7qa%2bsq3S0Qg//%2bmt/%2bfsFXNaGqdtdPahs3NweGhcfGx334CegY6k5ElVFSVtTTVDPU3AMDHWMzbWMzU1cHrgmMxkZ2fmprIR9SmsZAQAY8CuS8Ldnv5xTjoXAkNMiiNRE6lMMqxEajyNRU5OAQAKmZFEoiZQmSQmh5aRlZqRlQZZojHJEKrI6LCgEH%2bwH%2bpAppJoLJqX70vbc2cv29lZqCufV5W%2bpC5/TlXqmpZMfWNfIKX2%2bsNAvJbJOXvnh0%2bfhUdH%2bgb49g4O3nNyPHb0ryo4eYIaTleLAFky0NcyNdG3tDABkvO2VnExMRAhDpPNZjAlpmfXYE3NrM4tbAFARXVDbGJcFDEqkQqBIZHpiRR6EkiHGxI9kcGmMtlUeAmJpzPJcAOzKD0rlZuVAmCcNBYSsMhgOovKTmUxWJSCkmImJ%2bX2nRvefj4Xz9mYKUraqMpYyx0JdXmYWzdhae9jfe3pldvuj72T7O8%2bCokM8w3ya%2bvo8A8OOvo3CUUFWQJeSQ2P09fTMDDQMjbSNTMzsLIyRW5MDSLDwricVCaVJoGph8y8GVvMyMkF6fFIZkgUVB/YnEghUgCDmYQAJFNZHBoNqQm4S6YjHyAz2TR2CgMsh80BGBKS4pIoCXQ2HSFn0uqa2109nkVEhTk%2beGCqqmCFk7yqLpWdV%2bvgEnvJweXKHfdQcrFfXJaXf4h3gH9weEhZZUVMfPzxo3%2bRk5UiqCqpKCtqQZCgE1AAC3MjU2M9IwMtczNDfx8fDpMlgXnfwR%2bgMulxSXFUJpXKotCTYdJT6CwS%2bEqixiMA9EQqPQleQgVQZYAHH6BgVyryEopDh06A1JGpiVABeCckPKixtTMiOtLP39v5%2bTNrA10jqSMPzls9D6CbnX943z3WLzYrs%2bpNLKskr6CQSCYHhQfn8PKoLOaJX47ISkuqqSiqKMsTCMp6uppGhjpgvIWFkZGhtqGeBrw0NzcKCwyUGJ8UllXWJlKTYMIkoy6y0KAj7jISqQzQCmkhUWgJMIjgfSrkipZIPQBAC0Uh05LAeLgyktH6MCBjUB9qZHQor6iYnc718HR95vbcxtZW7eSR2zYW956G2j8M9orMTCnpKe9coGTU1DU01re0%2b4eGcDO5KRlcydO/wKaGV1ZQUVbA43Ha2upQBGhiSwtj0K2rhTc20DIxM7h43loiPTsTLGenJ6dw2SncZE46C4IOKkmgGOYNhQiiaSwShZFEpiZAbKB9YSJRkAih3jNIGEAcZC8pDjYK%2bAlAmJBETKIkxhCjo%2bNi84pKn7k9dXV3vXbTQVla%2bp7j87vPol0CGMSUutpXoobedTavqa2zc3J2oaiikkwnZ%2bXny8mekT5zCo%2bTx6soqqoqaWkRDAy0TZAKGFtbmRroaepoqsJLCJJEchqTm5OemceFQwE7ncVOY1JZZBiUCaQ4WEkUZPhgC5IDCwYowgD34D0sBuI3YETFhMcSoyKiQulMAKPCywQSEaIfFhFa09Dy9LlzYHDA46dPrjs4PfaK9wxPC6GUcsv7%2beMfmge2uCVtA0PDY1PT0/MLWfl5%2bcUlOJy81JmTqjh5NVUlANDUUtOHYWqib2FpAgDmZgaaBJwh%2bo5ERk56Rh6Xm5OWkZsOFYDJCA1KTIyJjgtPJMclUePBTqRfkfAg9scDGJkIliPeI9KRGygFDNDQ8KDwqJC4%2bGiYqvGJseGRIZA6eL%2bqtvGF9wu48fb1eu7p/9A9Ni6lIS6ltqhpamTxn00Dm7kVHRPTUxMzc7MLizWNja1d3SoqigAAk1Qdj4NBBBUAAGOYpFamMIiAQUdLTVNDFfY4iZyCLG5uelp2alZ%2bBuxKIBTiQaLDFhYUHRcBIwgWEmukUymJ1AQisosRESomCToBblBCSlRshI%2bfF6iEIgAeHChgw4aahEUE1dQ3hkaGh4QFwBnkicuzGw986PmvqNkt1XzB9Np/1x9InTcAAADfSURBVLxaKahqFwgW5hYFEzOzBaXF/N5%2bPF5ZWuoUVEBDTZlAUNHWUcciZGVtBsvGxgyaGK%2bioK2lJpFTmJ2WyeFmp2YXZKWksyDroJKWTCYmRPsH%2bsTFR0H0kVaGCkC0SHFx6DaMRIuBRAhqkoRudmC550v34NAAYID8wGyFYQoMgcG%2bLW3tJDrNzcMlOi7K0/vFrQcenNJBFq%2brZXBjaed/yjoWKxr5omXhkmi5Z2iIV1w48GYMIiQnI6mqrKCprqKpideB/dhI19TM0NrG/KytpTUcxC1N4E9VVRT%2bPzbiUw29GeqqAAAAAElFTkSuQmCC' /%3e%3c/svg%3e" width="500" data-src="/developerkorea/assets/static/justin-yoo.0d7bb5f.d8fcc9687c70820fe6d9bd3801483455.png" data-srcset="/developerkorea/assets/static/justin-yoo.0d7bb5f.d8fcc9687c70820fe6d9bd3801483455.png 500w" data-sizes="(max-width: 500px) 100vw, 500px" class="h-16 w-16 md:h-24 md:w-24 mx-auto md:mx-0 md:mr-6 rounded-full bg-gray-200 g-image g-image--lazy g-image--loading"><noscript><img src="/developerkorea/assets/static/justin-yoo.0d7bb5f.d8fcc9687c70820fe6d9bd3801483455.png" class="h-16 w-16 md:h-24 md:w-24 mx-auto md:mx-0 md:mr-6 rounded-full bg-gray-200 g-image g-image--loaded" width="500"></noscript><div class="text-center md:text-left"><a href="/developerkorea/authors/justin-yoo/" class="text-black dark:text-white"><h2 class="text-lg my-1 mt-2 md:mt-0">유저스틴</h2></a><!----><div class="font-light tracking-wider leading-relaxed py-4">마이크로소프트 클라우드 🥑 | 서버리스 덕후 | DevOps/SRE | 엔터프라이즈 통합 솔루션</div><div><span><a href="https://github.com/justinyoo" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="svg-inline--fa fa-github fa-w-16"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a>
+                         
+                      </span><span><a href="https://linked.in.com/in/justinyoo" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="linkedin" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-linkedin fa-w-14"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"></path></svg></a>
+                         
+                      </span><span><a href="https://twitter.com/justinchronicle" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="twitter" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-twitter fa-w-16"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg></a>
+                         
+                      </span><span><a href="https://facebook.com/aliencube.community" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-facebook fa-w-16"><path fill="currentColor" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"></path></svg></a>
+                         
+                      </span><!----></div></div></div></div></div></div></section></div></div></div><section class="post-related pt-10"><div class="container mx-auto"><div class="text-center"><h4 class="font-light my-0">Recommended for you</h4></div><div class="flex flex-wrap justify-center pt-8 pb-8"><div class="w-full md:w-1/2 lg:w-1/3 px-4 my-4"><div class="post-card border-gray-200 dark:border-gray-900 bg-white dark:bg-black rounded-lg hover:shadow-xl z-100 dark:bg-gray-900"><div class="post-card-author pt-4 pl-4"><a href="/developerkorea/authors/devrel-kr/"><img alt="DevRel Korea @ Microsoft" src="data:image/svg+xml,%3csvg fill='none' viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cfilter id='__svg-blur-1da0a34db72a83ed0871eaab21837db9'%3e%3cfeGaussianBlur in='SourceGraphic' stdDeviation='40'/%3e%3c/filter%3e%3c/defs%3e%3cimage x='0' y='0' filter='url(%23__svg-blur-1da0a34db72a83ed0871eaab21837db9)' width='500' height='500' xlink:href='data:image/png%3bbase64%2ciVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsSAAALEgHS3X78AAAdIElEQVR42s1bB3gVVdpOARWlBkgg7aZXSAIBKSGBBBIghBTSE3qREjoJhK4roGJZUbCwKyy7K1hWl23qrogKuti7rK5ldZESWkgICcm9d77/fc%2bdc7kU/WE1%2b%2bw8z3lm7twzZ87X3%2b87Z9zcfuAICPBzCwoKVNfe3t3cRcRt377X3KOiIjx9fXu4f/PNcbfIyDA3f38/1VcfeMZdX1ssAY/26OG9SP9u08bdXY/9fe/09/d1S0xMdMvIGOHm59cT74v0PHjwc3ebTdy6d%2b%2bqng8JCVLvbdUDk1fnTp06eFzp/5SUIZ6YoEdjo6jfDkb4upvPxl13nadfly6dRoIQiY2N3qqf69y5o0dgoD/7ol%2bYC%2bEXCAKDPYYPT/O80ns7dLjxB5n4kxycHI%2buXbto4v379Il/uX//fi%2bCaErU15UR6Kcn5WlqzOj4%2bN7WiIiwncOGDT0%2be/ZsAVM2ub6DGjVo0EBPiyXQQxMDhrkPHjzIlXB/aEQl3rsX79%2bD3z686eXV2aNVmUBpQHX1z7YJCXHvkoiVK1fKLbfcIiNGDK%2bHKVCqvV2eaes6Ru/evZ6oqJgjSUmDrQsXLrSWl5cJpDfF/Lvjpe/s2dPH9fmYXr1ifpmePrxh5syZ6r2zZ8%2bShIT4/boDmNy6JhAdHaUkAYkvnDnzFhk7Nut8ytBkW2VVpbWyslJmzJguo0ePMkJDg8kIL/OxG6DiY2NjYx7o16/vp7NmzZSlS5faFyxYYF%2b2bJlkZo4%2bn5o67F9g4LeDBw/8e3R05IM33XTDcDyn/Ub78PDQB0eOzDCmTZsma9eulYWLF1mTU4bYsrPHnr/llhkCwUxzzC/Ss9U0gANv2fKQmlS/fokvLqteJqVFJdZnfr7TKM4tkImTJxoVc%2ba0TJo0URYtWijo8znUcumQIUn/oKRBsJDgJUuW2BcvXsyz4Gzw3vLly6W6ulr9P3/%2bfCksLJQBA25%2bp0OHm2ZhnPfJ7OnTp8n8efOtEyZPMMrzS%2bSJu3cYxQWFVj7TJyF%2bN%2bc1ZcoUj1Y1AS3RtNTUL5ZULpEpJRPt8sl549gr3xiTCsqNCZMmkFCjqKioJSMjXSZNmqQIQ7NVVVVZQbAinoSbTV/zvh1MUf2qq5cr7SgrK5W0tFQpKCiwgjFG2YRymVY8yTi5/5AhnzQa4wtKbYuXLJZhQ1M%2buTBP31ZjgFZJn6wxY87OnT9X5k%2btMJreOW3YPjor9g8bpDBrnJE8dIiRnz%2bOhNlBiCJ60aJFrsQa%2bC2u7VKmsD%2bZAc2gr7Dn5eZKUvJgozSnCIQ3ifXDeml8%2b6TMnTzLvgDaljl69FH6Z1NT3VubARbYXgvsUGaUTzVa3jsj9o8aZOttmyUvOxeOabZBlSYxmLxhEkiCBNJVam5qhVPt4RPUf9osyACTOXxOjTdz1kxjXE6ebFv/iBgfn5Pz79bKpKLxxuLKxTI2K6se81IABeG01RngDY6frVpaJeMLy5Q6Lp9VKZnZmcJ7VXCGIFzoFDWxJI4%2bgNGCPoI%2boaSkREpLS2T8%2bHKZMmWy0DmyD5/TzOFz1AiOx2uOPzprtKyYXSW1rx8xSvOL7fRFcLw1mFf31maA8xqO7f2Vq1ZJYX6BrTirwCgpK5EVK1YodaY0Hc5snrJheG86NImJjZHw8HAJDgmWQIvF2SxBQRISEiIRERESExMjfRP7CnCC0Izo/DRDqB0cn%2b8pLi2W4qx8Iz83zzYP78F83tU4otV8AI/ExL4qDIaFhdxVUVEhqWnDWkogxRXLV6iJkvjJcHwIa4rgkNBQtDDVQsPCJTwiSiIioyUy6uIWERmF/yIlLDxC9Q0KDpZQnMPBlH79%2bylmzJs3TzFCM6GouJCEt1CLwsPD1nFeffokeIaGBrUOCgwOthCYuDtQVye/mJio%2bgkTxstyeGwSTvUGYlNS7dyli3h7d0d89hGfHj0kHARGRccoIiMiI9XZtfEemRDh0s/bx0eN0a1bV%2bnUubPSkKysMcokyGz4BXtZWZkg9p8GNFdoEHjAXecqraL%2bsC%2blAe3bt0sHCLJTIiDeKC4ugvTCxM8/QKnxnXfeIfv375NXX31FbrvtVkg/VEmV0nYQHHVR04zg/xZLEIgNl/Xr18m%2bfa%2bi7cP1evwfLj19fQVSBuCaod7L98P%2b7e3aXZ9mAjTPnxwOu2Jy85YXVK9Gx/eiokJM2qJUPDomWt5660259Hj55b3oE6hMQjNBM8J5jfvBYFIIfMSBA3%2b/bIzXXtuPZ6PAyBDFbDpO%2bBob/c2gQQP%2bTbmYiZq7a%2b7yI4n3dwMMVddZWZmKu0hmfjt37lyqYAthaGhoqBEVHatUff2G9Wqy58%2bfF8Mw1LUNOSuPlStXKLWOjom9IgN4v7u3t5K863Mch%2bPxoDb16Olrak6EwVyA86A/wjwf5fwAnDzNFPzHO0QtfZzbOFT/xtyCgnyN7AzYvAHVNqJjeomfn5/s2bPHKbGGhga5/fafyXfffad%2b7969G5PvKWTWlXwAGUAmPv/8c6r/oUOHZAMYWl9f72TmCy%2b8oJgU26s3okewMQjv5zwwH/u4cePkxhtvyDTRYJsfZQquhY9u3bx0KuqdnJx0XIEWJDPTp0%2bHSocYlIae/FNPPaUmarfbpa6uTubOrZCvvvpK3du%2bfZtTA1yd3qUasGvXTtX/yy%2b/AC6YJ2fOnHFqA//r3t1b9aUpBQUHGRMnTlSmwHlBIIdZXjDT4/9ME9hZPwCOOgsfSEVfNAGOlfY/atRIIxAOixOh5/YPCJTcvFynBmip6euRo0ZKQKBF9WXTxDs8f6wiimPk5GTL9x1jEAX0GMphBgUz5CpniHm1LFgwH1Eh6g/OpOWG69wdztvv6pmg1eb669tqp%2beBELidnnfZsmor4zDQntGvXz8jOCTUSQgn5evrp3L0mpoa56RpApMnTxJfmAiJpLOkKdAphoUx5gcpzSAxNCV6egKgY8eOOcc4evSITJs2VY1xIZxGKcwAbEKQpKAzGGGdOnWKIFptdim5XXuShM7qKU9PNz%2bEnU/nzJmj1Iwv0Xi9d%2b9eipgLquyI4T3BhF74rxQokHCXYZETj4l19OfvJ5/YJcOHp4mXV1c8EyW/%2bc2vJSMjQ6hRtG%2bOEdsrVkFlNUZszGXEs3G8%2bPh4nTOoM%2bdJWB0fH/cBzdaVnquKDORUZGS4rsOthEo1mpDUmcoSlyNPVxLQYY0ojo2/OTFiAjb%2bR%2bLDAIO7dvWSxx77pZLq8eM1SqpvvHFA/f7000/oUxQ0jkZ/PqfH0ONyDNf3UANvvrm/QqA6k6ysrLJTW6OiIs5h/pWqlBQTSYxw9RoQFGRpC1MYAlV6lrB24sQJVjMxUaoGUxBGA39/fyecdTizCNX4m0RTYpwk0SFR4tChyXLw4EGnU3vooYdkx44dsmnT/cpsAK4UjA4CE/gcn6dZXIodHO%2bk3wmQwsICNR%2bddXKeQKhW5hOg4QnY/2DQ0eaqNcBiCXA3YeX9nDRUq4VhxlR/Z87OFzHRsQRZlP068H6Ekn4wkhuqMxHggIEDlCqzhldSUiyPPvqIIn7jxrsQJm%2bTbdsek8bGRnn66acU5l%2b9eo3KGAcNGkiMocYhM0LDI5yaxt8BIH7EiOHOjNFMubUv4HxbOAbouMuMBh6uDPD19dFaDu1w3Fda4uosAEk3UtJEW2gtroUNvoz3J0%2berKo2dEZxcXEsUspAEE1pmpBVPa/LYNnZYyH5LfL555%2bB8HMK5OzY8SvVf/Fi5V/UMyq/wPNjxmSqbJI%2bJwpIMDY2Vv0uLi5WfVyFYvqAFr4vDxEJ4GjdBdPu6QR3wcH%2bik5oCMvxbXhWwtd5BMKfSi3Nmv34pKTBp1jNZWECL7VqU%2bBZY/JKsw6weLEjJXbk88o2nVUfXRSh2rJRM0g4J8v/OIbJYHFomWMcjsdaAXEFa4YuTHVWmDAuK0gGHTY0t7Zjx/alnP8999zDiObmggncAy0Bnt8X/ZwXXK9JTx%2bucYAPUuBtI0emGyYMluXLlhlVZo7uINxBoBklXEtd4lIEVc1kpGIGU1s2/b9rv0uZRwbpusAiYhJcV2OcFcgMF4JBwCYwm%2bDteo0CgvN0jWx6jeJC2d07DvenoKU5owUzP1cz0BmgLu1Hhodtg%2b0dzkcqPGvhQmNpdbWxHE5oGYip5KQ5Yd1cCLm0kWmOitB45PpzLyP8IgaYjeMvYypMk4RmVED6JVMm24fABH3DQn53nZtbmHPeAY55d%2bhwkyqXOx28JSAUjFgLR/9hSEiITSVYQZZDxDtXgMMWh6Po3tU9MDrKuUhxU%2beOd9wS11tmD0myjx2ZYeSVlsqk2bM5Iak0y2DL2XhNSZuSu7SxNJabm6OKHbomSCmr4gp%2b8/kVrBuyIoTrORh/8pzZkj%2b%2bXLLhG8qTBhv3DRpo/33yECmNiXrdrXPHWM6vLCZKef0unTp4fPjhRxrQ%2bXft2uUXEHAziTYLMQbOBhhR5%2bPtFfi9dQB3766aO56JocGP/wne93x%2bvnEqO9t4G9c7kpJkOTzuZEwkFwBnLBzdOHj8AuD08hnTpQIELqEUIfVFUFVKX9f5aApUZ9r4fPRbgDYf2R0LLIUTJkh2YaFynPkj0tT4lXCwjyA6vQap12RlSSOSoPMFBfZanNf27ydtfbrfwonmh4e10XTAu88dMKD/2YyR6TIifQRrEy2IJjYwwE5GIE23wRwSrlwH8OupOdh2eGT43vfB%2beb8AtuRnByjJjdXzowbZzTm58u5vDw1oYMIja8glj8OpjyCthCAKSESiDEhTgYgNqdmpEsGbHX06FGqMZRmoI3A/VRM7uahKRKV2AcwOUSKY6JlhyI2TT4bOVKNz/c04X31aMdzc42jmAfmIidzc628v2PoUEkIDV6tpIVoHhsb8xzDKrHC6tWrW6ZNm2YQPAFdGiDcQNg2GLb9/HoMuEIZLMgZDWL9fV/4eNQokaLi5kOQPF4uNXj5Mbz8qNl47zQkwcmRKefJGPz%2bZPRo2ToEzEgaLGVgTjYIzoVU88blSS7aOJhBXuZoKYFUK9Bv05AhcgB96vBsU0GBOp/OG6fG1%2b/ie2scjXNRTDidl2dvyssz5sX1kvY%2b3beEhQZ/yVC6cuWqFq4vaCwDEzNYzkM4NQYqvBFiAA8kXmYCABFK9dvddMOgIeg4dWiK9a/DhlHiivM1JtHUhOOcDK8hoWNoaqKcMK5rwQgSUo/rQ5DiByBuL0zl%2bdRUeQ7tpWHD5H3kAt%2bMGSOn8VxTQaHUof8x83mOV2O24%2bMcjKgx36eZcg5z%2bhjjlg0cYGSNzbKHhASpClVCQoKV1SO9VqEjCtcs%2bJtRDVrYADKDLyKeCEmvBcbERL1A7s2urLTlQIIP3Nzf%2bCPU8iwmc9SUhJpUdrYcS0%2bXGqir%2bg3JHxsxQo6CuCO4PpqZKSdAZC1aHfqcBTNUyy%2bQWpxPQMOO4b/DGIPP1OD6GM4cQ43Fa46P93B8agHnsAem8xhMZcbggUY5nPHaNWuM9PQRVqBIO2uRUHmDgE2DODMEc7HVPmvWLCZmLKndcCkk9nCkkx6DCFYIL5dCdeYtWGDERkXIm5jMGZMBitixY%2bUEokE98H3t6tVqwmduv10an39e6h9%2bWOruv19OAcScBMfPPPCANPz5z3J6wwY5s2WLHAUzanFd/8gjchre/twf/iBn7rpLTk6bJg27dknD009L7dq10rBzp9Rt2iTHoVGuGsCWCz%2bTU1RkrAIYooQB3Izw8DDl5VlHBEI1BgwYYHAFu7S01Fi4cAEZYOVCLhj0HGl94IEH3S9bCgcOWMX1eCAv6xJwcC44WAZbPkx1zaNtmupJIoD39XHumWfEfuaMWL/9Vuo3bxbbyZNiQ45//p13xGhpkaZXX5Vzv/%2b9NO3dqyRtPXxY7LW10vz%2b%2b84xWj79VBVTGp54Qhr/9jexI2fg71OQcg206TjeS9tvhrk8DA3IKytToZNEUdp0dsgbDCZVdHbIV5DG92bCZvTp08cYO3asdSicbkhIsMoakQU7I4faqWGuuW/mKg9XbYH8jBkL5stMvMwG4mkGz8OW6yARSvE04jcJVu1f/xIDOL8F2d9phDvrd98pJtTde6%2bjZvjUU9L08svS/OGHUnf33WKvr5fzr78u5998UzGuHprR9NJLqm/9gw/KuT/%2b0cHY3buVdpH4GtMM6HRfhPcfB4dKb0/QxL0EJI7SpxboGgLCn4GkSjGDCRySKpuPT7cYc0PGBTAEu/c0TWEl7QR206LQGCBwDmzuE5jAl1D79xDKTnIyNAWcz/3ud0qqJ4DwqL4tX3whtbfeKnUbN8qZdeuUqZw/cEA1mgsZVLtmjZIyVf0UTIQmcwSJFRIQpRGNzz0ntYDL5559VjGGGsN3UfUP52SLHVhhK/BBGiLJKvQjsGKtgUkTCTWrVjhHakbwbFPpenCQ2mES07uvO2C0mysEVtzw8HDry3iNdJYFEYMqlldcbGRERhhfMS6Py7/gB%2bCcaujI4NlPAdjQJ9BeqRm8fwqJyikwUfmLkhKpve02df/klClSd999Sq2p3icBgs7ceae6p/wG/ifhJ6dPV05QEW%2bGQ4bbv8Axx0VGSlLKUJmCvjPwPLNYrkMydTY1wMkIFlZwtrJ2Adg/w8wSPS8NgW5QIcWE4GDL5glEZTk5LYMGJxkJcfHiC84ODA%2bTzyCNUwxVpgZQE06Ul4utpkYaX3xRSVWtFUDiVGntB5peeUXdP7t9u7R89pkykZPQNJoOpd60f78yoYYnnxTb0aPK/qlJWv2V6sMJ/wnMhr%2bSvv1vlv5oAwYOUo3pOdPyJIAxi8WiQA%2bJdxRXFApkDvCvju3bttOVsMvK6O3b3%2biqETu4uhsEu4nAQEEsUARZ5CCkdlozABOihM7u2OFY3MDEmz/6SJrpzOD4yBAetH0S3fzee4oh1m%2b%2bkdPw3PQLdHJ8rn7rVml%2b9105OXWq45k9e1RUoPbo2E/pV4FQn%2bhoEAuiwYDomBjp1StW1SmYZbKcRyg9DFrCxRRH8Sa0hVoAome57mS7iAH6B7IpZ2jo6dtjekRIUCOXuEKDLMY2YPM6k3gVkkwGNL7wgsPO33hDGh5/XJo/%2bEAa//IXOYHc4Pzbb8sJTI6%2bwvrVV4pwMol9m/btU5Jnn4bf/lY5PhLL5%2blAGSaPEWPwPXhnHRzxP6GBOQQ80II4nEfDD7BmsExFA0cRVxdOuLiamjqshdAbUPv1C0vqPa%2b8iKJvIlHQ3tFjRWLfb98Cln8tI8NOCRwz7V%2b3GlMTVJw284PjRHU4q0awZJ5rzOhxLM%2bBJtU9E1mqZzmOee84HJ0ay3zHCZwPgviTZiT4BoQvQHSayZoloo7r1huzaoSstMrG0lxGRnpz27aeUbpU9r1lc73lNUTvuri%2bbeTPBw1skqIiqr3C3665wBET/qoJgwBGh1N0giCkFkw4U%2biAuPU4q8akBmPVE%2b%2bb7QzuETqfwjN8/gSZYGrZUZdc4Ai8/yvQtr8OH64YYWC8OwHXJ8GPLFe70ZhWVym4yyoRGMKKkVp46dixfQHJiYqKuLoltLBAByp069yhzy%2bQrCA5MQ4jFwBhRj2iwDkz%2bWnCZM9CYqcwoaPw7t9igl9hgp8DL3wKvP9BSoq8DbN5HUBq/2DdkO3hfADO6i0kQe%2bhD/v%2bE898DQj8HcLtCfiZetg%2bx1eZJ9pZtAa0Q2DGYdMhbsfYKcgqhyYPQbIzwSCAY8kOqTULu4r47t27Kq%2bP9FjZfWxs9P%2b/xzjUDIlu7dvF/xIvkcIiA%2bpo/CMjw3hteJrxTEqyQmJ3oN0J87gD2d26okLZgCTkzoo5srGqUu5ds1ruX79ONm%2b8Sx65/%2bey9cEHZCsgseO8SR6%2b717136YN6%2bWe1atk4%2bJFcsesmbJufLlsAMDZCPvdAOZvwTuexBxegvd/jwzKzDROgjmIe8bu1GGGl7%2b/EREeDvQXZUtMTLSmpqbaCZCSk4ec8/LqnEcyRowY7nmlrT/fewTqrWfubl0n9or97h5MZFpKsq3YkdYawAVSDuCRAcL3v/%2benLXbpRHe3C4//uAKwlmbTb5GWM2fOEEK0QrKyyQbfqNg9CijHAKYCYb8LGmwfULvXnZEJyPaXHukpw8IDBBv727PEtORhL59EzwvK4Re1dHBGRIDQhPi35nHGmB1tY3lqmqgwzWrVsuE8jJjz9/%2b6lgPtdkMc6lYcC12s3FRxGa1XrmZ/7Ofgef0szwOHzokE6ENRHrVevdZdbWxACBr/tKl9tQxmdLNz1dvxGoMCg76CCh2i8Xif7NTk0OD/zPipyREO8BRSJByGkE9fcZPmTyJE2kxK8IsMnCPoDDLUnG7qUkaGs4aXCrXK8TX0Ax9bm5uVuNt2bLFmAjpqxKaWZJXRdOFC22sPyYNGvAPrw43pgUG%2biX28OkW4FrkDA0L5aKIh97yf80bJ/hASniYW3fvbrpC5N6vX9%2bPORkul%2btFCUhF7RfaufNxTtr4%2bOOP5ciRw4beM%2bDKCNfD9R7P7Gu1Wp2d9u59yeBWHHMNUC%2bGcP%2bwUVFR0cLqjpdXp5LLVrmCLNw87aEJdqA9///0Y4keeknJw7F83mYIcwSiLe785oYJlpocCx%2bFxvbt2w3u7nAlUqv4DzXd3WSasWvXTiMf3t4lnqt8HwkPz81M1JDGPu7YHpPWhh9scLusXgZzfHjR86fZOBUYGGBmitHKlrp395rJ9T5MylZeXmZneYlMWLp0mVrWnjVrpvHss8/It0iPL5X69x2U/tdff2088cQuwlgD4yimcly9CkStA%2bMNZnyI5c/q%2bbVrd13rfjlCrpaWlqlrxFQPs3S2hgscJB7x1k4Aos2BaSn38pUiK%2bTix0akxL/61XYhU/bseVHtBnsbsPcVJEZPPfWk3HvvPcINT2QqnjMIaensNOGUPJe/6G8ygfyg0rdeIP761v9s5tIl5ltvvVWvJFfAHJpZ26%2buXq4kpjctLOMSWlWVKj6yJM09PWRKERAgm2MTRLHaMzx16lTVr6pqKRc5nZseOB4J5zV9AULZAXd3t34ay7sS/5Nsj7vabTQ8gKvbmA5mc1raMK70WKn65u4t9XUIrltYUcI19/XxWwBusuRZLa7qe2Zf7kDjCq9NL7rSFDCunWt/cXG9T%2bmvUXr1imlz3XWeOlt1%2b68dgYEXnMqwYSltzH26j1IDIF1revoIgwsenDRL0jQFvXvc0aov2jJ/8db5KpXNca8PzMzgHgCOheiituTiXp0GNdzLcPvtt//3JH%2bl8AjVVyKIj4/7NUMTnJPaTQJbtjM8RUSEvYu2ITGxz%2b7Bgwe9OXRoyjcg6lRmZmY90tMmNtjzWTDtZEpK8ucIr3sg2bu7du1yPyXOL1CoTdSWVatWcTm9Ca8L1wxo1d3hV3Ng4iYDev%2bCGgC75VceVP8WShIhavElj3CRtQstySQk3PzYofMlK7QdxozJrDO34fMjK4NAC0yp1xrQat8GXMsBm1QMCA8P25SDrAyS54dM/MpDOSyEpmQzAWmjl9l%2b6Ni2bbs7AE4bR8Z28z7Tj9iQ0tr5DVJySnKN/law1T6PuTaAFOjp2FHatSobqfCkyZOtOTm59oqKuQLtOKJ3bjo2KPjqjZjuDrCiAIvzWtcfYE6eJna/i7XIqdOmWVPT0mwj0jPoBD/nek2rfiB1bQ7RUU0FHijg/p2IyGhrSGiYNT6hD9Q/gl92uo3JynGnlw4M7HFVY%2bpt7wiv%2bdxW2zsu3hYeEckmgZbAl5XGRUa7t3rMv8qQ6OGYdI/%2bXGbmmjuY0GyWnO8wc27Pa/k2Qds2YHcYxmx21PSjmh3fEwSqXeEhoSGe/xMM0Lswvbrc1Ck4OKhW7QPm7gsHA0ZrLbkWdb34y3PLx44N1tFqOwv%2bqzBheZv/FQ3gPgJzU7L/fcjAGjHp45jgrs4db2zjWlu8xm8V9MfQhZagwH9jzFpI/6C/X0/1UZB/KznA/wPmFGFBr/36ZwAAAABJRU5ErkJggg==' /%3e%3c/svg%3e" width="500" data-src="/developerkorea/assets/static/devrel-kr.0d7bb5f.956d6987e7d3d645bed3e641d6455e72.png" data-srcset="/developerkorea/assets/static/devrel-kr.0d7bb5f.956d6987e7d3d645bed3e641d6455e72.png 500w" data-sizes="(max-width: 500px) 100vw, 500px" class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white g-image g-image--lazy g-image--loading"><noscript><img src="/developerkorea/assets/static/devrel-kr.0d7bb5f.956d6987e7d3d645bed3e641d6455e72.png" class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white g-image g-image--loaded" width="500" alt="DevRel Korea @ Microsoft"></noscript></a></div><a href="/developerkorea/posts/2021/01/01/tech-blog-opening/" class="post-card-image-link"><!----><img alt="Microsoft Korea 기술 블로그를 시작합니다" src="https://sa0blogs.blob.core.windows.net/msdevkr/2021/01/2021-01-01-tech-blog-opening-00.png" class="post-card-image g-image"></a><div class="post-card-content bg-white dark:bg-gray-900 h-full rounded-b-lg"><div class="flex-col relative flex justify-between px-6 pt-4"><p class="text-xs tracking-wide font-medium mt-3 dark:text-white"><a href="/developerkorea/categories/announcement/">Announcement</a></p></div><a href="/developerkorea/posts/2021/01/01/tech-blog-opening/" class="flex-col relative flex justify-between rounded-b-lg px-6 h-40 mt-2 dark:text-white"><h3 class="post-card-title tracking-wide mt-0">Microsoft Korea 기술 블로그를 시작합니다</h3><div class="text-xs leading-none absolute bottom-0 pb-6"><p><time datetime="Fri Jan 01 2021 12:00:00 UTC+00:00">01 January 2021</time>
+             • 
+            1 min read
+          </p></div></a></div></div></div><div class="w-full md:w-1/2 lg:w-1/3 px-4 my-4"><div class="post-card border-gray-200 dark:border-gray-900 bg-white dark:bg-black rounded-lg hover:shadow-xl z-100 dark:bg-gray-900"><div class="post-card-author pt-4 pl-4"><a href="/developerkorea/authors/justin-yoo/"><img alt="유저스틴" src="data:image/svg+xml,%3csvg fill='none' viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3e%3cdefs%3e%3cfilter id='__svg-blur-6a0325b746fa0b3948747e4a6f689de9'%3e%3cfeGaussianBlur in='SourceGraphic' stdDeviation='40'/%3e%3c/filter%3e%3c/defs%3e%3cimage x='0' y='0' filter='url(%23__svg-blur-6a0325b746fa0b3948747e4a6f689de9)' width='500' height='500' xlink:href='data:image/png%3bbase64%2ciVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC%2baJAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAgAElEQVRo3pWZd1RT67b2ueccy7YgHQKE0HsvYkdFsaFYEKUI0nsnlPSEhBI6offeISgdpPeQ0JFi3%2bfse84Yt/x3v7%2b/udaCiLq3d9893rH2Soz4/J75zPm%2bK0jMz68sLq4tLa0LhVvLy9srK7tra%2b/Ea339/fr6h0Pr459Za2sfflyrq%2b/R9W5lZW95eVck2hGJtoWwlt4Kl7YEgk3B4oZgYWNxfm1hfm1%2bbmVudnl2RjgzvTQ9JZiaXJwYnx8fmxsbnR59M/VmZHJ4aHxocGyg/43E7KxoYWFtEf6yYFMofLu8vLO6undIPQKwsYGtTxsbH9H1CVugFbv%2bEcNhmAOA9ysr%2bwzLwm0RLATg7ZJga2lxEwVYX5j7HYDJiYWJcQCYAYCR4QkAGBwYRQBmZoTz86sLC%2bvAAADgCgBg0lHR2FWs%2b8NhgMMkf6YO3wCIdpdFCAD8o0tLW8hCAUAJCrA6PwcAIgCYmRYDzI%2bNzmIVAIb9CgDAHHx6HgGAnwIAWIpQ48WW/47oP2L4Qes7uPnxTQRAiKYIAxBsIgCLKMB%2bhEQ/VAADmP4mQtPTwtnZFWCAvwk/CH4cBnBY9%2bbmZ/T6M4ADie/gw7u7v%2b3t/fv29j/evfsn3Ozs/AZgIF0kgujvIgDLSAWQNhAiPXAAsLEIFYAegArMrs7NrmAV%2bBZgDgP4WoHx8YWpKYRhfn4N2kBcASz0IBpdn7HrH6kHcTs7/4C1t/fPmZnVzs7%2bxERaRHhMZERscFB4R0cvqAS58Ke7u/8OACLE%2b10hLAAQHDQx0gAYwCoCMLPyuxWANvimAqOjc5OTSwAAFTgE8B6z/xDA55%2bE5/Pn/%2bofmLK/ftPN1cPh5m0pyVOy0lLysjLSZ87ISksrKSiYGJmctbF95uKal1O4urK3ufVFKNwRLu3nRyhAABaRCiANcNDEfxQhAIA%2bPgAYn1iYmRGB/Yd7AG2Aj/%2bremwKra19rK5uuXL56i/HjkqePIFIl5ORg/9JSkqePi156uSpEyeP/O1vf/nLv0lISMhISz9%2b5NzSzN/Z/vvmxuclGEECFGBxc2FxHRtBUAHU/p/1wFcArInF6rExinUwqv5/wXi3908ul6evoycvI62moqyGV1FTVVFSkMMpKSgpIjVQVJBXUkTupM5ISkvB5fQvx49rENSfI9UogmqA90uo/Wj7rs8jHbyKzlCsAZamJg/vA1gFJr%2bOUdjFBIKv3qObwOH8fDxg%2bHx4YfZDpqOjE1SUFPE4JXW8ihZBTVdLw0BHSwOvoqmmqqmmoq6KwysrAg9ccYoKCvKysIDqxC/Hjx7566kTv2SkZ29ufATFSAMsiNVDBZZnp0UzU1/tB/UHANPYPrBfAWz/Ent/aIB%2bB/ANA0wbaMem5ld6unog10BXRx90q6nqa6pdtja%2bYWty46zR3QtmD%2b0s7cx17cx1zhtpauNxyggJDhjOSJ6CjP1y7Mjtm7dGhqfWoA6Lm0h%2b9gFW5iA/06LpKaE4PBjAQQMgIwgq0N83IoGdIA7UY/vux9%2brwKfD9m9tfREt7121u66BV9XX1jLS0bA21HK5aUv2f5gW4VJAdK2keFWRX1QnuWUF3MsLvMvxvuVlb37ZmKBPUFaSl4UmgTqcPnnizOmTgESMjYdBhPTu/BqqHhpgeWZaiNovENuPqv86Q/cjBOoPjH9/kOyPh8z%2bPjzIgui/%2b1dMTCJeWUlbg2Brqh/j6sAjutaz/GZqSXM1CbPlsbOlMeO80MEMPz7dvTXRpSXBpSz4Dv2JrccVAzMNJVVFOXlZGFGAcPzUyROmJiaTE4uwCczNYvavzCD2L00j6vfTP4ocImZGhsX5QdQjFTh0avi6bf1kwQd2d36LjCTiVZS11NVNdQgcP8e%2bzOCxkti5OspaR8pmV6qonjJTGD6ZHzIMALTnnTRXPtWtOfZR4ctrDCcrzwtaVurymorS8lKSp0%2bdgAUDi0ljra2%2bm5leRuyfXp6ZQgCmJgTi/GD2Q96Gh77ajwAcHNSwufn55wDQuLC58rtHFOTkVJUUYeyEPrwynBW0WJe4wU/b7c//MFLyYaRs61WWsJY0XRA%2bnhPYz3nZx3k5kObbRXWrCXVkP7SKvKb3yAx3QUNWT0laRvIk/Hf0yN9winItzZ2w34F0dP5A%2bpfE9ovH//DQ1y0M1Pf1DiEAm5sf0Ov%2bYeEnAHBY%2bPT5P5nMdGnJU1oa6udNdcuIz0YLI9Y6OO%2bGC98PFX8YKf80Vv32dZ6wjjpdHDmRHzKWGzyaEzTE9eNTXGtD7qU8sk64Zex7XuO%2bsdI1HUVteaQIUlJSsEU43b%2b/ItqZnoThA0v43fA5sH9c3L6wenv2AT4ebFuff74QgE//ERwcKS8jpaul%2beT62epEt4mS%2bJ3%2bvHeDRR9Hyj6%2bqfgwUrnawp3ixUzyIt9kBY7lBI3nhw2kercSHxd5XmU6msc7GEZc03M2V7ljqHSOIIOTkTxzRvKvf/k3C3Mz5PwzvYzaD%2bERHLYf1I8MTw4Nfk1/X%2b9wz%2btBiR%2bPDD9JP3wYpqez83MAMDMy8HS0q6F6CZtT3o%2bUQ3I%2bjVa8Gyxea09bqqdPFccOpgcNpAUOZwSM5YWOZAZ0JroUelxhOprF2utHXtd/bom/a6h4UUNWXf6MtLTU8WPHYK/jd/QIFjYhPOL2PQgPZv/k4IA4PMNg/%2btXAxIHTypfw/Pd/WGAt29/nV/YsLSwUlaUP29t4XHnYh3Lf42fvdtfvDdUujtQsMHPWO/K3uDnLbekjuaE93P8Bzg%2bQ9yACV5kf6pvbdh9jpN1zHV9v4uartZqd4wUoRM0FaRkzpw%2bdeokHDXYTM7K8g54P4XYv392EKsH%2bwf69%2b0H9WIA8Vn/o/jkfHgd7mA4J3e/GlFVweNVcBesLV7cvdyREbHGz1zryhI0ssfLSXMNKW%2bHanfH27aH67f6yuer6RO8qMki4mwlZao0qZvlVxbygP7knNcFbSdTFQd9pfPqMuoKUrCxnT55EtrA7bkbbKkT44tTB/kZfbMPMDQ48aP9r7r7JX58WPmO4TDA%2b/f/amrqxquqahLULE0MA584TFSQ1zvT5moZVWTf3ES/FKI/O9q3hBHekh4z15q3O1Inaslcak6fr%2bc0swJpnne875xzuWjkaK11SRd3RVvhIkFGTfY0jNMzp08DwDNnF9jREO%2bR9kUADoVn/Dv1sLr5fRJ/5mlLfPiB/au%2boVNZSRFmqK6aCsvHca2VtdTArE3yzIv2KGVF8mjBmfFeVazA5rTQN1WsD%2bPNi3XcocyI/uzItID7L25anTfSstAlWOuqWGspWRIULqnL6cufQrZkSQTgsdNDOFBg4Tk8fLDw9Pe9wdRD72L287t6v%2bmBny8YQfB41dk5gFeB85vSbRuDfo7XWkPSXEkMn%2b03Uc0WdBSI2nNmyknD2RHCZs7eUPHOQOlsOb2N%2bKw%2b5klxqGNJ6P02lncT1Yvz4prbeW1rgqytuoINTlLu9C8AAKftB46OS4INUC9u34OdCwP4JjxgPwJwcPj59Geeerff/n1yUmRqbKKqpEBztx9M8elIDapPi%2bFRgkqZoU3ZCUW0QLKXY%2bT9i0muN3lEj4lyyigvttDbnnjLNOK2RaqvYz7RnRv4MOG%2bjaMZ/qy6rA1e9gpBVl/u1LGjR6ECZ62t4IELdgDx9MR6F0s/NjcPq%2b/q7JEQnz3/DABMoZmZFUsrG2sr67iIKJdHD8lkMinUtZbhPt5A6SwnpjKC7lw/63JOn%2bV8sY7sXptHD/d/qa0ko6Uk8%2bCKsf8TO1tTQx2crIOZxh1jVRsNBRtdvJmmsh5OTk9LE4dT1lQndHW8hscAkH5gP5b%2b0R%2b9B/WdHa//DwBooT4vi3Zi3V1unLPKjg%2bK9XMtzM/IjXtcS3rUkh3UWhjdUUSLe37L/5Jh2rPLizXxbEq03w3bR2d1jLXwvi5XWZHOSe73Aq%2bbudho2mvLPjHHXdZSvH/HQVlV%2bemjx1cv2cXFJmC77%2bHhM9A/hs1NsB9T381H1MPqaH%2bFHeY%2b/lmAzS%2bby9vtRN%2bYl8/aqd4zuaEtueT6jLDenMCBwoiZGnIfN6wm4nGe142BrJCewthAt3uThbF1sU/PWxi%2beHCH/sIh2%2btGuutl8j3zoKu6z6zwDgbKMaFBRjrqevD0Iy/d0dwBz2Lf2d/fN9rbsx8eTD2/C9S/7ux41dHevQ8gXoe/4fkRYB15Evj8piCd4vu8Ls59Ni%2b8IyOmkB6w1Zu68TpjujC2j%2bU7xA2eLYl735PZW5CYHeP%2b6wivIc7ZUlP5qZV26mObQp8bPG/7TNdL6c5nI67pP7HWJYYF2hmoEc6ceHDdbnpiYWx0Htt6xer7ekd6Xg%2bJxw6WHPC%2bva27rZUvgX0B%2bLvr9763%2brCx/dvqYF9ugDMv6NFcQbSwMaWCFd5dQBR05k1Xs0aLk0Z48T2ZkV1ZUTBS5%2bqZv46WvKJ5XNaQdzDC5b%2b8Wh/u1BDq1BjxsMTnZuxNk9D7l72fPzqLl9eSOc2IjV0UbMKR880I1rvIzgWjE7P/sHrM%2b/Y2fmtLl4T4S8yfYHzzcvPXLdHGQk16M8V3pjBmqzP9w0jNSHVWRy61jh1ZQfKrogZUkXzqGMHTVWQo1peJqvGccD9bdQcDpYcWmmF3banP7CnOVxMeX/G/ddb5hu0lXeXrBoSzSlLF6dy5%2bfU3w1Ni%2byH9qP374QGAw%2brbWrtamjskfvwG8%2bckG3AmXdnbbM4dSQ%2bf4EWvNjHfD5X818rgfy4Pfhqq3mhOncgMmcqJ2ONnrzeytruz/jHTNF%2baFH/DmHzP4oUZ/pmJckOSVx3Rg%2bd9l/LA9omZqp2GrJ2ump2mcldzx9SUCIn%2b/sFhP/2vX%2b3bjyUH1ENywPvWls7mpvb/A8Chbz8/rtRnD6WFjOVHCuuS3nZnfh5r%2bm2h7%2bObhn6aT4nndVFz5l5vycehmo/Ddf8SdK%2b1pFDvWXrZaDjpyvvZELrInvNlpCGWT5GnvbsV4SJB9rK2spOlwfDA6PjowuHe7et9A%2bnHJg8WHsg9mpxOTH1TY5sE9oXrjwx/TPJhbePLRl/LXAV5gBu4WB632sx611v4abxpoYJR7HFtror%2bZaJxg18yVZM2Us4Z4hGro12czVWvass4GePCLuvme9j3p4b00l%2bmPbZ5ZIw7T5C5gJcJcLwBp%2biDU%2bcEGh5Qj9iPqT/oWsR4SA6mvqG%2bFQDe/QjwY0EO7j%2bsw83W3zdHh%2baLk7rZvnOlUYtVCauN9M2u3PqopwO5sWs9JaKuomV%2b0UIHb6YxvSMlqCzejeNxJdHJOuquBZxDo29bcN2v8Ske7IeWt3TlzqvL2SidDna6PTUjGtrvXSw8I69fDXXzB7DwYDMHNR5R39jQ1tjQWl/XLCH%2bvYN4/QQGWavv1ze/rM4uzZcyu5kvp4oiFmsThXXk2UpySfC9ifqUxbac7aGa3ZH6vdHmrd6q2VLmeD7pFellzvOrjEfnwm4YBdobh9obt5FcYZje0pO3xUvbG2qU5/ImJgSYerAf1IP9r7q/2o/lHrxvakTUN9S3gPq62iaJ1ZX3PzL8iLH6LcPa5hfR%2bFh3sv9YXthSA2WllTFdEtdO9x4sSqhJcO/NS1xqylmozVqsyZkvy3ydFMJ7cYf51M7rnO49feW4u9apntd70oKyXtg56MlbKhxnxMbMzW8MDkwM7u%2b7o2h4EPu7OvftR9V3HqhvxdTX1jRKLKO/bsB%2bDfFHACvwzg91WNv8e28RG556RY2MxbqkmZLY0fwoflpgpudtXtSLjaHq91NNnwT8X9dHREM19Rkx6ZHPbxjinxhplAY4tbF8BnMiom%2bZ2evKnsefqS6pmJgUDgyg4enHehexn9/V39mB2I%2bph/B8p76muv4bABC6jF7FDMh19QP2R9/%2bsujd5vZvo%2b1Nrznewkb6YiNtqoI4xosYK4pZaUvf7Sldayna6ajba2neaa5dyE9rDvAkXzIPO6eX5nyp2Mehg/GyPObJMxu1W/pyjrYmQ4OTI8MzaO%2bOH/Tuvv1o7/J/X31VfXVFrYRoeW//dz6H1o8F%2ba4yq2uA9GFhWtiZGjZZEiNsZszUJE1VJMw3MDb4Oe8GS36dbv401rbdXjOfzx5ixbSHv8h8coX2wCbH7UqR982i4HvhDiZPrPC2uON0InFmdnWgH%2bvd/fSjvYvYj02e/fCA%2btoWkF5b3QDqqyrrKstrJITLe8sog%2bhgrfwQqh95AHJr69fVjS81GQw%2bx3u8OHqsMHKiLH6xhb0GAAMlX8Zq/zHXudVfMVqe3JES2ckIqAx9WOp/p9TXIe/ldfLjs/dMcBfVTj%2b9fnF4eHp4eGZgYLL/d%2bx/Db0rtr%2b%2brqWupglTX42qryirlhCKdkUogwhdy8v7FTh83V8H6VpB1H%2bByD54%2bMTK3LQg%2bmkbw4vP8e3JCJptYKzys/cGCt8PFH0cqXo/WLfcWjjGI/fS/FojHtcG3eF5XeU8PedsTbAhSJvhTl%2b2tenpeTM0NN3fB%2bqhd5HRCenv6uzraO9ta%2b3%2bRn1t8773FbWgvry0qqykAgVA1zKKAQURruyBbgTmW4BlrETLexCh2dmVG/Y3ZGXkFHCqNJ/7dWSPGrL764zAwYLI5U7udh9vr7/gLT9rvS1P0Jg9nBUDB7hKv1sFL67QH1gEXtU/rylnhpe10cQdQb9KmZwU9va8QY894t7txUYnFh6IPqq%2bEYw/pL6ypKhcYkm0u4QCLGG/dTtEAnKxdO1f0QUf23r797KyKmVlnKKCkqqmXmtJ7nB2cEnss8pE1%2bZkn9HyxLWevPVXucL2rPnGzJm6jO7U8MrwJ/neNxMf2Phc0r5piDPFy1kR5G0I8vAY%2bfTx4/EJwevXbzD7QT1qfw9qfxe2Z4H9WNd%2bp76ooFRCINyBtQTrAGB/YQwojHihb%2b6urH2sb2q5c/c2/PO3HrrPvxlfqiGOlhBrSe7FUc5l8c/7CuNE/Jz51qyxShao56eGVsW4MFyv%2btub3DHDm6nJm%2bDlz6nJWCifgZ%2bgr6MFWe/rmxCHB%2bxvb3vd2oLkRxyemqoGLPegvrS4AlNfyCvaBxAzLB2UYgllQBoDfYl1CLyzBACr70sqKtMyODpa6m4BpLmFvaUG2tuerLlack96QE3C8/yIx/Usv56COH56UBvDp4Xuw3S76nPD/JaFlrkGzgyvYIU8y0ub4s787chRGWnJnKw8aGXwHnoXDc%2b%2b/U2NHVh4atDwVJbXHva%2bkFfMyyuQWFzaxtQLDi1QLzioydIBAKIefbm8%2bqGqpp6dlkymJDx44t00sDPbUfm2O3XzVdZcDXk4L7yF9iI32JHtfYv64maCm33A3bN3bXQvG6nbaKlYayhZ4eUuqsteVz9jpKogI6984pdjQYFBsAmAbnTywOh83dLc3dyE2d9aW9NUXVVfWYHMHEx9cWFZIa8E1Ofl5EsIAABdGMl3GN/VBAXbXl3/1NDcwU5lpnA54REhYaS81wMr4yXxG/xUUSt7pipxKCekg%2bFZFfckw%2b9WjNNZ14t6T85qO5/VvmeOv6Apf5Ygd01b3o4gaaypYWxpd/z4sWvX7MDsEShCZ39bK%2by7oJ6P2t%2bGqm%2borKirKK8pQ8ODqS/IL8rP5eVm50kIBG/FANgS/B6JEK0J/ClSB%2bFOUWlRKpedmc3lpLOJCTGMnKaGmu7elABBDWmxjjoPm1pp3Agvsj8ruI3qVhTgkOlhR3909sV5rUtaCpc15G7ryl1UlTTS1rn7NOTYseMXLtj6eHsz6GxQ/Kp7CBgaGzrq69qw8FRV1leg4cHUF/FKC/KLMfXZmTkSC4tbC4K3sBYPMSweFGRxaUewf7MNGOD99Nx6bUMjYn86m5udlpaZmsrlUKjxiawsekR4cZhTX7LPeF74dClxpjJppoY0VhjVlx7QFO9S6H/T57LeZW3cdR2F2waK51TP2JhZ%2bsdlHzl23NLSwt3D1cRY38TYIDQkrLK8DlIEGHW1Laj3teVlNaUlmPelqPcQnrycrNysjGyJ%2bcWt%2bQMG8RIc4kFeQmzWPiwKthuauxLIZBqTwmBRGWxaamZKWlZKakZqGjclOib0hZe7m9szTpR3npd9fbgjn%2bbRkxrwKtW/NyOkLy2I53fHyVLbXk/VwUDlngneWunkLfu75MxWANDV1fH197l//66M1CkFeSlrK3M3Nzc6jQXSoYmBoaS4EvG%2bAPO%2bEKKPqc9Iz5SYW9jEGMQLqQa65gXIS6FoTyDcbe/qpzGTw6PDwmPCiYmx6RkpLDYd%2bhhmEZPDgGrExEW99PHy8PKgJDOo5DiKrzPH7Xq%2b17XSkHulYQ%2byvG56nte7a0K4a6J%2bx5jgaK5hJn88LJzELuo5euwEgUAICPILCPS9fPm8vJyUkqKsJkHFyEDX/trV8LCIvJxCmJ4AwMsrQtXzxOq5aVwEAGXYPAwAC24gOaKV9/1DU9ys3KiYqMjYyERKQgKZGBYRkpaRAtKTU5ip3JTkVCY9mUahkzxfenh5v0jmMBgcFjMlmcEgF9Cj6S5XYm4aedioO5mqOJmr3zJSv22icctA5YKmYkXTGDO34%2bjx03iCZkhYUCwxsrKm%2bvad26dOHiOoKRvqaRnp6xgb6dlduRQcEASxKSmqyM1Goo%2bqz%2bKmZaSlpErMzm/AOsBAALAbaNbRcUFeYWlkTBQYT6IkJNESKQwylU4KiwimMEgZ2Wmp3GR2GgsAklMYrBRGVEyEy3NnTiorK5fLSUsGts3t7YGBfleHi/f0ZJ3MVG8b4a/pqt4yVr%2buKf3o6uWhhX%2bGkfN/OSVD0DLy9PYMjQgpKSvhFZecOX1CXl5WU13VUF/LyEAblqGBjv01u7iYuHzUfpCenoqoT2VzJGbm1jEGZC0gVzB%2bfvFtbUMbMSkBfmgCOZ5ETyLREhnJ1GQOHa7xSbGJ5HgWhw51SM1gQ5DoLAokChg8vTxiiFGZOenQ2XQWrbyyrLCs2DcwwFoHb6sqdUFd4ZoO7qa%2bsq3S0Qg//%2bmt/%2bfsFXNaGqdtdPahs3NweGhcfGx334CegY6k5ElVFSVtTTVDPU3AMDHWMzbWMzU1cHrgmMxkZ2fmprIR9SmsZAQAY8CuS8Ldnv5xTjoXAkNMiiNRE6lMMqxEajyNRU5OAQAKmZFEoiZQmSQmh5aRlZqRlQZZojHJEKrI6LCgEH%2bwH%2bpAppJoLJqX70vbc2cv29lZqCufV5W%2bpC5/TlXqmpZMfWNfIKX2%2bsNAvJbJOXvnh0%2bfhUdH%2bgb49g4O3nNyPHb0ryo4eYIaTleLAFky0NcyNdG3tDABkvO2VnExMRAhDpPNZjAlpmfXYE3NrM4tbAFARXVDbGJcFDEqkQqBIZHpiRR6EkiHGxI9kcGmMtlUeAmJpzPJcAOzKD0rlZuVAmCcNBYSsMhgOovKTmUxWJSCkmImJ%2bX2nRvefj4Xz9mYKUraqMpYyx0JdXmYWzdhae9jfe3pldvuj72T7O8%2bCokM8w3ya%2bvo8A8OOvo3CUUFWQJeSQ2P09fTMDDQMjbSNTMzsLIyRW5MDSLDwricVCaVJoGph8y8GVvMyMkF6fFIZkgUVB/YnEghUgCDmYQAJFNZHBoNqQm4S6YjHyAz2TR2CgMsh80BGBKS4pIoCXQ2HSFn0uqa2109nkVEhTk%2beGCqqmCFk7yqLpWdV%2bvgEnvJweXKHfdQcrFfXJaXf4h3gH9weEhZZUVMfPzxo3%2bRk5UiqCqpKCtqQZCgE1AAC3MjU2M9IwMtczNDfx8fDpMlgXnfwR%2bgMulxSXFUJpXKotCTYdJT6CwS%2bEqixiMA9EQqPQleQgVQZYAHH6BgVyryEopDh06A1JGpiVABeCckPKixtTMiOtLP39v5%2bTNrA10jqSMPzls9D6CbnX943z3WLzYrs%2bpNLKskr6CQSCYHhQfn8PKoLOaJX47ISkuqqSiqKMsTCMp6uppGhjpgvIWFkZGhtqGeBrw0NzcKCwyUGJ8UllXWJlKTYMIkoy6y0KAj7jISqQzQCmkhUWgJMIjgfSrkipZIPQBAC0Uh05LAeLgyktH6MCBjUB9qZHQor6iYnc718HR95vbcxtZW7eSR2zYW956G2j8M9orMTCnpKe9coGTU1DU01re0%2b4eGcDO5KRlcydO/wKaGV1ZQUVbA43Ha2upQBGhiSwtj0K2rhTc20DIxM7h43loiPTsTLGenJ6dw2SncZE46C4IOKkmgGOYNhQiiaSwShZFEpiZAbKB9YSJRkAih3jNIGEAcZC8pDjYK%2bAlAmJBETKIkxhCjo%2bNi84pKn7k9dXV3vXbTQVla%2bp7j87vPol0CGMSUutpXoobedTavqa2zc3J2oaiikkwnZ%2bXny8mekT5zCo%2bTx6soqqoqaWkRDAy0TZAKGFtbmRroaepoqsJLCJJEchqTm5OemceFQwE7ncVOY1JZZBiUCaQ4WEkUZPhgC5IDCwYowgD34D0sBuI3YETFhMcSoyKiQulMAKPCywQSEaIfFhFa09Dy9LlzYHDA46dPrjs4PfaK9wxPC6GUcsv7%2beMfmge2uCVtA0PDY1PT0/MLWfl5%2bcUlOJy81JmTqjh5NVUlANDUUtOHYWqib2FpAgDmZgaaBJwh%2bo5ERk56Rh6Xm5OWkZsOFYDJCA1KTIyJjgtPJMclUePBTqRfkfAg9scDGJkIliPeI9KRGygFDNDQ8KDwqJC4%2bGiYqvGJseGRIZA6eL%2bqtvGF9wu48fb1eu7p/9A9Ni6lIS6ltqhpamTxn00Dm7kVHRPTUxMzc7MLizWNja1d3SoqigAAk1Qdj4NBBBUAAGOYpFamMIiAQUdLTVNDFfY4iZyCLG5uelp2alZ%2bBuxKIBTiQaLDFhYUHRcBIwgWEmukUymJ1AQisosRESomCToBblBCSlRshI%2bfF6iEIgAeHChgw4aahEUE1dQ3hkaGh4QFwBnkicuzGw986PmvqNkt1XzB9Np/1x9InTcAAADfSURBVLxaKahqFwgW5hYFEzOzBaXF/N5%2bPF5ZWuoUVEBDTZlAUNHWUcciZGVtBsvGxgyaGK%2bioK2lJpFTmJ2WyeFmp2YXZKWksyDroJKWTCYmRPsH%2bsTFR0H0kVaGCkC0SHFx6DaMRIuBRAhqkoRudmC550v34NAAYID8wGyFYQoMgcG%2bLW3tJDrNzcMlOi7K0/vFrQcenNJBFq%2brZXBjaed/yjoWKxr5omXhkmi5Z2iIV1w48GYMIiQnI6mqrKCprqKpideB/dhI19TM0NrG/KytpTUcxC1N4E9VVRT%2bPzbiUw29GeqqAAAAAElFTkSuQmCC' /%3e%3c/svg%3e" width="500" data-src="/developerkorea/assets/static/justin-yoo.0d7bb5f.d8fcc9687c70820fe6d9bd3801483455.png" data-srcset="/developerkorea/assets/static/justin-yoo.0d7bb5f.d8fcc9687c70820fe6d9bd3801483455.png 500w" data-sizes="(max-width: 500px) 100vw, 500px" class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white g-image g-image--lazy g-image--loading"><noscript><img src="/developerkorea/assets/static/justin-yoo.0d7bb5f.d8fcc9687c70820fe6d9bd3801483455.png" class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white g-image g-image--loaded" width="500" alt="유저스틴"></noscript></a></div><a href="/developerkorea/posts/2021/05/18/power-apps-in-fusion-teams/" class="post-card-image-link"><!----><img alt="퓨전 개발팀의 파워 앱 개발 실사례" src="https://sa0blogs.blob.core.windows.net/aliencube/2021/05/power-apps-in-fusion-teams-00.png" class="post-card-image g-image"></a><div class="post-card-content bg-white dark:bg-gray-900 h-full rounded-b-lg"><div class="flex-col relative flex justify-between px-6 pt-4"><p class="text-xs tracking-wide font-medium mt-3 dark:text-white"><a href="/developerkorea/categories/power-platform/">Power Platform</a></p></div><a href="/developerkorea/posts/2021/05/18/power-apps-in-fusion-teams/" class="flex-col relative flex justify-between rounded-b-lg px-6 h-40 mt-2 dark:text-white"><h3 class="post-card-title tracking-wide mt-0">퓨전 개발팀의 파워 앱 개발 실사례</h3><div class="text-xs leading-none absolute bottom-0 pb-6"><p><time datetime="Tue May 18 2021 12:00:00 UTC+00:00">18 May 2021</time>
+             • 
+            13 min read
+          </p></div></a></div></div></div></div></div></section><div class="bg-gray-100 dark:bg-gray-900 text-black dark:text-gray-400 text-center text-sm"><div class="container mx-auto py-16"><div class="mb-4"><p>
+        Copyright 2021 by 마이크로소프트 기술 블로그 · Powered by
+        <a href="https://www.gridsome.org" target="_blank">Gridsome</a></p></div><div class="mb-4"><ul class="list-reset flex justify-center"><li class="px-4"><a href="https://youtube.com/channel/UCdgR-b2t7Byu_UGrHnu-T0g" target="_blank" title="YouTube" class="hover:text-blue-500"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="youtube" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svg-inline--fa fa-youtube fa-w-18 fa-lg"><path fill="currentColor" d="M549.655 124.083c-6.281-23.65-24.787-42.276-48.284-48.597C458.781 64 288 64 288 64S117.22 64 74.629 75.486c-23.497 6.322-42.003 24.947-48.284 48.597-11.412 42.867-11.412 132.305-11.412 132.305s0 89.438 11.412 132.305c6.281 23.65 24.787 41.5 48.284 47.821C117.22 448 288 448 288 448s170.78 0 213.371-11.486c23.497-6.321 42.003-24.171 48.284-47.821 11.412-42.867 11.412-132.305 11.412-132.305s0-89.438-11.412-132.305zm-317.51 213.508V175.185l142.739 81.205-142.739 81.201z"></path></svg></a><!----></li><li class="px-4"><a href="https://twitter.com/microsofttechKR" target="_blank" title="Twitter" class="hover:text-blue-500"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="twitter" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-twitter fa-w-16 fa-lg"><path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg></a><!----></li><li class="px-4"><a href="https://facebook.com/MicrosoftDeveloper.Korea" target="_blank" title="Facebook" class="hover:text-blue-500"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-square" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-facebook-square fa-w-14 fa-lg"><path fill="currentColor" d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"></path></svg></a><!----></li><li class="px-4"><a href="https://github.com/microsoft/developerkorea" target="_blank" title="GitHub" class="hover:text-blue-500"><svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" class="svg-inline--fa fa-github fa-w-16 fa-lg"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"></path></svg></a><!----></li><li class="px-4"><!----><a href="https://microsoft.github.io/developerkorea/feed.xml" target="_blank" title="RSS" class="hover:text-blue-500"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="rss-square" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-rss-square fa-w-14 fa-lg"><path fill="currentColor" d="M400 32H48C21.49 32 0 53.49 0 80v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48V80c0-26.51-21.49-48-48-48zM112 416c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm157.533 0h-34.335c-6.011 0-11.051-4.636-11.442-10.634-5.214-80.05-69.243-143.92-149.123-149.123-5.997-.39-10.633-5.431-10.633-11.441v-34.335c0-6.535 5.468-11.777 11.994-11.425 110.546 5.974 198.997 94.536 204.964 204.964.352 6.526-4.89 11.994-11.425 11.994zm103.027 0h-34.334c-6.161 0-11.175-4.882-11.427-11.038-5.598-136.535-115.204-246.161-251.76-251.76C68.882 152.949 64 147.935 64 141.774V107.44c0-6.454 5.338-11.664 11.787-11.432 167.83 6.025 302.21 141.191 308.205 308.205.232 6.449-4.978 11.787-11.432 11.787z"></path></svg></a></li></ul></div><div class="mb-4"><ul class="list-reset flex justify-center"><li class="px-4"><!----><a href="https://youtube.com/channel/UCdgR-b2t7Byu_UGrHnu-T0g" target="_blank" title="YouTube" class="hover:text-blue-500 ">YouTube</a></li><li class="px-4"><!----><a href="https://twitter.com/microsofttechKR" target="_blank" title="Twitter" class="hover:text-blue-500 ">Twitter</a></li><li class="px-4"><!----><a href="https://facebook.com/MicrosoftDeveloper.Korea" target="_blank" title="Facebook" class="hover:text-blue-500 ">Facebook</a></li><li class="px-4"><!----><a href="https://github.com/microsoft/developerkorea" target="_blank" title="GitHub" class="hover:text-blue-500 ">GitHub</a></li><li class="px-4"><!----><a href="https://microsoft.github.io/developerkorea/feed.xml" target="_blank" title="RSS" class="hover:text-blue-500 ">RSS</a></li></ul></div></div></div></div>
+    <script src="/developerkorea/assets/js/app.a004e0ad.js" defer></script><script src="/developerkorea/assets/js/page--src--templates--blog-post-vue.c211ede3.js" defer></script>
+  </body>
+</html>
