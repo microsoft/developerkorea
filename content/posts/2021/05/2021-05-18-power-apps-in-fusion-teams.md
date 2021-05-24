@@ -6,7 +6,7 @@ date: "2021-05-18"
 image: https://sa0blogs.blob.core.windows.net/aliencube/2021/05/power-apps-in-fusion-teams-00.png
 image_caption: "퓨전 팀에서 파워 앱과 애저 펑션의 조합"
 author: justin-yoo
-category: Azure
+category: Power Platform
 tags: azure, fusion-teams, power-apps, azure-functions
 canonical_url: https://blog.aliencube.org/ko/2021/05/12/power-apps-in-fusion-teams/
 featured: false
@@ -20,7 +20,7 @@ featured: false
 이 포스트에서는 Lamna 헬스 케어라는 가상의 회사가 한국에서 VIP 회원들을 위해 운영하는 피트니스 센터에서 회원들이 운동 일지 작성에 사용할 모바일 앱을 [파워 앱][pa]으로 개발하는 일련의 과정에 대해 시리즈로 다루도록 합니다.
 
 * ***퓨전 개발팀의 파워 앱 개발 실사례***
-* 파워 앱의 종단간 데이터 흐름 실시간 추적
+* [파워 앱의 종단간 데이터 흐름 실시간 추적][post 2]
 * 파워 앱에 DevOps 적용하기
 
 > 이 포스트에 사용한 백엔드 API 샘플 코드는 이곳 [GitHub 리포지토리][gh sample]에서 다운로드 받을 수 있습니다.
@@ -128,7 +128,19 @@ CORS 설정이 끝난 후 파워 앱 스튜디오로 돌아와서 다시 사용�
 * 고객들은 좀 더 체계적인 운동 일지를 작성할 수 있게 되었고,
 * 이 데이터를 바탕으로 트레이너들은 좀 더 회원별로 개인화된 운동 루틴을 작성할 수 있게 되었습니다.
 
-이렇게 함으로써 회원과 피트니스 센터 모두에게 좀 더 나은 서비스를 제공할 수 있는 기반이 다져진 셈이죠. 다음 포스트에서는 [애저 모니터][az monitor] 서비스를 이용해 파워 앱에서 데이터 저장소까지 데이터가 이동하면서 거쳐가는 경로들을 추적하는 과정에 대해 알아보기로 하겠습니다.
+이렇게 함으로써 회원과 피트니스 센터 모두에게 좀 더 나은 서비스를 제공할 수 있는 기반이 다져진 셈이죠. [다음 포스트][post 2]에서는 [애저 모니터][az monitor] 서비스를 이용해 파워 앱에서 데이터 저장소까지 데이터가 이동하면서 거쳐가는 경로들을 추적하는 과정에 대해 알아보기로 하겠습니다.
+
+
+## 더 궁금하다면... ##
+
+* 애저 클라우드에 관심이 있으신가요? ➡️ [무료 애저 계정 생성하기][az account free]
+* 애저 클라우드 무료 온라인 강의 코스를 들어 보세요! ➡️ [Microsoft Learn][ms learn]
+* 마이크로소프트 개발자 유튜브 채널 ➡️ [Microsoft Developer Korea][yt msdevkr]
+
+
+[az account free]: https://azure.microsoft.com/ko-kr/free/?WT.mc_id=power-27849-juyoo&ocid=AID3027813
+[ms learn]: https://docs.microsoft.com/ko-kr/learn/?WT.mc_id=power-27849-juyoo&ocid=AID3027813
+[yt msdevkr]: https://www.youtube.com/c/microsoftdeveloperkorea
 
 
 [image-01]: https://sa0blogs.blob.core.windows.net/aliencube/2021/05/power-apps-in-fusion-teams-01.png
@@ -146,28 +158,30 @@ CORS 설정이 끝난 후 파워 앱 스튜디오로 돌아와서 다시 사용�
 [image-13]: https://sa0blogs.blob.core.windows.net/aliencube/2021/05/power-apps-in-fusion-teams-13.png
 [image-14]: https://sa0blogs.blob.core.windows.net/aliencube/2021/05/power-apps-in-fusion-teams-14.png
 
+[post 1]: /developerkorea/posts/2021/05/18/power-apps-in-fusion-teams/
+[post 2]: /developerkorea/posts/2021/05/25/tracing-end-to-end-data-from-power-apps-to-azure-cosmos-db/
 
 [gh sample]: https://github.com/aliencube/GymLog
 [gh sample api routine]: https://github.com/aliencube/GymLog/blob/main/src/GymLog.FunctionApp/Triggers/RoutineHttpTrigges.cs
 [gh sample app]: https://github.com/aliencube/GymLog/blob/main/packages/GymLogs.zip
 
-[pa fusion path]: https://docs.microsoft.com/ko-kr/learn/paths/transform-business-applications-with-fusion-development/?WT.mc_id=power-27849-juyoo
-[pa fusion ebook]: https://docs.microsoft.com/ko-kr/powerapps/guidance/fusion-dev-ebook/?WT.mc_id=power-27849-juyoo
+[pa fusion path]: https://docs.microsoft.com/ko-kr/learn/paths/transform-business-applications-with-fusion-development/?WT.mc_id=power-27849-juyoo&ocid=AID3027813
+[pa fusion ebook]: https://docs.microsoft.com/ko-kr/powerapps/guidance/fusion-dev-ebook/?WT.mc_id=power-27849-juyoo&ocid=AID3027813
 
 [gartner fusion]: https://blogs.gartner.com/hank-barnes/2021/03/30/fusion-teams-a-critical-area-for-vendors-to-develop-understanding/
 
 [eip pubsub]: https://www.enterpriseintegrationpatterns.com/patterns/messaging/PublishSubscribeChannel.html
 
-[az fncapp]: https://docs.microsoft.com/ko-kr/azure/azure-functions/functions-overview?WT.mc_id=power-27849-juyoo
+[az fncapp]: https://docs.microsoft.com/ko-kr/azure/azure-functions/functions-overview?WT.mc_id=power-27849-juyoo&ocid=AID3027813
 [az fncapp extension openapi]: https://github.com/Azure/azure-functions-openapi-extension
 
-[az svcbus]: https://docs.microsoft.com/ko-kr/azure/service-bus-messaging/service-bus-messaging-overview?WT.mc_id=power-27849-juyoo
-[az cosdba]: https://docs.microsoft.com/ko-kr/azure/cosmos-db/introduction?WT.mc_id=power-27849-juyoo
+[az svcbus]: https://docs.microsoft.com/ko-kr/azure/service-bus-messaging/service-bus-messaging-overview?WT.mc_id=power-27849-juyoo&ocid=AID3027813
+[az cosdba]: https://docs.microsoft.com/ko-kr/azure/cosmos-db/introduction?WT.mc_id=power-27849-juyoo&ocid=AID3027813
 
-[az monitor]: https://docs.microsoft.com/azure/azure-monitor/overview?WT.mc_id=power-27849-juyoo
+[az monitor]: https://docs.microsoft.com/ko-kr/azure/azure-monitor/overview?WT.mc_id=power-27849-juyoo&ocid=AID3027813
 
-[pa]: https://powerapps.microsoft.com/ko-kr/?WT.mc_id=power-27849-juyoo
-[pa cuscon]: https://docs.microsoft.com/ko-kr/connectors/custom-connectors/?WT.mc_id=power-27849-juyoo
-[pa cuscon create]: https://docs.microsoft.com/ko-kr/connectors/custom-connectors/define-openapi-definition?WT.mc_id=power-27849-juyoo
+[pa]: https://powerapps.microsoft.com/ko-kr/?WT.mc_id=power-27849-juyoo&ocid=AID3027813
+[pa cuscon]: https://docs.microsoft.com/ko-kr/connectors/custom-connectors/?WT.mc_id=power-27849-juyoo&ocid=AID3027813
+[pa cuscon create]: https://docs.microsoft.com/ko-kr/connectors/custom-connectors/define-openapi-definition?WT.mc_id=power-27849-juyoo&ocid=AID3027813
 
 [nuget openapi]: https://www.nuget.org/packages/Microsoft.Azure.WebJobs.Extensions.OpenApi/
