@@ -1,0 +1,98 @@
+[
+  {
+    "Id": "UExEWlJad0ZUOVdrdG1hZE9JQmREYUlZeUVmUEZnWUNXei5GNjNDRDREMDQxOThCMDQ2",
+    "VideoId": "RbPLSx3SrmY",
+    "Title": "GitHub 코드스페이스 \u0026 코파일럿으로 생산성 높이기 | Light up Azure",
+    "Description": "#github #codespaces #copilot\r\n\r\n개발 환경 맞추느라 피곤하셨죠? 코드를 좀 더 빨리 짜고 싶으시죠? GitHub 코드스페이스와 GitHub 코파일럿을 활용하면 모든 프로젝트 멤버들이 동일한 개발 환경에서 코딩을 할 수 있습니다. 더불어 GitHub 코파일럿을 통해 좀 더 나은 코드 품질을 도모할 수 있습니다.\r\n\r\n한 번 보시겠어요?\r\n\r\n\uD83C\uDF99️ 발표자: 유저스틴 | 시니어 클라우드 아드보캇 | 마이크로소프트\n\uD83D\uDCDD 실습자료: https://aka.ms/lua/ep9/material",
+    "PublishedAt": "2023-06-23T23:47:07+00:00",
+    "Thumbnail": {
+      "Url": "https://i.ytimg.com/vi/RbPLSx3SrmY/maxresdefault.jpg",
+      "Width": 1280,
+      "Height": 720
+    }
+  },
+  {
+    "Id": "UExEWlJad0ZUOVdrdG1hZE9JQmREYUlZeUVmUEZnWUNXei45ODRDNTg0QjA4NkFBNkQy",
+    "VideoId": "i9RIF6Smlq8",
+    "Title": "애저 DevOps를 활용한 MLOps 파이프라인 구성 | Light Up Azure",
+    "Description": "#azure #azuredevops #mlops\r\n\r\n머신러닝을 위해서 다양한 데이터를 처리할 수 있는 MLOps는 이제 거의 필수적인 과정이 되었습니다. 이 때 애저 DevOps를 이용하면 훨씬 더 효과적으로 MLOps 파이프라인을 구성할 수 있습니다.\r\n\r\n\uD83C\uDF99️ 발표자: 정보람 | 클라우드 솔루션 아키텍트 | 마이크로소프트\r\n\uD83D\uDCDD 실습자료: https://aka.ms/lua/ep7/material",
+    "PublishedAt": "2023-06-21T22:58:28+00:00",
+    "Thumbnail": {
+      "Url": "https://i.ytimg.com/vi/i9RIF6Smlq8/maxresdefault.jpg",
+      "Width": 1280,
+      "Height": 720
+    }
+  },
+  {
+    "Id": "UExEWlJad0ZUOVdrdG1hZE9JQmREYUlZeUVmUEZnWUNXei5EMEEwRUY5M0RDRTU3NDJC",
+    "VideoId": "qyKT79B99Bw",
+    "Title": "애저 인지 검색과 OpenAI를 활용한 Knowledge Mining | Light Up Azure",
+    "Description": "#azure #cognitivesearch #openai #knowledgemining\r\n\r\n애저 인지 검색 (Cognitive Search)와 애저 OpenAI 서비스를 결합하면 엄청난 시너지가 나올 수 있습니다. 과연 어떤 시너지를 볼 수 있을까요?\r\n\r\n\uD83C\uDF99️ 발표자: 고대운 | 클라우드 솔루션 아키텍트 | 마이크로소프트\n\uD83D\uDCDD 실습자료: https://aka.ms/lua/ep6/material",
+    "PublishedAt": "2023-06-20T23:04:51+00:00",
+    "Thumbnail": {
+      "Url": "https://i.ytimg.com/vi/qyKT79B99Bw/maxresdefault.jpg",
+      "Width": 1280,
+      "Height": 720
+    }
+  },
+  {
+    "Id": "UExEWlJad0ZUOVdrdG1hZE9JQmREYUlZeUVmUEZnWUNXei40NzZCMERDMjVEN0RFRThB",
+    "VideoId": "yHrHVPgSxa4",
+    "Title": "애저 OpenAI, GPT \u0026 프롬프트엔지니어링 | Light Up Azure",
+    "Description": "#azure #openai #promptengineering\r\n\r\n애저 OpenAI 서비스는 여러분의 비즈니스에 어떤 가치를 더해줄 수 있을까요? 여러분의 데이터와 정제된 프롬프트가 준비되었을 때 애저 OpenAI는 완전히 빛을 발합니다. 이번 세션을 통해 애저 OpenAI 서비스와 GPT, 그리고 프롬프트 엔지니어링을 차근차근 알아보세요.\r\n\r\n\uD83C\uDF99️ 발표자: 고대운 | 클라우드 솔루션 아키텍트 | 마이크로소프트\n\uD83D\uDCDD 실습자료: https://aka.ms/lua/ep5/material",
+    "PublishedAt": "2023-06-19T23:00:15+00:00",
+    "Thumbnail": {
+      "Url": "https://i.ytimg.com/vi/yHrHVPgSxa4/maxresdefault.jpg",
+      "Width": 1280,
+      "Height": 720
+    }
+  },
+  {
+    "Id": "UExEWlJad0ZUOVdrdG1hZE9JQmREYUlZeUVmUEZnWUNXei5DQUNERDQ2NkIzRUQxNTY1",
+    "VideoId": "bp2yndvxe0A",
+    "Title": "애저 스트림 애널리틱스 실시간 데이터 분석 | Light up Azure",
+    "Description": "#애저 #스트림애널리틱스 #데이터분석\n\n데이터를 실시간으로 스트리밍 처리할 수 있는 애저 서비스가 궁금하다면 지금 이 영상을 주목해주세요! 서버리스 기반의 애저 스트림 애널리틱스 서비스 소개와 더불어 스트리밍 데이터를 쉽고 빠르게 원하는 형식으로 조회해보는 핸즈온 실습까지!\n\n\uD83C\uDF99️ 발표자: 공혜원 | 클라우드 솔루션 아키텍트 | 마이크로소프트",
+    "PublishedAt": "2023-03-19T10:48:53+00:00",
+    "Thumbnail": {
+      "Url": "https://i.ytimg.com/vi/bp2yndvxe0A/maxresdefault.jpg",
+      "Width": 1280,
+      "Height": 720
+    }
+  },
+  {
+    "Id": "UExEWlJad0ZUOVdrdG1hZE9JQmREYUlZeUVmUEZnWUNXei41MzJCQjBCNDIyRkJDN0VD",
+    "VideoId": "P-arUQKJSiA",
+    "Title": "애저 서버리스로 웹 앱 만들기 | Light up Azure",
+    "Description": "#애저 #서버리스 #웹앱\n\n빠르게 변화하는 앱 개발 트렌드 속 본질에 집중할 수 있게 해주는 애저 서버리스에 대해 알아봅니다. 다양한 비즈니스 시나리오에서 사용할 수 있는 서버리스 애플리케이션을 함께 만들어봐요!\n\n\uD83C\uDF99️ 발표자: 어거스트 리 | 클라우드 솔루션 아키텍트 | 마이크로소프트",
+    "PublishedAt": "2023-03-19T10:48:46+00:00",
+    "Thumbnail": {
+      "Url": "https://i.ytimg.com/vi/P-arUQKJSiA/maxresdefault.jpg",
+      "Width": 1280,
+      "Height": 720
+    }
+  },
+  {
+    "Id": "UExEWlJad0ZUOVdrdG1hZE9JQmREYUlZeUVmUEZnWUNXei4xMkVGQjNCMUM1N0RFNEUx",
+    "VideoId": "93OwvvKAsYM",
+    "Title": "애저 가상머신 확장집합 \u0026 스케일링 시나리오 | Light up Azure",
+    "Description": "#애저 #VMSS #스케일링\n\n스케일링이 필요한 워크로드의 경우 가상머신 확장 집합(VMSS)을 활용할 수 있습니다. VMSS에서 제공하는 기능과 비용 절감 옵션, 그리고 최근에 정식 출시된 VMSS Flex모드에서 어떤 새로운 기능을 제공하는지 알아보고 핸즈온랩 세션에서 스케일링 시나리오 지정, 이미지 업데이트를 직접 설정해봅니다.\n\n\uD83C\uDF99️ 발표자: 나유강 | 클라우드 솔루션 아키텍트 | 마이크로소프트",
+    "PublishedAt": "2023-03-19T10:48:40+00:00",
+    "Thumbnail": {
+      "Url": "https://i.ytimg.com/vi/93OwvvKAsYM/maxresdefault.jpg",
+      "Width": 1280,
+      "Height": 720
+    }
+  },
+  {
+    "Id": "UExEWlJad0ZUOVdrdG1hZE9JQmREYUlZeUVmUEZnWUNXei4wOTA3OTZBNzVEMTUzOTMy",
+    "VideoId": "LBtFx0ijnD4",
+    "Title": "애저 네트워크 기본 설계 | LIght up Azure",
+    "Description": "#애저 #인프라 #가상네트워크\n\n애저 클라우드에서 가상머신을 설정하고 네트워크를 설정하는 방법이 좀 복잡하다구요? 걱정하지 마세요. 이번 세션에서는 애저 네트워크 설정에 대한 기본적인 내용에 대해 다뤄보고 함께 실습하는 시간을 갖도록 해 보겠습니다.\n\n\uD83C\uDF99️ 발표자: 정보람 | 클라우드 솔루션 아키텍트 | 마이크로소프트",
+    "PublishedAt": "2023-03-19T10:48:28+00:00",
+    "Thumbnail": {
+      "Url": "https://i.ytimg.com/vi/LBtFx0ijnD4/maxresdefault.jpg",
+      "Width": 1280,
+      "Height": 720
+    }
+  }
+]

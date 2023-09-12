@@ -1,0 +1,25 @@
+<h3 class="text-lg-center">@this.Title</h3>
+
+<div class="container">
+    @if (this.Items == null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <div class="row">
+        @foreach (var item in this.Items)
+        {
+            <div class="col-4">
+                <div class="card">
+                    <a href="https://youtube.com/watch?v=@item.VideoId" target="_blank" title="@item.Title"><img class="card-img-top" src="@item.Thumbnail.Url" alt="@item.Title" width="250" /></a>
+                    <div class="card-body">
+                        <h4 class="card-title">@item.Title</h4>
+                        <a class="card-link" href="https://youtube.com/watch?v=@item.VideoId" target="_blank">보러 가기</a>
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    }
+</div>
