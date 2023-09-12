@@ -30,10 +30,11 @@ public class ProgramHost : IHostedService
         var s = JsonSerializer.Serialize(playlists, new JsonSerializerOptions { WriteIndented = true, Encoder = JavaScriptEncoder.Create(UnicodeRanges.All) });
 
         Console.WriteLine(s);
+        Console.WriteLine($"playlist name: {this._settings.PlaylistName}");
 
         var playlistId = playlists.SingleOrDefault(p => p.Title.Equals(this._settings.PlaylistName, StringComparison.InvariantCultureIgnoreCase))?.Id;
 
-        Console.WriteLine(playlistId);
+        Console.WriteLine($"playlistId: {playlistId}");
 
         var playlistItems = await this._service.GetPlaylistItemsAsync(playlistId);
 
