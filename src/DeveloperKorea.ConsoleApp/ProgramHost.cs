@@ -26,6 +26,11 @@ public class ProgramHost : IHostedService
     public async Task StartAsync(CancellationToken cancellationToken)
     {
         var playlists = await this._service.GetPlaylistsAsync(this._settings.ChannelId);
+
+        var s = JsonSerializer.Serialize(playlists, new JsonSerializerOptions { WriteIndented = true, Encoder = JavaScriptEncoder.Create(UnicodeRanges.All) });
+
+        Console.WriteLine(s);
+
         var playlistId = playlists.SingleOrDefault(p => p.Title.Equals(this._settings.PlaylistName, StringComparison.InvariantCultureIgnoreCase))?.Id;
         var playlistItems = await this._service.GetPlaylistItemsAsync(playlistId);
 
