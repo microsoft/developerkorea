@@ -52,20 +52,20 @@ jobs:
         dotnet test -c Release
 
     - name: Publish artifact
-      if: github.event_name == 'push' && github.ref_name == 'main'
+      if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref_name == 'main'
       shell: bash
       run: |
         dotnet publish -c Release
 
     - name: Upload artifact
-      if: github.event_name == 'push' && github.ref_name == 'main'
+      if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref_name == 'main'
       uses: actions/upload-pages-artifact@v1
       with:
         path: artifacts/publish/DeveloperKorea.WebApp/release/wwwroot
 
   deploy:
     name: Deploy to Pages
-    if: github.event_name == 'push' && github.ref_name == 'main'
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref_name == 'main'
 
     needs:
     - build-test
