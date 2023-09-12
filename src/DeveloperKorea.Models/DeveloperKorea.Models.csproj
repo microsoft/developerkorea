@@ -1,0 +1,10 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+
+    <AssemblyName>DeveloperKorea.Models</AssemblyName>
+    <RootNamespace>DeveloperKorea.Models</RootNamespace>
+  </PropertyGroup>
+
+</Project>
