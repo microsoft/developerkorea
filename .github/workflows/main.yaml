@@ -54,12 +54,13 @@ jobs:
     - name: Update database - Light up Azure
       shell: bash
       run: |
-        dotnet run \
-          --project src/DeveloperKorea.ConsoleApp -- \
+        pushd src/DeveloperKorea.ConsoleApp
+        dotnet run -- \
           --api-key ${{ secrets.GOOGLE_API_KEY }} \
           --channel-id ${{ secrets.YOUTUBE_CHANNEL_ID }} \
           --playlist--name "Light up Azure"
           --output-path ${{ github.workspace }}/src/DeveloperKorea.WebApp/wwwroot/data/light-up-azure.json
+        popd
 
     - name: Publish artifact
       if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref_name == 'main'
