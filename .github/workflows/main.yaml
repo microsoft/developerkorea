@@ -5,7 +5,6 @@ on:
   push:
     branches:
     - main
-    - v2
     - 'feature/**'
   pull_request:
     branches:
@@ -50,6 +49,12 @@ jobs:
       shell: bash
       run: |
         dotnet test -c Release
+
+    - name: Update basepath
+      shell: pwsh
+      run: |
+        $content = Get-Content -Path ./src/DeveloperKorea.WebApp/wwwroot/index.html
+        $content -replace "<base href=`"/`" />", "<base href=`"developerkorea/`" />" | Set-Content -Path ./src/DeveloperKorea.WebApp/wwwroot/index.html -Encoding UTF8 -Force
 
     - name: Update database - Light up Azure
       shell: bash
