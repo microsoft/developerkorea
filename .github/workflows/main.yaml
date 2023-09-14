@@ -32,7 +32,8 @@ jobs:
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 8.x
+        # dotnet-version: 8.x
+        dotnet-version: 8.0.100-preview.7.23376.3
         dotnet-quality: preview
 
     - name: Restore NuGet packages
@@ -51,12 +52,14 @@ jobs:
         dotnet test -c Release
 
     - name: Update basepath
+      if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref_name == 'main'
       shell: pwsh
       run: |
         $content = Get-Content -Path ./src/DeveloperKorea.WebApp/wwwroot/index.html
         $content -replace "<base href=`"/`" />", "<base href=`"/developerkorea/`" />" | Set-Content -Path ./src/DeveloperKorea.WebApp/wwwroot/index.html -Encoding UTF8 -Force
 
     - name: Update database - Light up Azure
+      if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref_name == 'main'
       shell: bash
       run: |
         pushd src/DeveloperKorea.ConsoleApp
