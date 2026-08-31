@@ -27,10 +27,10 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         # dotnet-version: 8.x
         dotnet-version: 8.0.100-preview.7.23376.3
@@ -79,7 +79,7 @@ jobs:
 
     - name: Upload artifact
       if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref_name == 'main'
-      uses: actions/upload-pages-artifact@v1
+      uses: actions/upload-pages-artifact@v3
       with:
         path: artifacts/publish/DeveloperKorea.WebApp/release/wwwroot
 
@@ -99,4 +99,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
